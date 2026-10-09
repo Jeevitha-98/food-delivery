@@ -1,0 +1,4357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly - Food Delivery</title>
+    <!-- FontAwesome for background food icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- PRELOADER PAGE -->
+    <div id="preloader">
+        <!-- Floating Decorative Vectors -->
+        <i class="fa-solid fa-burger bg-icon"></i>
+        <i class="fa-solid fa-pizza-slice bg-icon"></i>
+        <i class="fa-solid fa-drumstick-bite bg-icon"></i>
+        <i class="fa-solid fa-ice-cream bg-icon"></i>
+        <i class="fa-solid fa-donut bg-icon"></i>
+        <i class="fa-solid fa-hotdog bg-icon"></i>
+
+        <div class="loader-content">
+            <!-- Animated Scooter Vector -->
+            <div class="scooter-wrapper">
+                <div class="speed-lines"></div>
+                <svg class="scooter-svg" viewBox="0 0 24 24">
+                    <path d="M19 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m-9-2c0-.55-.45-1-1-1H8v2h1c.55 0 1-.45 1-1m-4 2c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m13.5-11H15v2h3.5c.28 0 .5.22.5.5v1.65l-2.08 4.16C16.58 9.53 16.1 9 15.5 9H11V7h1V5h-2v2h1v2H7.26c-.42-1.16-1.52-2-2.81-2-1.38 0-2.57.93-2.92 2.22L1 9.34V11h2.09c.35 1.29 1.54 2.22 2.92 2.22.84 0 1.6-.35 2.15-.92H11v1.42c-.6.47-1.08 1.12-1.35 1.88-1.27-.3-2.45-.6-3.65-.9l-.5 1.94c1.2.3 2.38.6 3.65.9C9.4 17.47 10.1 18 11 18h4.5c1.66 0 3-1.34 3-3v-1.78l2.67-5.34c.53-1.07-.25-2.38-1.45-2.38-.07 0-.15 0-.22.03V5.5c0-1.38-1.12-2.5-2.5-2.5z"/>
+                </svg>
+            </div>
+
+            <!-- Brand Info -->
+            <h1 class="brand-name">Stackly</h1>
+            <p class="tagline">Deliciousness delivered instantly</p>
+
+            <!-- Custom 2-second Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const progressBar = document.getElementById("progress");
+    const preloader = document.getElementById("preloader");
+
+    // Start the progress bar animation immediately on DOM load
+    setTimeout(() => {
+        progressBar.style.width = "100%";
+    }, 50);
+
+    // Hide the preloader completely after exactly 2 seconds (2000 milliseconds)
+    setTimeout(() => {
+        preloader.classList.add("hide-preloader");
+        document.body.style.overflow = "auto"; // Re-enable body scrolling
+    }, 2000);
+});
+
+</script>
+
+<header class="main-header">
+        <div class="header-container">
+            <!-- Brand Logo (Refreshes Page) -->
+            <a href="index.html" class="logo-container" onclick="window.location.reload();">
+                <img src="https://placeholder.com" alt="Stackly Logo" class="brand-logo">
+            </a>
+
+            <!-- Desktop Navigation Menus (Centered) -->
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#" class="nav-link">Restaurants</a>
+                <a href="#" class="nav-link">Offers</a>
+                <a href="#" class="nav-link">Orders</a>
+                <a href="#" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Right Side Actions (Auth, Cart, Hamburger Trigger) -->
+            <div class="header-actions">
+                <button class="btn-auth">Sign In</button>
+                
+                <!-- Fixed Cart Icon using Inline SVG Vector -->
+                <a href="404.html" class="cart-icon-btn" title="View Cart">
+                    <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-badge">0</span>
+                </a>
+
+                <!-- Mobile Hamburger Trigger using Inline SVG Vector -->
+                <button class="hamburger-btn" id="hamburger-trigger" aria-label="Open Menu">
+                    <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer Overlay -->
+    <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+
+    <!-- Mobile Navigation Side Drawer (75% width) -->
+    <aside class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-header">
+            <span class="drawer-brand">Stackly</span>
+            <!-- Close Drawer Button using Inline SVG Vector -->
+            <button class="close-drawer-btn" id="close-drawer" aria-label="Close Menu">
+                <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <nav class="mobile-nav-menu">
+            <a href="#" class="mobile-nav-link active">Home</a>
+            <a href="#" class="mobile-nav-link">Restaurants</a>
+            <a href="#" class="mobile-nav-link">Offers</a>
+            <a href="#" class="mobile-nav-link">Orders</a>
+            <a href="#" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="drawer-footer">
+            <button class="btn-auth-mobile">Sign In</button>
+        </div>
+    </aside>
+
+  
+
+  
+
+
+
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerTrigger = document.getElementById("hamburger-trigger");
+    const closeDrawerBtn = document.getElementById("close-drawer");
+    const mobileOverlay = document.getElementById("mobile-overlay");
+    const mobileDrawer = document.getElementById("mobile-drawer");
+    const bodyElement = document.body;
+
+    // Open Drawer Menu and Activate Scroll Lock
+    function openMobileMenu() {
+        mobileDrawer.classList.add("active");
+        mobileOverlay.classList.add("active");
+        bodyElement.classList.add("no-scroll");
+    }
+
+    // Close Drawer Menu and Restore Page Scrolling
+    function closeMobileMenu() {
+        mobileDrawer.classList.remove("active");
+        mobileOverlay.classList.remove("active");
+        bodyElement.classList.remove("no-scroll");
+    }
+
+    // Event Bindings
+    if (hamburgerTrigger) {
+        hamburgerTrigger.addEventListener("click", openMobileMenu);
+    }
+
+    if (closeDrawerBtn) {
+        closeDrawerBtn.addEventListener("click", closeMobileMenu);
+    }
+
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener("click", closeMobileMenu);
+    }
+});
+
+
+</script>
+
+<!-- SEARCH & UTILITY LOCATION ROW -->
+<section class="utility-section">
+    <div class="utility-container">
+        
+        <!-- Left Side: Interactive Smart Search Field -->
+        <div class="utility-search-box">
+            <form id="hero-search-form" class="search-form-wrapper" novalidate>
+                <div class="input-field-group">
+                    <span class="input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </span>
+                    <input type="text" id="food-search-input" placeholder="Search for your favorite dishes, cuisines..." autocomplete="off">
+                    <span class="validation-bubble" id="search-error-msg">Please fill the field</span>
+                </div>
+                <button type="submit" class="btn-search-submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Right Side: Contact & Location Quick Filters -->
+        <div class="utility-actions-box">
+            <!-- Delivery Location Setup button -->
+            <a href="404.html" class="utility-action-btn location-setup-btn" title="Set Location">
+                <span class="action-icon-wrapper location-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </span>
+                <div class="action-btn-text">
+                    <span class="btn-subtext">Deliver to</span>
+                    <strong class="btn-maintext">Set Location</strong>
+                </div>
+            </a>
+
+            <!-- Quick Support Hotline Callout -->
+            <a href="404.html" class="utility-action-btn phone-support-btn" title="Call Support">
+                <span class="action-icon-wrapper phone-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </span>
+                <div class="action-btn-text">
+                    <span class="btn-subtext">24/7 Hotline</span>
+                    <strong class="btn-maintext">+1 234 567 89</strong>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Utility Section Structural Framework --- */
+.utility-section {
+    padding: 30px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #edf2f7;
+    position: relative;
+    z-index: 10;
+}
+
+.utility-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- Left Column: Form & Validation UI --- */
+.utility-search-box {
+    flex: 1;
+    max-width: 620px;
+}
+
+.search-form-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f7f9fc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 6px 8px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.search-form-wrapper:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(230, 92, 64, 0.1);
+    background-color: #ffffff;
+}
+
+.input-field-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.input-icon {
+    color: #a0aec0;
+    margin-left: 12px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.input-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+#food-search-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000000;
+    outline: none;
+}
+
+#food-search-input::placeholder {
+    color: #a0aec0;
+}
+
+.btn-search-submit {
+    background-color: #1e293b;
+    color: var(--white);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform 0.1s ease;
+}
+
+.btn-search-submit:hover {
+    background-color: var(--primary-color);
+}
+
+.btn-search-submit:active {
+    transform: scale(0.97);
+}
+
+/* Intelligent Validation Bubble Popup */
+.validation-bubble {
+    position: absolute;
+    bottom: calc(100% + 15px);
+    left: 16px;
+    background-color: #ff4d4d;
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(255, 77, 77, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.validation-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #ff4d4d transparent transparent transparent;
+}
+
+.validation-bubble.show-error {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Shake Animation Framework for errors */
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.search-form-wrapper.shake {
+    animation: errorShake 0.4s ease-in-out;
+    border-color: #ff4d4d !important;
+}
+
+/* --- Right Column: Utility Action Cards --- */
+.utility-actions-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.utility-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 10px 18px;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.utility-action-btn:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    transform: translateY(-2px);
+}
+
+.action-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.location-icon { background-color: #eff6ff; color: #3b82f6; }
+.phone-icon { background-color: #f0fdf4; color: #22c55e; }
+
+.utility-action-btn:hover .location-icon { background-color: #3b82f6; color: var(--white); }
+.utility-action-btn:hover .phone-icon { background-color: #22c55e; color: var(--white); }
+
+.action-icon-wrapper svg {
+    width: 20px;
+    height: 20px;
+}
+
+.action-btn-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-subtext {
+    font-size: 0.75rem;
+    color: #718096;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-maintext {
+    font-size: 0.95rem;
+    color: #000000;
+    font-weight: 700;
+    margin-top: 1px;
+}
+
+/* --- Cross-Device Grid Responsiveness --- */
+@media (max-width: 991px) {
+    .utility-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+    .utility-search-box {
+        max-width: 100%;
+    }
+    .utility-actions-box {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 580px) {
+    .utility-actions-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .search-form-wrapper {
+        flex-direction: column;
+        padding: 8px;
+        gap: 8px;
+        border-radius: 12px;
+    }
+    .input-field-group {
+        width: 100%;
+    }
+    #food-search-input {
+        padding: 10px 12px;
+    }
+    .btn-search-submit {
+        width: 100%;
+        padding: 12px;
+    }
+    .validation-bubble {
+        bottom: auto;
+        top: calc(100% + 8px);
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 20;
+    }
+    .validation-bubble::after {
+        display: none; /* Hide standard structural pointer on small views */
+    }
+}
+
+</style>
+
+<script>
+    // --- Search Field Inline Validation Mechanics ---
+document.addEventListener("DOMContentLoaded", () => {
+    const searchForm = document.getElementById("hero-search-form");
+    const searchInput = document.getElementById("food-search-input");
+    const errorMsg = document.getElementById("search-error-msg");
+
+    if (searchForm && searchInput && errorMsg) {
+        searchForm.addEventListener("submit", (e) => {
+            e.preventDefault(); // Pause pipeline to evaluate content space
+            
+            const queryValue = searchInput.value.trim();
+
+            if (queryValue === "") {
+                // Trigger structural error configuration flags
+                searchForm.classList.add("shake");
+                errorMsg.classList.add("show-error");
+
+                // Reset animation classes after visual completion sequence
+                setTimeout(() => {
+                    searchForm.classList.remove("shake");
+                }, 400);
+            } else {
+                // Input validation passes successfully -> route directly into 404 page layout
+                window.location.href = "404.html";
+            }
+        });
+
+        // Proactively hide visual error indicators when the user types a correction
+        searchInput.addEventListener("input", () => {
+            if (searchInput.value.trim() !== "") {
+                errorMsg.classList.remove("show-error");
+            }
+        });
+    }
+});
+
+</script>
+<section class="hero-section">
+    <div class="hero-container">
+        
+        <!-- Left Side Text & Action Column -->
+        <div class="hero-left-content">
+            <h1 class="hero-title">
+                <span class="slide-word left">Fastest</span>
+                <span class="slide-word right">Online</span>
+                <span class="slide-word left accent-text">Food Delivery</span>
+                <span class="slide-word right">Service</span>
+            </h1>
+            
+            <p class="hero-description">
+                We are the fastest and most loved food delivery service in the world. Search for your favorite food or restaurant in your area and enjoy instant gratification.
+            </p>
+            
+            <div class="hero-cta-group">
+                <button class="btn-primary-cta">Order Now</button>
+                <a href="#" class="btn-text-link">See Menu</a>
+            </div>
+            
+            <!-- Sequential Trust Badges -->
+            <div class="hero-features-list">
+                <div class="feature-item">
+                    <div class="feature-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    </div>
+                    <span class="feature-text">No shipping Charge</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <span class="feature-text">100% Secure Checkout</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side Banner Imagery -->
+        <div class="hero-right-graphics">
+            <!-- Yellow Backdrop Disc -->
+            <div class="yellow-circle-backdrop"></div>
+            
+            <!-- Main Courier Component Image -->
+            <div class="main-image-wrapper">
+                <img src="https://placeholder.com" alt="Stackly Delivery Rider" class="delivery-hero-img">
+            </div>
+
+            <!-- Floating Product Food Badges -->
+            <div class="floating-badge badge-burger">
+                <img src="https://placeholder.com" alt="Burger Choice">
+                <span class="badge-cart-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span>
+            </div>
+            <div class="floating-badge badge-hotdog">
+                <img src="https://placeholder.com" alt="Hotdog Choice">
+                <span class="badge-cart-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span>
+            </div>
+            <div class="floating-badge badge-combo">
+                <img src="https://placeholder.com" alt="Meal Choice">
+                <span class="badge-cart-indicator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span>
+            </div>
+
+            <!-- Social Proof Floating Review Card -->
+            <div class="floating-card-customers">
+                <div class="customer-avatar-row">
+                    <img src="https://placeholder.com" alt="User 1" class="avatar-thumb">
+                    <img src="https://placeholder.com" alt="User 2" class="avatar-thumb">
+                    <img src="https://placeholder.com" alt="User 3" class="avatar-thumb">
+                    <div class="avatar-count-badge">2k+</div>
+                </div>
+                <div class="customer-card-text">
+                    <strong>Our customers</strong>
+                    <span class="rating-stars">★★★★★</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Global Theme Reference Tokens --- */
+:root {
+    --primary-color: #e65c40; 
+    --text-dark: #2d3748;
+    --text-light: #718096;
+    --white: #ffffff;
+}
+
+/* --- Hero Layout Structural Container --- */
+.hero-section {
+    padding: 80px 20px;
+    background-color: #fafbfc;
+    overflow: hidden;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- Typography Color & Entry Sequences --- */
+.hero-left-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-title {
+    font-size: 3.8rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #000000; /* Solid Black */
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.accent-text {
+    color: var(--primary-color);
+}
+
+/* Staggered text component inputs */
+.slide-word {
+    display: inline-block;
+    opacity: 0;
+    animation: slideInWord 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.slide-word.left { transform: translateX(-60px); }
+.slide-word.right { transform: translateX(60px); }
+
+.slide-word:nth-child(1) { animation-delay: 0.1s; }
+.slide-word:nth-child(2) { animation-delay: 0.2s; }
+.slide-word:nth-child(3) { animation-delay: 0.3s; }
+.slide-word:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes slideInWord {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: #000000; /* Solid Black */
+    line-height: 1.6;
+    margin-bottom: 35px;
+    max-width: 520px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUpContent 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+
+.hero-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUpContent 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+}
+
+@keyframes fadeInUpContent {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Call To Action Buttons & Hovers --- */
+.btn-primary-cta {
+    background-color: #1e293b;
+    color: var(--white);
+    border: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(30, 41, 59, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-primary-cta:hover {
+    background-color: var(--primary-color);
+    box-shadow: 0 12px 24px rgba(230, 92, 64, 0.3);
+    transform: translateY(-3px);
+}
+
+.btn-text-link {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #000000;
+    text-decoration: none;
+    position: relative;
+    padding: 4px 0;
+}
+
+.btn-text-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #000000;
+    transform: scaleX(0.4);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.btn-text-link:hover::after {
+    transform: scaleX(1);
+    background-color: var(--primary-color);
+}
+
+.btn-text-link:hover {
+    color: var(--primary-color);
+}
+
+/* --- Trust Indicator Features --- */
+.hero-features-list {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: popInFeature 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    padding: 8px 16px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.feature-item:nth-child(1) { animation-delay: 0.8s; }
+.feature-item:nth-child(2) { animation-delay: 0.9s; }
+
+@keyframes popInFeature {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.feature-icon-box {
+    width: 36px;
+    height: 36px;
+    background-color: #fff5f2;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+}
+
+.feature-icon-box svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+}
+
+.feature-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+/* --- Graphical Composition Alignment --- */
+.hero-right-graphics {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 520px;
+}
+
+.yellow-circle-backdrop {
+    position: absolute;
+    width: 440px;
+    height: 440px;
+    background-color: #ffd84d; 
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.main-image-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 520px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.main-image-wrapper:hover {
+    transform: scale(1.03) translateY(-5px);
+}
+
+.delivery-hero-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* --- Floating Elements & Badges --- */
+.floating-badge {
+    position: absolute;
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    z-index: 3;
+    width: 84px;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.floating-badge:hover {
+    transform: scale(1.15) translateY(-5px) !important;
+    box-shadow: 0 15px 30px rgba(230, 92, 64, 0.2);
+    cursor: pointer;
+}
+
+.badge-burger { top: 15%; left: 5%; animation: floatCycleOne 4s ease-in-out infinite alternate; }
+.badge-hotdog { top: 5%; right: 10%; animation: floatCycleTwo 4.5s ease-in-out infinite alternate; }
+.badge-combo { bottom: 25%; right: -2%; animation: floatCycleOne 3.8s ease-in-out infinite alternate 0.5s; }
+
+.badge-cart-indicator {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: #2b6cb0;
+    color: var(--white);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge-cart-indicator svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+}
+
+@keyframes floatCycleOne {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+@keyframes floatCycleTwo {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(15px); }
+}
+
+/* --- Customer Review Floating Card --- */
+.floating-card-customers {
+    position: absolute;
+    bottom: 8%;
+    left: 4%;
+    background-color: var(--white);
+    padding: 12px 20px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: floatCycleTwo 5s ease-in-out infinite alternate 0.2s;
+    transition: transform 0.3s ease;
+}
+
+.floating-card-customers:hover {
+    transform: scale(1.05);
+}
+
+.customer-avatar-row {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-thumb {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    margin-right: -12px;
+    object-fit: cover;
+}
+
+.avatar-count-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ffd84d;
+    color: var(--text-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 2px solid var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.customer-card-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-card-text strong {
+    font-size: 0.85rem;
+    color: #000000;
+}
+
+.rating-stars {
+    color: #ffd84d;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+/* --- Responsive Breakpoints --- */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 3rem; }
+    .yellow-circle-backdrop { width: 360px; height: 360px; }
+}
+
+@media (max-width: 768px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 60px;
+    }
+    .hero-title { align-items: center; font-size: 2.8rem; }
+    .hero-description { margin: 0 auto 35px auto; }
+    .hero-cta-group { justify-content: center; }
+    .hero-features-list { justify-content: center; }
+    .hero-right-graphics { height: 440px; order: -1; }
+    .yellow-circle-backdrop { width: 320px; height: 320px; }
+    .floating-badge { width: 70px; height: 70px; }
+}
+
+@media (max-width: 480px) {
+    .hero-title { font-size: 2.2rem; }
+    .floating-card-customers { display: none; } 
+    .yellow-circle-backdrop { width: 260px; height: 260px; }
+}
+
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const primaryCta = document.querySelector('.btn-primary-cta');
+    if (primaryCta) {
+        primaryCta.addEventListener('click', () => {
+            primaryCta.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                primaryCta.style.transform = 'none';
+            }, 100);
+        });
+    }
+});
+
+</script>
+
+<!-- FEATURES SHOWCASE ROW -->
+<section class="features-showcase-section">
+    <!-- Dedicated Graphic Image Tag for full-bleed section background visual -->
+    <img src="https://placeholder.com" alt="Showcase Background" class="features-bg-image-layer">
+
+    <div class="features-showcase-container" id="features-swap-container">
+        
+        <!-- Feature Item 1 -->
+        <div class="feature-card" style="order: 0;">
+            <div class="feature-card-icon-box">
+                <!-- Thousands of Items SVG -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+            </div>
+            <h3 class="feature-card-title">Thousands of Items</h3>
+            <p class="feature-card-desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </div>
+
+        <!-- Feature Item 2 -->
+        <div class="feature-card" style="order: 1;">
+            <div class="feature-card-icon-box">
+                <!-- Delivered Fast SVG -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+            </div>
+            <h3 class="feature-card-title">Delivered Fast</h3>
+            <p class="feature-card-desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </div>
+
+        <!-- Feature Item 3 -->
+        <div class="feature-card" style="order: 2;">
+            <div class="feature-card-icon-box">
+                <!-- Delivery Fee SVG -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                </svg>
+            </div>
+            <h3 class="feature-card-title">$1.95 Delivery Fee</h3>
+            <p class="feature-card-desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Features Showcase Framework --- */
+.features-showcase-section {
+    /* Precise requested padding profile: 50px top, 30px bottom */
+    padding: 50px 20px 30px 20px;
+    position: relative;
+    overflow: hidden;
+    background-color: #fafbfc; /* Fallback baseline coloration */
+}
+
+/* --- Section Background Visual Layer --- */
+.features-bg-image-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.15; /* Subdued opacity level so text components retain high readability contrast */
+}
+
+.features-showcase-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+    position: relative;
+    z-index: 2; /* Forces content hierarchy to render reliably above graphic image base */
+}
+
+/* --- Feature Cards & Interactive Glow States --- */
+.feature-card {
+    background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent backplate overlay */
+    backdrop-filter: blur(8px); /* Modern glassmorphism blur effect */
+    border-radius: 20px;
+    padding: 30px 24px;
+    text-align: center;
+    border: 1px solid #edf2f7;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.4s ease, 
+                border-color 0.4s ease,
+                order 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Premium Glow and Lift Effect on Card Hover */
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(230, 92, 64, 0.3);
+    /* Multi-layered custom brand glow drop shadow */
+    box-shadow: 0 20px 40px rgba(230, 92, 64, 0.1), 
+                0 1px 3px rgba(230, 92, 64, 0.05);
+}
+
+/* --- Vector Icons Custom Customization --- */
+.feature-card-icon-box {
+    width: 70px;
+    height: 70px;
+    background-color: #f8fafc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e293b;
+    margin-bottom: 22px;
+    transition: transform 0.4s ease, background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.feature-card-icon-box svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentColor;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Dynamic Vector Swap Interaction */
+.feature-card:hover .feature-card-icon-box {
+    background-color: var(--primary-color);
+    color: var(--white);
+    transform: rotate(360deg);
+    box-shadow: 0 10px 20px rgba(230, 92, 64, 0.3);
+}
+
+.feature-card:hover .feature-card-icon-box svg {
+    transform: scale(1.1);
+}
+
+/* --- Typography Colors --- */
+.feature-card-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #000000; /* Pure black text headers */
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+}
+
+.feature-card-desc {
+    font-size: 0.95rem;
+    color: #000000; /* Pure black narrative paragraph */
+    line-height: 1.6;
+    max-width: 280px;
+    opacity: 0.75; /* Balanced initial contrast level */
+    transition: opacity 0.3s ease;
+}
+
+.feature-card:hover .feature-card-desc {
+    opacity: 1; /* Brightens up text to max absolute black clarity on hover */
+}
+
+/* --- Layout Responsiveness Breakpoints --- */
+@media (max-width: 991px) {
+    .features-showcase-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .features-showcase-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .feature-card {
+        padding: 24px 20px;
+    }
+}
+
+</style>
+
+<script>
+    // --- High-Performance Position Swapping Sequence Matrix ---
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("features-swap-container");
+    
+    if (container) {
+        // Collect card elements inside the wrapper structure array context
+        let cards = Array.from(container.querySelectorAll(".feature-card"));
+
+        // Run position swap mechanics precisely every 2 seconds (2000 milliseconds)
+        setInterval(() => {
+            let currentCards = Array.from(container.querySelectorAll(".feature-card"));
+            
+            // Sort array dynamically according to active css inline order metrics
+            currentCards.sort((a, b) => parseInt(a.style.order) - parseInt(b.style.order));
+
+            // Cache the value mapping configuration of the last element's location
+            let lastOrder = currentCards[currentCards.length - 1].style.order;
+            
+            // Cycle current arrangement mappings downstream
+            for (let i = currentCards.length - 1; i > 0; i--) {
+                currentCards[i].style.order = currentCards[i - 1].style.order;
+            }
+            currentCards[0].style.order = lastOrder;
+
+            // Trigger a minor mechanical scaling pulse to indicate change updates
+            currentCards.forEach(card => {
+                card.style.transform = 'scale(0.97)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 300);
+            });
+
+        }, 2000);
+    }
+});
+
+</script>
+
+<!-- ABOUT SECTION -->
+<section class="about-section" id="about-trigger-zone">
+    <div class="about-container">
+        
+        <!-- Left Side Column: Text content layout stack -->
+        <div class="about-left-content">
+            <!-- Scroll Animated Word-by-Word Title Construction -->
+            <h2 class="about-title" id="scroll-word-title">
+                <span class="scroll-word">We</span>
+                <span class="scroll-word">Are</span>
+                <span class="scroll-word accent">Stackly,</span>
+                <span class="scroll-word">Your</span>
+                <span class="scroll-word">Food</span>
+                <span class="scroll-word">Partner</span>
+            </h2>
+            
+            <p class="about-description" id="about-para-slide">
+                Since our launch, Stackly has been redefining how the world thinks about instant dining gratification. We partner with the finest culinary spaces and trusted local kitchens to deliver crisp, fresh, and uncompromisingly delicious plates right straight to your door step.
+            </p>
+            
+            <div class="about-cta-container">
+                <button class="btn-about-floating-cta">Learn More</button>
+            </div>
+        </div>
+
+        <!-- Right Side Column: Image Composition Layout -->
+        <div class="about-right-media" id="about-img-slide">
+            <!-- Decorative Background Graphic Element -->
+            <div class="about-media-backdrop"></div>
+            <!-- Main Content Image Wrapper Grid -->
+            <div class="about-image-frame">
+                <img src="https://placeholder.com" alt="Stackly Kitchen Story" class="about-main-img">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- About Section Structural Architecture --- */
+.about-section {
+    /* Enforces explicit custom constraint criteria: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.about-left-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 24px;
+    background: transparent;
+    transition: box-shadow 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
+}
+
+/* Custom Soft Brand Glow Transition Loop on Content Wrap Focus */
+.about-left-content:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 50px rgba(230, 92, 64, 0.06), 
+                0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.about-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #000000; /* Solid Black text titles */
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+}
+
+.about-title .accent {
+    color: var(--primary-color);
+}
+
+/* --- Scroll Animation Setup States --- */
+/* Word-By-Word Opacity Reveal Structure */
+.scroll-word {
+    opacity: 0.1; /* Initial state baseline before user scrolls down */
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: inline-block;
+}
+
+.scroll-word.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Side slide-in alignments rules */
+.about-description {
+    font-size: 1.1rem;
+    color: #000000; /* Solid Black descriptive texts body */
+    line-height: 1.7;
+    margin-bottom: 35px;
+    opacity: 0;
+    transform: translateX(-80px); /* Pushed leftwards out of view context boundaries */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-description.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- Floating Call To Action Component --- */
+.btn-about-floating-cta {
+    background-color: #1e293b;
+    color: var(--white);
+    border: none;
+    padding: 16px 38px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(30, 41, 59, 0.12);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Enforces active hovering floating movement cycles automatically */
+    animation: bounceFloatCta 3.5s ease-in-out infinite alternate;
+}
+
+.btn-about-floating-cta:hover {
+    background-color: var(--primary-color);
+    box-shadow: 0 12px 24px rgba(230, 92, 64, 0.25);
+}
+
+@keyframes bounceFloatCta {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+/* --- Right Column Layout: Media Assembly --- */
+.about-right-media {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(80px); /* Pushed rightwards out of container margins initially */
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-right-media.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.about-media-backdrop {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background-color: #fff5f2; /* Subtle background highlight element behind graphic layout frame */
+    border-radius: 30px;
+    top: 15%;
+    left: 15%;
+    z-index: 1;
+}
+
+.about-image-frame {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.about-image-frame:hover {
+    transform: scale(1.02);
+}
+
+.about-main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- Full Responsive Cross-Device Breakdown Optimization --- */
+@media (max-width: 991px) {
+    .about-container {
+        gap: 40px;
+    }
+    .about-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        grid-template-columns: 1fr; /* Drop structural dual layout grids row configuration downwards */
+        text-align: center;
+        gap: 50px;
+    }
+    .about-title {
+        justify-content: center;
+    }
+    .about-description {
+        transform: translateY(40px); /* Switch animation axis vectors on compressed screens */
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .about-description.slide-active {
+        transform: translateY(0);
+    }
+    .about-right-media {
+        transform: translateY(40px);
+        order: 1;
+    }
+    .about-right-media.slide-active {
+        transform: translateY(0);
+    }
+    .about-media-backdrop {
+        display: none; /* Hide background highlights overlay layout offsets on mobile to keep alignment tight */
+    }
+}
+
+@media (max-width: 480px) {
+    .about-title {
+        font-size: 2rem;
+    }
+    .btn-about-floating-cta {
+        width: 100%; /* Full screen span layouts for actions buttons components on mobile views */
+    }
+}
+
+</style>
+
+<script>
+    // --- Scroll Trigger Interaction Matrix ---
+document.addEventListener("DOMContentLoaded", () => {
+    const titleContainer = document.getElementById("scroll-word-title");
+    const paragraphElement = document.getElementById("about-para-slide");
+    const mediaContainer = document.getElementById("about-img-slide");
+
+    // Gather tracking vectors mapping items
+    const words = titleContainer ? titleContainer.querySelectorAll(".scroll-word") : [];
+
+    // Modern lightweight Intersection Observer setup to trigger entries cleanly
+    const scrollObserverOptions = {
+        root: null,
+        threshold: 0.15, // Activates loop execution when 15% of section becomes visible 
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const sectionRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 1. Reveal Title text pieces word-by-word sequentially with staggers
+                words.forEach((word, index) => {
+                    setTimeout(() => {
+                        word.classList.add("reveal-active");
+                    }, index * 120); // 120ms staging interval delay cycles
+                });
+
+                // 2. Slide Description paragraph block smoothly out from side layout
+                if (paragraphElement) {
+                    paragraphElement.classList.add("slide-active");
+                }
+
+                // 3. Slide Visual Media Graphic element bundle inward from opposite side boundary
+                if (mediaContainer) {
+                    mediaContainer.classList.add("slide-active");
+                }
+
+                // Unbind target listener channel to guarantee execution loop finishes without repeating
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollObserverOptions);
+
+    const targetSection = document.getElementById("about-trigger-zone");
+    if (targetSection) {
+        sectionRevealObserver.observe(targetSection);
+    }
+});
+
+</script>
+
+<!-- FOOD MENU SECTION -->
+<section class="menu-section" id="menu-trigger-zone">
+    <div class="menu-container">
+        
+        <!-- Scroll-Triggered Letter-by-Letter Header -->
+        <h2 class="menu-section-title" id="scroll-letter-title">Popular Items</h2>
+
+        <!-- Interactive Category Selection Bar (Top Row Filters) -->
+        <div class="category-filter-bar">
+            <button class="filter-tab active">
+                <svg class="filter-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>Nearby</span>
+            </button>
+            <button class="filter-tab">
+                <svg class="filter-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span>Promotion</span>
+            </button>
+            <button class="filter-tab">
+                <svg class="filter-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <span>Newcomers</span>
+            </button>
+            <button class="filter-tab">
+                <svg class="filter-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                <span>Best Sellers</span>
+            </button>
+            <button class="filter-tab">
+                <svg class="filter-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                <span>Top Rated</span>
+            </button>
+            <button class="filter-tab">
+                <svg class="filter-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>All</span>
+            </button>
+        </div>
+
+        <!-- Dynamic Food Cards Menu Grid -->
+        <div class="menu-cards-grid">
+            
+            <!-- Card Item 1 -->
+            <div class="food-card">
+                <div class="card-media-wrap">
+                    <img src="https://placeholder.com" alt="Burger Mezza" class="food-item-img">
+                    <a href="404.html" class="interactive-cart-action" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="card-details-wrap">
+                    <div class="card-headline-row">
+                        <h3 class="food-title">Burger Mezza XL</h3>
+                        <span class="food-price">$29</span>
+                    </div>
+                    <p class="restaurant-vendor">Burger Queen</p>
+                </div>
+            </div>
+
+            <!-- Card Item 2 -->
+            <div class="food-card">
+                <div class="card-media-wrap">
+                    <img src="https://placeholder.com" alt="Veg Manchurian" class="food-item-img">
+                    <a href="404.html" class="interactive-cart-action" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="card-details-wrap">
+                    <div class="card-headline-row">
+                        <h3 class="food-title">Veg Manchurian</h3>
+                        <span class="food-price">$19</span>
+                    </div>
+                    <p class="restaurant-vendor">Burger Queen</p>
+                </div>
+            </div>
+
+            <!-- Card Item 3 -->
+            <div class="food-card">
+                <div class="card-media-wrap">
+                    <img src="https://placeholder.com" alt="Fried Salad" class="food-item-img">
+                    <a href="404.html" class="interactive-cart-action" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="card-details-wrap">
+                    <div class="card-headline-row">
+                        <h3 class="food-title">Fried Salad</h3>
+                        <span class="food-price">$15</span>
+                    </div>
+                    <p class="restaurant-vendor">Burger Queen</p>
+                </div>
+            </div>
+
+            <!-- Card Item 4 -->
+            <div class="food-card">
+                <div class="card-media-wrap">
+                    <img src="https://placeholder.com" alt="Gourmet Pizza" class="food-item-img">
+                    <a href="404.html" class="interactive-cart-action" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="card-details-wrap">
+                    <div class="card-headline-row">
+                        <h3 class="food-title">Gourmet Pizza</h3>
+                        <span class="food-price">$35</span>
+                    </div>
+                    <p class="restaurant-vendor">Burger Queen</p>
+                </div>
+            </div>
+
+            <!-- Card Item 5 -->
+            <div class="food-card">
+                <div class="card-media-wrap">
+                    <img src="https://placeholder.com" alt="Tomato Penne Pasta" class="food-item-img">
+                    <a href="404.html" class="interactive-cart-action" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="card-details-wrap">
+                    <div class="card-headline-row">
+                        <h3 class="food-title">Tomato Penne Pasta</h3>
+                        <span class="food-price">$22</span>
+                    </div>
+                    <p class="restaurant-vendor">Burger Queen</p>
+                </div>
+            </div>
+
+            <!-- Card Item 6 -->
+            <div class="food-card">
+                <div class="card-media-wrap">
+                    <img src="https://placeholder.com" alt="Sub Sandwich" class="food-item-img">
+                    <a href="404.html" class="interactive-cart-action" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="card-details-wrap">
+                    <div class="card-headline-row">
+                        <h3 class="food-title">Sub Sandwich Roll</h3>
+                        <span class="food-price">$18</span>
+                    </div>
+                    <p class="restaurant-vendor">Burger Queen</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Menu Grid Layout Structural Base --- */
+.menu-section {
+    /* Exact custom criteria constraint mapping: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #fafbfc;
+    overflow: hidden;
+}
+
+.menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* --- Letter-by-Letter Title Animation Tokens --- */
+.menu-section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #000000; /* Pure black titles context rules */
+    margin-bottom: 35px;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Animated Character Sub-spans injections targets styling code */
+.anim-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: scale(0.4) translateY(15px);
+    transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), 
+                transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+.anim-letter.letter-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* --- Category Navigation Horizontal Bar Layout --- */
+.category-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: none; /* Disables standard ugly default desktop scroll bar paths */
+}
+
+.category-filter-bar::-webkit-scrollbar {
+    display: none; /* Hide scrollbars completely on chrome, safari layouts engines */
+}
+
+.filter-tab {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #718096;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.filter-tab.active, .filter-tab:hover {
+    background-color: #ffffff;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(230, 92, 64, 0.08);
+}
+
+.filter-svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+/* --- Food Menu Reusable Product Grid Architecture --- */
+.menu-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- Food Card Elements & Active Interactive Content Glow Profiles --- */
+.food-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #edf2f7;
+    display: flex;
+    flex-direction: column;
+    /* Preset scroll parameters */
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+}
+
+.food-card.card-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* High Contrast Hover and Micro-Glow Shadow Modifications */
+.food-card:hover {
+    border-color: rgba(230, 92, 64, 0.25);
+    /* Modern soft localized brand glowing aura drop projection */
+    box-shadow: 0 25px 45px rgba(230, 92, 64, 0.06), 
+                0 2px 5px rgba(0, 0, 0, 0.01);
+}
+
+.card-media-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 70%; /* Establishes consistent aspect profile across different visuals sizes */
+    background-color: #f7f9fc;
+    overflow: hidden;
+}
+
+.food-item-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.food-card:hover .food-item-img {
+    transform: scale(1.05); /* Clean cinematic media scale on backdrop grid zoom active */
+}
+
+/* --- Replaced Cart Action Overlay Button (Replaces Wishlist) --- */
+.interactive-cart-action {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e65c40; /* Retains matching visual priority level of red/coral accent circle */
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    z-index: 5;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                background-color 0.3s ease, 
+                color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.interactive-cart-action svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+}
+
+/* Reverse pop inversion glow highlight trigger rules on inner item action target */
+.interactive-cart-action:hover {
+    transform: scale(1.12);
+    background-color: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 6px 14px rgba(230, 92, 64, 0.35);
+}
+
+/* --- Card Details Framework Block --- */
+.card-details-wrap {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-headline-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 6px;
+}
+
+.food-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #000000; /* Pure black product titles text configurations */
+    letter-spacing: -0.2px;
+}
+
+.food-price {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #000000; /* Pure black pricing markers values */
+}
+
+.restaurant-vendor {
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* --- Menu Section Layout Responsiveness Breakpoints --- */
+@media (max-width: 991px) {
+    .menu-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .menu-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .menu-section-title {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+    .card-details-wrap {
+        padding: 18px 20px;
+    }
+}
+
+</style>
+
+<script>
+    // --- Menu Scroll-Trigger Interactivity Framework ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Structural Letter-by-Letter Text Title Slicing Logic Execution
+    const titleHeader = document.getElementById("scroll-letter-title");
+    if (titleHeader) {
+        const textRaw = titleHeader.textContent.trim();
+        titleHeader.textContent = ""; // Clear baseline original markup string container
+
+        // Map split characters back inside customized independent responsive span nodes
+        const slicedFragments = Array.from(textRaw).map(char => {
+            const letterSpan = document.createElement("span");
+            letterSpan.classList.add("anim-letter");
+            // Preserve spacing tokens layout correctly
+            letterSpan.innerHTML = char === " " ? "&nbsp;" : char;
+            titleHeader.appendChild(letterSpan);
+            return letterSpan;
+        });
+
+        // Setup individual monitoring metrics for letter entrance cycles
+        const letterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    slicedFragments.forEach((span, index) => {
+                        setTimeout(() => {
+                            span.classList.add("letter-active");
+                        }, index * 40); // Fast progressive 40ms stagger loop
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        letterObserver.observe(titleHeader);
+    }
+
+    // 2. Progressive One-by-One Food Cards Cascade Triggering Architecture
+    const menuGridCards = document.querySelectorAll(".food-card");
+    if (menuGridCards.length > 0) {
+        const cardCascadeObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Gather all elements currently passing intersection window metrics checks
+                    const visibleCards = Array.from(menuGridCards).filter(card => {
+                        const bound = card.getBoundingClientRect();
+                        return bound.top < window.innerHeight && bound.bottom > 0;
+                    });
+
+                    // Trigger sequential cascade loop delay calculations dynamically 
+                    visibleCards.forEach((card, index) => {
+                        if (!card.classList.contains("card-visible")) {
+                            setTimeout(() => {
+                                card.classList.add("card-visible");
+                            }, index * 100); // 100ms interval stagger increments
+                        }
+                    });
+                }
+            });
+        }, { 
+            root: null,
+            threshold: 0.05,
+            rootMargin: "0px 0px -40px 0px" // Activates card load cycles slightly before item hits container bounds
+        });
+
+        menuGridCards.forEach(card => cardCascadeObserver.observe(card));
+    }
+});
+
+</script>
+
+<!-- CATEGORY CAROUSEL SECTION -->
+<section class="db-section category-section">
+    <div class="db-container">
+        <!-- Section Header Row -->
+        <div class="section-header-row">
+            <h2 class="db-title scroll-words-target">Explore Categories</h2>
+            <a href="404.html" class="view-all-link">
+                <span>View all</span> 
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+        </div>
+        
+        <!-- Slider Layout Outer Frame -->
+        <div class="slider-outer-wrapper">
+            <!-- Left Side Arrow Navigation Trigger -->
+            <button class="slider-nav-btn prev-btn" id="cat-prev" aria-label="Previous Category">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <!-- Horizontal Sliding View Track Wrapper -->
+            <div class="slider-track-container" id="category-track">
+                <!-- Card 1 -->
+                <div class="category-slide-card active">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Burger Category"></div>
+                    <span class="cat-label">Burger</span>
+                </div>
+                <!-- Card 2 -->
+                <div class="category-slide-card">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Beverage Category"></div>
+                    <span class="cat-label">Beverage</span>
+                </div>
+                <!-- Card 3 -->
+                <div class="category-slide-card">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Seafood Category"></div>
+                    <span class="cat-label">Seafood</span>
+                </div>
+                <!-- Card 4 -->
+                <div class="category-slide-card">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Pizza Category"></div>
+                    <span class="cat-label">Pizza</span>
+                </div>
+                <!-- Card 5 -->
+                <div class="category-slide-card">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Chicken Category"></div>
+                    <span class="cat-label">Chicken</span>
+                </div>
+                <!-- Added New Card 6 -->
+                <div class="category-slide-card">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Sushi Category"></div>
+                    <span class="cat-label">Sushi</span>
+                </div>
+                <!-- Added New Card 7 -->
+                <div class="category-slide-card">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Dessert Category"></div>
+                    <span class="cat-label">Dessert</span>
+                </div>
+                <!-- Added New Card 8 -->
+                <div class="category-slide-card">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Pasta Category"></div>
+                    <span class="cat-label">Pasta</span>
+                </div>
+                <!-- Added New Card 9 -->
+                <div class="category-slide-card">
+                    <div class="cat-img-box"><img src="https://placeholder.com" alt="Bakery Category"></div>
+                    <span class="cat-label">Bakery</span>
+                </div>
+            </div>
+
+            <!-- Right Side Arrow Navigation Trigger -->
+            <button class="slider-nav-btn next-btn" id="cat-next" aria-label="Next Category">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Global Theme Variables --- */
+:root {
+    --primary-color: #e65c40;
+    --white: #ffffff;
+    --transition-fast: 0.3s ease;
+}
+
+/* --- Category Section Structural Layout --- */
+.db-section {
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.db-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.db-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #000000;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 8px;
+}
+
+.word-fragment {
+    display: inline-block;
+    opacity: 0.15;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.word-fragment.active-reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.view-all-link {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: transform var(--transition-fast);
+}
+
+.view-all-link:hover {
+    transform: translateX(4px);
+}
+
+.view-all-link svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+}
+
+/* --- Slider Core Frame Mechanics --- */
+.slider-outer-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 50px;
+}
+
+.slider-track-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    width: 100%;
+    padding: 10px 5px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.slider-track-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- Slide Cards Layout and Glow Adjustments --- */
+.category-slide-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 20px;
+    padding: 20px;
+    /* Calculated card flex width sizing to fill space evenly across desktop configurations */
+    min-width: 135px;
+    flex: 1 0 auto;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.category-slide-card:hover, .category-slide-card.active {
+    border-color: rgba(230, 92, 64, 0.25);
+    box-shadow: 0 15px 30px rgba(230, 92, 64, 0.06);
+    transform: translateY(-4px);
+}
+
+.cat-img-box {
+    width: 70px;
+    height: 70px;
+    background-color: #f8fafc;
+    border-radius: 16px;
+    margin: 0 auto 12px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast);
+}
+
+.category-slide-card:hover .cat-img-box, 
+.category-slide-card.active .cat-img-box {
+    background-color: #fff5f2;
+}
+
+.cat-img-box img {
+    max-width: 80%;
+    height: auto;
+}
+
+.cat-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+/* --- Control Buttons --- */
+.slider-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    color: #1e293b;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.slider-nav-btn:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 6px 14px rgba(230, 92, 64, 0.25);
+}
+
+.slider-nav-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.prev-btn { left: 0; }
+.next-btn { right: 0; }
+
+/* --- Mobile View Compression Fixes --- */
+@media (max-width: 768px) {
+    .slider-outer-wrapper {
+        padding: 0 40px;
+    }
+    .db-title {
+        font-size: 1.5rem;
+    }
+    .category-slide-card {
+        min-width: 110px;
+        padding: 16px 10px;
+    }
+    .cat-img-box {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Horizontal Track Arrow Navigation Mechanics
+    const scrollTrack = document.getElementById("category-track");
+    const prevArrow = document.getElementById("cat-prev");
+    const nextArrow = document.getElementById("cat-next");
+
+    if (scrollTrack && prevArrow && nextArrow) {
+        nextArrow.addEventListener("click", () => {
+            // Adjust scroll leap value to account for expanded items layout array profile
+            scrollTrack.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+
+        prevArrow.addEventListener("click", () => {
+            scrollTrack.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+    }
+
+    // 2. Title Scroll Word Stagger Reveal Layout Setup
+    const wordHeaderTargets = document.querySelectorAll(".scroll-words-target");
+    if (wordHeaderTargets.length > 0) {
+        wordHeaderTargets.forEach(header => {
+            const wordsArr = header.textContent.trim().split(" ");
+            header.textContent = "";
+
+            const spanNodes = wordsArr.map(word => {
+                const wSpan = document.createElement("span");
+                wSpan.classList.add("word-fragment");
+                wSpan.innerHTML = word + "&nbsp;";
+                header.appendChild(wSpan);
+                return wSpan;
+            });
+
+            const wordsObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        spanNodes.forEach((span, i) => {
+                            setTimeout(() => {
+                                span.classList.add("active-reveal");
+                            }, i * 100);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            wordsObserver.observe(header);
+        });
+    }
+});
+
+</script>
+
+<!-- POPULAR DISHES DASHBOARD GRID -->
+<section class="popular-dishes-section" id="popular-trigger-zone">
+    <div class="dishes-container">
+        
+        <!-- Sliding Header Row -->
+        <div class="dishes-header-row">
+            <h2 class="dishes-section-title" id="popular-slide-title">Popular Dishes</h2>
+            <a href="404.html" class="dishes-view-all">
+                <span>View all</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+        </div>
+
+        <!-- Food Product Layout Grid -->
+        <div class="dishes-cards-grid">
+            
+            <!-- Dish Card 1 -->
+            <div class="dish-product-card scroll-cascade-card">
+                <div class="dish-card-top-actions">
+                    <span class="dish-tag-discount">20% Off</span>
+                    <a href="404.html" class="dish-action-circle active-cart-icon" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="dish-image-wrapper">
+                    <img src="https://placeholder.com" alt="Beef Burger" class="dish-thumb-img">
+                </div>
+                <div class="dish-meta-wrapper">
+                    <div class="dish-star-rating">★★★★★</div>
+                    <h3 class="dish-name-heading">Beef Burger</h3>
+                    
+                    <!-- Added High-Contrast Vector Ingredients Indicators Layer -->
+                    <div class="dish-ingredients-row">
+                        <span class="ing-pill" title="Organic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22c1.25-3.66 5.5-6 10-6s8.75 2.34 10 6H2z"></path><path d="M12 2a15.3 15.3 0 0 1 4 10H8a15.3 15.3 0 0 1 4-10z"></path></svg> Organic</span>
+                        <span class="ing-pill" title="Spicy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg> Spicy</span>
+                    </div>
+
+                    <div class="dish-price-action-row">
+                        <span class="dish-price-text">$5.99</span>
+                        <a href="404.html" class="dish-plus-btn" title="Quick Add">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dish Card 2 -->
+            <div class="dish-product-card scroll-cascade-card">
+                <div class="dish-card-top-actions">
+                    <span class="dish-tag-discount">20% Off</span>
+                    <a href="404.html" class="dish-action-circle active-cart-icon" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="dish-image-wrapper">
+                    <img src="https://placeholder.com" alt="Roast Chicken" class="dish-thumb-img">
+                </div>
+                <div class="dish-meta-wrapper">
+                    <div class="dish-star-rating">★★★★★</div>
+                    <h3 class="dish-name-heading">Roast Chicken</h3>
+                    
+                    <!-- Added High-Contrast Vector Ingredients Indicators Layer -->
+                    <div class="dish-ingredients-row">
+                        <span class="ing-pill" title="Fresh Fresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Fresh</span>
+                        <span class="ing-pill" title="Gourmet Protein"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v12M6 12h12"></path></svg> Protein</span>
+                    </div>
+
+                    <div class="dish-price-action-row">
+                        <span class="dish-price-text">$6.99</span>
+                        <a href="404.html" class="dish-plus-btn" title="Quick Add">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dish Card 3 -->
+            <div class="dish-product-card scroll-cascade-card">
+                <div class="dish-card-top-actions">
+                    <span class="dish-tag-discount">20% Off</span>
+                    <a href="404.html" class="dish-action-circle active-cart-icon" title="Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </a>
+                </div>
+                <div class="dish-image-wrapper">
+                    <img src="https://placeholder.com" alt="Pork Burger" class="dish-thumb-img">
+                </div>
+                <div class="dish-meta-wrapper">
+                    <div class="dish-star-rating">★★★★★</div>
+                    <h3 class="dish-name-heading">Pork Burger</h3>
+                    
+                    <!-- Added High-Contrast Vector Ingredients Indicators Layer -->
+                    <div class="dish-ingredients-row">
+                        <span class="ing-pill" title="Organic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22c1.25-3.66 5.5-6 10-6s8.75 2.34 10 6H2z"></path><path d="M12 2a15.3 15.3 0 0 1 4 10H8a15.3 15.3 0 0 1 4-10z"></path></svg> Organic</span>
+                        <span class="ing-pill" title="Savory Crispy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v12M6 12h12"></path></svg> Crispy</span>
+                    </div>
+
+                    <div class="dish-price-action-row">
+                        <span class="dish-price-text">$4.99</span>
+                        <a href="404.html" class="dish-plus-btn" title="Quick Add">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Popular Dishes Framework Layout --- */
+.popular-dishes-section {
+    padding: 50px 20px 30px 20px;
+    background-color: #f8fafc;
+    overflow: hidden;
+}
+
+.dishes-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.dishes-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.dishes-section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #000000;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dishes-section-title.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.dishes-view-all {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: transform var(--transition-fast);
+}
+
+.dishes-view-all:hover { transform: translateX(4px); }
+.dishes-view-all svg { width: 14px; height: 14px; stroke: currentColor; }
+
+/* --- Responsive Layout Grid --- */
+.dishes-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- Card Components & Interactive Glow Shadows --- */
+.dish-product-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 24px;
+    padding: 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+}
+
+.dish-product-card.card-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dish-product-card:hover {
+    border-color: rgba(230, 92, 64, 0.2);
+    box-shadow: 0 25px 45px rgba(230, 92, 64, 0.05);
+}
+
+.dish-card-top-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.dish-tag-discount {
+    background-color: #fff5f2;
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.dish-action-circle {
+    width: 36px;
+    height: 36px;
+    background-color: #f8fafc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0aec0;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), color var(--transition-fast), transform 0.2s ease;
+}
+
+.dish-action-circle svg { width: 16px; height: 16px; stroke: currentColor; }
+.dish-action-circle:hover { background-color: var(--primary-color); color: var(--white); transform: scale(1.1); }
+
+.dish-image-wrapper {
+    width: 160px;
+    height: 160px;
+    margin: 10px auto 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease;
+}
+
+.dish-product-card:hover .dish-image-wrapper { transform: scale(1.06) rotate(2deg); }
+.dish-thumb-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.dish-meta-wrapper { display: flex; flex-direction: column; margin-top: auto; }
+.dish-star-rating { color: #ffd84d; font-size: 0.85rem; margin-bottom: 6px; }
+
+.dish-name-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 10px;
+    letter-spacing: -0.2px;
+}
+
+/* --- New High-Contrast Ingredients Layer Styles --- */
+.dish-ingredients-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.ing-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #000000; /* Solid high-contrast black tag text labels */
+    background-color: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: background-color var(--transition-fast);
+}
+
+.dish-product-card:hover .ing-pill {
+    background-color: #e2e8f0; /* Darkens tags slightly on hover focus layers */
+}
+
+.ing-pill svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+}
+
+/* --- Price Row Details --- */
+.dish-price-action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dish-price-text {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #000000;
+}
+
+.dish-plus-btn {
+    width: 38px;
+    height: 38px;
+    background-color: #1e293b;
+    color: var(--white);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color var(--transition-fast), transform 0.1s ease;
+}
+
+.dish-plus-btn:hover { background-color: var(--primary-color); }
+.dish-plus-btn:active { transform: scale(0.92); }
+.dish-plus-btn svg { width: 16px; height: 16px; }
+
+/* --- Breakpoint Cleanups --- */
+@media (max-width: 991px) {
+    .dishes-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+
+@media (max-width: 680px) {
+    .dishes-cards-grid { grid-template-columns: 1fr; gap: 16px; }
+    .dishes-section-title { font-size: 1.5rem; }
+    .dish-ingredients-row { margin-bottom: 15px; gap: 6px; }
+    .ing-pill { padding: 4px 8px; font-size: 0.75rem; }
+}
+
+</style>
+
+<script>
+    /**
+ * STACKLY FOOD DELIVERY WEBSITE
+ * Isolated Interaction Logic: Popular Dishes Section
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Target Element Selectors
+    const sectionTitle = document.getElementById("popular-slide-title");
+    const productCards = document.querySelectorAll(".scroll-cascade-card");
+    const triggerZone = document.getElementById("popular-trigger-zone");
+
+    // 2. Intersection Observer Configuration Setup
+    const scrollObserverOptions = {
+        root: null, // Track visibility relative to the device viewport
+        threshold: 0.05, // Activates loop calculations when 5% of section enters view
+        rootMargin: "0px 0px -30px 0px" // Triggers actions slightly before hitting viewport limits
+    };
+
+    // 3. Scroll Reveal Orchestration Matrix
+    const popularSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // A. Trigger structural header text slide-in entry
+                if (sectionTitle) {
+                    sectionTitle.classList.add("slide-active");
+                }
+
+                // B. Trigger card layout calculations dynamically for sequential staggers
+                productCards.forEach((card, index) => {
+                    if (!card.classList.contains("card-visible")) {
+                        setTimeout(() => {
+                            card.classList.add("card-visible");
+                        }, index * 100); // Stagger loading sequential items precisely every 100ms
+                    }
+                });
+
+                // Unobserve target area zone to guarantee trigger locks cleanly on initial scroll down
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollObserverOptions);
+
+    // 4. Bind Target Section Observer Loop
+    if (triggerZone) {
+        popularSectionObserver.observe(triggerZone);
+    }
+});
+
+</script>
+
+<!-- WHO WE ARE BRAND SECTION -->
+<section class="who-we-are-section" id="whoweare-trigger-zone">
+    <div class="wwa-container">
+        
+        <!-- Left Side Column: Creative Image Grid Collage Composition -->
+        <div class="wwa-media-collage" id="wwa-media-slide">
+            <!-- Asymmetrical overlapping image grid design patterns -->
+            <div class="collage-frame image-main-frame">
+                <img src="https://placeholder.com" alt="Our Professional Chefs" class="wwa-img">
+            </div>
+            <div class="collage-frame image-sub-frame">
+                <img src="https://placeholder.com" alt="Premium Food Inspection" class="wwa-img">
+            </div>
+            <!-- Abstract visual backdrop element accent marker -->
+            <div class="wwa-dot-backdrop"></div>
+        </div>
+
+        <!-- Right Side Column: Dynamic Narrative Copy Stack -->
+        <div class="wwa-text-content-wrapper">
+            <!-- Scroll Animated Word-by-Word Header Construction -->
+            <h2 class="wwa-section-title" id="wwa-scroll-title">
+                <span class="wwa-word">Pioneering</span>
+                <span class="wwa-word">The</span>
+                <span class="wwa-word shadow-accent">Future</span>
+                <span class="wwa-word">Of</span>
+                <span class="wwa-word">Instant</span>
+                <span class="wwa-word">Dining</span>
+            </h2>
+            
+            <p class="wwa-paragraph-desc" id="wwa-para-slide">
+                At Stackly, we are more than a technical food platform—we are a curated connection engine matching world-class culinary craftsmen with food lovers. By building infrastructure centered around eco-conscious distribution loops, rigorous raw ingredient standards, and hyper-localized smart tracking, we guarantee each meal arrives precisely as intended by the master kitchen.
+            </p>
+            
+            <!-- Upward rising animation call to action button frame container -->
+            <div class="wwa-cta-box" id="wwa-btn-rise">
+                <a href="404.html" class="btn-wwa-explore">Explore Our Journey</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Who We Are Section Framework Layout --- */
+.who-we-are-section {
+    /* Precise constraint compliance structure: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+
+.wwa-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 70px;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- Left Column: Asymmetrical Creative Image Collage Layer --- */
+.wwa-media-collage {
+    position: relative;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    /* Scroll slide preset vector coordinates configuration mapping */
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wwa-media-collage.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.collage-frame {
+    position: absolute;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
+                box-shadow 0.5s ease;
+}
+
+.image-main-frame {
+    width: 75%;
+    height: 380px;
+    top: 10%;
+    left: 0;
+    z-index: 2;
+}
+
+.image-sub-frame {
+    width: 55%;
+    height: 240px;
+    bottom: 5%;
+    right: 0;
+    z-index: 3;
+    border: 6px solid #ffffff; /* Isolation stroke barrier separator line */
+}
+
+.wwa-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Integrated Image Hover Dynamic Feedback Effects */
+.collage-frame:hover {
+    z-index: 4; /* Temporarily raises hovered visual forward above other frames layouts */
+    transform: scale(1.03) translateY(-4px);
+    box-shadow: 0 20px 40px rgba(230, 92, 64, 0.15);
+}
+
+.wwa-dot-backdrop {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background-image: radial-gradient(#e65c40 20%, transparent 20%);
+    background-size: 15px 15px;
+    top: 2%;
+    left: -20px;
+    opacity: 0.12;
+    z-index: 1;
+}
+
+/* --- Right Column: Content Components & Interactive Glow Configurations --- */
+.wwa-text-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 24px;
+    background: transparent;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    border: 1px solid transparent;
+}
+
+/* Active localized brand halo micro-glow aura drop shadows popup matrix on copy hover */
+.wwa-text-content-wrapper:hover {
+    background-color: #ffffff;
+    border-color: rgba(230, 92, 64, 0.1);
+    box-shadow: 0 30px 60px rgba(230, 92, 64, 0.05),
+                0 4px 15px rgba(0, 0, 0, 0.01);
+}
+
+.wwa-section-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #000000; /* Strict absolute high contrast solid black headings rule alignment */
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+
+.shadow-accent {
+    color: var(--primary-color);
+}
+
+/* --- Scroll Entrance Preset Setup States --- */
+/* A. Word-By-Word Sequential Visibility Mechanics */
+.wwa-word {
+    display: inline-block;
+    opacity: 0.15; /* Base dim transparency point before intersection scroll hook executes */
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.wwa-word.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* B. Text Block Side Slide Entrance */
+.wwa-paragraph-desc {
+    font-size: 1.05rem;
+    color: #000000; /* Solid high contrast absolute black paragraph typography blocks */
+    line-height: 1.75;
+    margin-bottom: 35px;
+    opacity: 0;
+    transform: translateX(60px); /* Pushed out towards right bounds margin boundaries initially */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wwa-paragraph-desc.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* C. Bottom Upwards Rising Call To Action Button */
+.wwa-cta-box {
+    opacity: 0;
+    transform: translateY(40px); /* Pushed downstream downwards out of container alignments context */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wwa-cta-box.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-wwa-explore {
+    display: inline-block;
+    background-color: #1e293b; /* Deep high-contrast tone block element backplate token */
+    color: var(--white);
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 10px 20px rgba(30, 41, 59, 0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-wwa-explore:hover {
+    background-color: var(--primary-color);
+    box-shadow: 0 12px 24px rgba(230, 92, 64, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- Cross-Device Grid Adaptation Breakpoints --- */
+@media (max-width: 1024px) {
+    .wwa-container { gap: 40px; }
+    .wwa-section-title { font-size: 2.3rem; }
+}
+
+@media (max-width: 768px) {
+    .wwa-container {
+        grid-template-columns: 1fr; /* Switch structural dual grid layout layout downwards into single block stream */
+        text-align: center;
+        gap: 50px;
+    }
+    .wwa-media-collage {
+        height: 380px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .image-main-frame { height: 300px; }
+    .image-sub-frame { height: 180px; }
+    .wwa-section-title { justify-content: center; }
+    .wwa-paragraph-desc {
+        max-width: 620px;
+        margin-left: auto;
+        margin-right: auto;
+        transform: translateY(30px); /* Adjust side axis constraints into clean simple linear rising paths on compact displays */
+    }
+    .wwa-paragraph-desc.slide-active { transform: translateY(0); }
+    .wwa-text-content-wrapper { padding: 10px; }
+}
+
+@media (max-width: 480px) {
+    .wwa-section-title { font-size: 1.9rem; }
+    .wwa-media-collage { height: 300px; }
+    .image-main-frame { height: 240px; }
+    .image-sub-frame { height: 140px; }
+    .btn-wwa-explore { width: 100%; text-align: center; } /* Stretch call to action interface element to full layout breadth boundaries on phone views */
+}
+
+</style>
+
+<script>
+    // --- Who We Are Interaction Intersection Observers Setup ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Mapping Targets Elements Space
+    const triggerZoneSection = document.getElementById("whoweare-trigger-zone");
+    const textTitleNode = document.getElementById("wwa-scroll-title");
+    const paragraphDescBlock = document.getElementById("wwa-para-slide");
+    const riseActionBtnFrame = document.getElementById("wwa-btn-rise");
+    const mediaCollageBlock = document.getElementById("wwa-media-slide");
+
+    // Extract child word spans fragments array collection matrix
+    const wordSpansList = textTitleNode ? textTitleNode.querySelectorAll(".wwa-word") : [];
+
+    // 2. Observer Performance Parameters Configurations
+    const observerControlOptions = {
+        root: null,
+        threshold: 0.12, // Fires logic sequences execution loops once 12% of container intersects screen view space
+        rootMargin: "0px 0px -40px 0px"
+    };
+
+    // 3. Orchestration Timeline Execution Matrix Loop
+    const whoWeAreSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Timeline Track Step A: Reveal Title header tokens word-by-word progressively
+                wordSpansList.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("reveal-active");
+                    }, index * 100); // Renders incremental stagger delay sequence timing every 100ms
+                });
+
+                // Timeline Track Step B: Slide description narrative paragraph block out from side alignment margin bounds
+                if (paragraphDescBlock) {
+                    paragraphDescBlock.classList.add("slide-active");
+                }
+
+                // Timeline Track Step C: Rise CTA button upwards gracefully from bottom boundary axis location
+                if (riseActionBtnFrame) {
+                    setTimeout(() => {
+                        riseActionBtnFrame.classList.add("rise-active");
+                    }, 400); // Delays rising animation slightly to sync up right behind text text elements assembly completions
+                }
+
+                // Timeline Track Step D: Slide Left Column Graphics Collage system inward smoothly
+                if (mediaCollageBlock) {
+                    mediaCollageBlock.classList.add("slide-active");
+                }
+
+                // Disconnect section observer channel tracking to guarantee execution sequence triggers exactly once on scroll down
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerControlOptions);
+
+    // 4. Bind Active Evaluation Watch Listener Target Context Channel
+    if (triggerZoneSection) {
+        whoWeAreSectionObserver.observe(triggerZoneSection);
+    }
+});
+
+</script>
+
+<!-- FULL WIDTH 2-LINE CTA BANNER SECTION -->
+<section class="full-width-cta-section" id="banner-trigger-zone">
+    <!-- Dedicated high-definition texture/pattern background image layer -->
+    <img src="https://placeholder.com" alt="Banner Pattern Backdrop" class="cta-banner-bg-img">
+    
+    <!-- Floating Vector Icons Context Backdrop Canvas Elements -->
+    <div class="banner-floating-vectors-canvas">
+        <div class="vector-float-node node-leaf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22c1.25-3.66 5.5-6 10-6s8.75 2.34 10 6H2z"></path><path d="M12 2a15.3 15.3 0 0 1 4 10H8a15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="vector-float-node node-spark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </div>
+        <div class="vector-float-node node-heart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+    </div>
+
+    <!-- Inner Core Presentation Flex Grid -->
+    <div class="cta-banner-container">
+        
+        <!-- Left Side: Clean 2-Line High Contrast Text Assembly Block -->
+        <div class="cta-banner-text-block" id="banner-text-slide">
+            <h2 class="cta-line-one">Hungry? Get Your Favorite Meals Crafted By Master Kitchens</h2>
+            <p class="cta-line-two">Join over 50,000+ happy daily diners using Stackly to satisfy instant cravings instantly.</p>
+        </div>
+
+        <!-- Right Side: Rising Interactive Action Element Block -->
+        <div class="cta-banner-action-block" id="banner-btn-rise">
+            <a href="404.html" class="btn-banner-primary-action">Claim Your First Offer</a>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Full Width Banner Structural Framework --- */
+.full-width-cta-section {
+    /* Exact custom constraint compliance dimensions: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    width: 100%; /* Guarantees strict full-width viewport coverage boundaries */
+    background: linear-gradient(135deg, #1e293b, #0f172a); /* Premium deep blue-black foundation */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Section Full-Bleed Background Visual Layer --- */
+.cta-banner-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.06; /* Subdued backdrop presence profile to protect high text clarity scores */
+}
+
+.cta-banner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    z-index: 3; /* Forces content matrices to render reliably forward above graphics layers */
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.cta-banner-text-block {
+    display: flex;
+    flex-direction: column;
+    max-width: 760px;
+    /* Scroll slide animation initial state settings */
+    opacity: 0;
+    transform: translateX(-70px); /* Slides inward smoothly from the left margins */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-banner-text-block.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.cta-line-one {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #ffffff; /* Brilliant white for ultimate pop against deep dark foundation background */
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    transition: text-shadow 0.3s ease;
+}
+
+.cta-line-two {
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85); /* Slightly softened high contrast layout description line */
+    transition: color 0.3s ease;
+}
+
+/* Premium Text/Content Hover Glow Feedback Effects */
+.cta-banner-text-block:hover .cta-line-one {
+    /* Multi-layered soft white neon typographical localized ambient glow aura projection */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 
+                 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.cta-banner-text-block:hover .cta-line-two {
+    color: #ffffff; /* Refuses dimming filters on hover focus layers */
+}
+
+/* --- Right Column: Bottom Upwards Rising Call To Action Button --- */
+.cta-banner-action-block {
+    opacity: 0;
+    transform: translateY(40px); /* Pushed downstream downwards out of container configurations */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-banner-action-block.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-banner-primary-action {
+    display: inline-block;
+    background-color: var(--primary-color); /* Matches exact premium brand coral token */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 18px 40px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 10px 25px rgba(230, 92, 64, 0.25);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-banner-primary-action:hover {
+    background-color: #ffffff;
+    color: #1e293b;
+    transform: translateY(-4px) scale(1.02);
+    /* Soft clean high focus button pop glow drop illumination block */
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.25);
+}
+
+/* --- Floating Context Vector Nodes Canvas Layer --- */
+.banner-floating-vectors-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.vector-float-node {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.08); /* Subtle transparent background canvas vectors footprint */
+    transition: color 0.4s ease;
+}
+
+.vector-float-node svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentColor;
+}
+
+/* Pin floating node coordinate parameters across the full canvas zone layout bounds */
+.node-leaf { top: 15%; right: 28%; animation: bannerFloatCycleOne 4.5s ease-in-out infinite alternate; }
+.node-spark { bottom: 20%; left: 4%; animation: bannerFloatCycleTwo 5s ease-in-out infinite alternate 0.5s; }
+.node-heart { top: 35%; left: 45%; animation: bannerFloatCycleOne 3.8s ease-in-out infinite alternate 0.2s; }
+
+@keyframes bannerFloatCycleOne {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-12px) rotate(10deg); }
+}
+
+@keyframes bannerFloatCycleTwo {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(12px) rotate(-10deg); }
+}
+
+/* --- Full Cross-Device Grid Adaptation Breakpoints --- */
+@media (max-width: 991px) {
+    .cta-line-one { font-size: 1.8rem; }
+    .btn-banner-primary-action { padding: 16px 32px; font-size: 1rem; }
+}
+
+@media (max-width: 768px) {
+    .cta-banner-container {
+        flex-direction: column; /* Collapses layout structure downstream into neat center stacked blocks stream */
+        text-align: center;
+        gap: 35px;
+    }
+    .cta-banner-text-block {
+        transform: translateY(30px); /* Adjusts side linear slide axis pathways into simple clean vertical setups on compressed screen spaces */
+    }
+    .cta-banner-text-block.slide-active { transform: translateY(0); }
+    .node-leaf, .node-heart { display: none; } /* Drop redundant interior canvas elements to keep viewport footprint tight and fast */
+}
+
+@media (max-width: 480px) {
+    .cta-line-one { font-size: 1.5rem; }
+    .cta-line-two { font-size: 0.95rem; }
+    .btn-banner-primary-action { width: 100%; text-align: center; } /* Span button element fully to browser limits on smartphone displays */
+}
+
+</style>
+
+<script>
+    // --- Full-Width CTA Banner Scrolling Interaction Observer Trigger ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Select animation targets elements space
+    const targetBannerSection = document.getElementById("banner-trigger-zone");
+    const bannerSlideText = document.getElementById("banner-text-slide");
+    const bannerRiseBtn = document.getElementById("banner-btn-rise");
+
+    // Config parameters parameters mapping values
+    const bannerObserverOptions = {
+        root: null,
+        threshold: 0.15, // Activates loop logic when 15% of section boundary crosses layout viewport boundaries
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const bannerRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Step 1: Slide left typographical 2-line block inwards smoothly
+                if (bannerSlideText) {
+                    bannerSlideText.classList.add("slide-active");
+                }
+
+                // Track Step 2: Rise right primary call-to-action button upwards gracefully from bottom canvas limits
+                if (bannerRiseBtn) {
+                    setTimeout(() => {
+                        bannerRiseBtn.classList.add("rise-active");
+                    }, 250); // Small interval stagger offset to execute directly behind headline slide finishes
+                }
+
+                // Disconnect section observer monitor channel to lock render configurations exactly on first view cycle entry
+                observer.unobserve(entry.target);
+            }
+        });
+    }, bannerObserverOptions);
+
+    if (targetBannerSection) {
+        bannerRevealObserver.observe(targetBannerSection);
+    }
+});
+
+</script>
+
+<!-- CAFES & RESTAURANTS SHOWCASE SECTION -->
+<section class="vendors-section" id="vendors-trigger-zone">
+    <div class="vendors-container">
+        
+        <!-- Scroll-Triggered Word-by-Word Header Block -->
+        <div class="vendors-header-wrapper">
+            <h2 class="vendors-main-title" id="vendors-scroll-title">
+                <span class="v-word">Top</span>
+                <span class="v-word">Cafes</span>
+                <span class="v-word">&amp;</span>
+                <span class="v-word accent-coral">Featured</span>
+                <span class="v-word">Restaurants</span>
+            </h2>
+            <p class="vendors-subtitle">Discover the most celebrated kitchens and neighborhood local gems delivering right to your door.</p>
+        </div>
+
+        <!-- 3x2 Grid Matrix Container -->
+        <div class="vendors-grid-matrix">
+            
+            <!-- Vendor Card 1 -->
+            <div class="vendor-display-card scroll-stagger-item">
+                <div class="vendor-img-frame">
+                    <img src="https://placeholder.com" alt="Burger House Gourmet" class="vendor-thumb-asset">
+                </div>
+                <div class="vendor-info-stack">
+                    <h3 class="vendor-name-title highlighted-coral">Burger House</h3>
+                    <div class="vendor-schedule-row">
+                        <span class="schedule-days">Monday - Saturday</span>
+                        <strong class="schedule-hours">09:00 - 18:00</strong>
+                    </div>
+                    <p class="vendor-description-text">
+                        Sizzling flame-broiled artisan patties, fresh organic local greens, and our signature smoked secret house sauce glaze.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Vendor Card 2 -->
+            <div class="vendor-display-card scroll-stagger-item">
+                <div class="vendor-img-frame">
+                    <img src="https://placeholder.com" alt="Pizza Express Kitchen" class="vendor-thumb-asset">
+                </div>
+                <div class="vendor-info-stack">
+                    <h3 class="vendor-name-title">Pizza Express</h3>
+                    <div class="vendor-schedule-row">
+                        <span class="schedule-days">Monday - Sunday</span>
+                        <strong class="schedule-hours">10:00 - 22:00</strong>
+                    </div>
+                    <p class="vendor-description-text">
+                        Wood-fired Neapolitan crusts topped with authentic fresh mozzarella curd matrices and garden-picked sweet basil leaves.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Vendor Card 3 -->
+            <div class="vendor-display-card scroll-stagger-item">
+                <div class="vendor-img-frame">
+                    <img src="https://placeholder.com" alt="Wok Nation Express" class="vendor-thumb-asset">
+                </div>
+                <div class="vendor-info-stack">
+                    <h3 class="vendor-name-title">Wok Nation</h3>
+                    <div class="vendor-schedule-row">
+                        <span class="schedule-days">Tuesday - Sunday</span>
+                        <strong class="schedule-hours">11:00 - 21:00</strong>
+                    </div>
+                    <p class="vendor-description-text">
+                        Fiery stir-fried street noodles, tossed with crisp seasonal greens and premium cuts glazed in dark teriyaki reductions.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Vendor Card 4 -->
+            <div class="vendor-display-card scroll-stagger-item">
+                <div class="vendor-img-frame">
+                    <img src="https://placeholder.com" alt="Taco Corner Cantina" class="vendor-thumb-asset">
+                </div>
+                <div class="vendor-info-stack">
+                    <h3 class="vendor-name-title">Taco Corner</h3>
+                    <div class="vendor-schedule-row">
+                        <span class="schedule-days">Monday - Saturday</span>
+                        <strong class="schedule-hours">09:00 - 18:00</strong>
+                    </div>
+                    <p class="vendor-description-text">
+                        Hand-pressed corn tortillas loaded with slow-cooked shredded beef, fresh zesty lime juice splash, and hot salsa verde.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Vendor Card 5 -->
+            <div class="vendor-display-card scroll-stagger-item">
+                <div class="vendor-img-frame">
+                    <img src="https://placeholder.com" alt="Green Garden Bistro" class="vendor-thumb-asset">
+                </div>
+                <div class="vendor-info-stack">
+                    <h3 class="vendor-name-title">Green Garden</h3>
+                    <div class="vendor-schedule-row">
+                        <span class="schedule-days">Monday - Saturday</span>
+                        <strong class="schedule-hours">08:00 - 17:00</strong>
+                    </div>
+                    <p class="vendor-description-text">
+                        Wholesome plant-based macro bowls, refreshing cold-pressed root juices, and gluten-free pastries baked fresh hourly.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Vendor Card 6 -->
+            <div class="vendor-display-card scroll-stagger-item">
+                <div class="vendor-img-frame">
+                    <img src="https://placeholder.com" alt="Sweet Treats Patisserie" class="vendor-thumb-asset">
+                </div>
+                <div class="vendor-info-stack">
+                    <h3 class="vendor-name-title">Sweet Treats</h3>
+                    <div class="vendor-schedule-row">
+                        <span class="schedule-days">Wednesday - Monday</span>
+                        <strong class="schedule-hours">10:00 - 20:00</strong>
+                    </div>
+                    <p class="vendor-description-text">
+                        Decadent tiered chocolate ganache cakes, delicate French raspberry macarons, and velvety artisan gelato flavors.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Global Theme Reference Variable Stubs --- */
+:root {
+    --primary-color: #e65c40; /* Modern brand coral */
+    --white: #ffffff;
+    --transition-fast: 0.3s ease;
+}
+
+/* --- Cafes & Restaurants Showcase Layout --- */
+.vendors-section {
+    /* Precise constraint compliance: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+
+.vendors-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.vendors-header-wrapper {
+    text-align: center;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vendors-main-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #000000; /* Solid high-contrast black typography */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 10px;
+}
+
+.vendors-main-title .accent-coral {
+    color: var(--primary-color);
+}
+
+/* Scroll Word-by-Word Fragment Transition Tokens */
+.v-word {
+    display: inline-block;
+    opacity: 0.15;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.v-word.word-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.vendors-subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #718096;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+/* --- Reusable 3x2 Matrix Structural Grid --- */
+.vendors-grid-matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px 30px;
+    width: 100%;
+}
+
+/* --- Vendor Cards & Premium Interaction Glow Profiles --- */
+.vendor-display-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 30px 24px;
+    text-align: center;
+    border: 1px solid #edf2f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(45px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease, 
+                border-color 0.4s ease;
+}
+
+.vendor-display-card.card-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.vendor-display-card:hover {
+    border-color: rgba(230, 92, 64, 0.25);
+    box-shadow: 0 20px 40px rgba(230, 92, 64, 0.06), 
+                0 2px 8px rgba(0, 0, 0, 0.02);
+    transform: translateY(-5px);
+}
+
+.vendor-img-frame {
+    width: 100%;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.vendor-thumb-asset {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vendor-display-card:hover .vendor-thumb-asset {
+    transform: scale(1.08) translateY(-2px);
+}
+
+.vendor-info-stack {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* --- Upgraded High-Visibility Card Typography (Fluid Sizes) --- */
+.vendor-name-title {
+    font-size: calc(1.25rem + 0.3vw); 
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    transition: color 0.3s ease;
+}
+
+.vendor-name-title.highlighted-coral,
+.vendor-display-card:hover .vendor-name-title {
+    color: var(--primary-color);
+}
+
+.vendor-schedule-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 18px;
+    background-color: #f8fafc;
+    padding: 10px 14px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.vendor-display-card:hover .vendor-schedule-row {
+    background-color: #fff5f2;
+}
+
+.schedule-days {
+    font-size: 0.9rem; 
+    font-weight: 700;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.schedule-hours {
+    font-size: 1rem; 
+    font-weight: 800;
+    color: #1a202c;
+    margin-top: 2px;
+}
+
+.vendor-description-text {
+    font-size: calc(0.95rem + 0.1vw); 
+    color: #000000;
+    line-height: 1.65;
+    max-width: 320px;
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+}
+
+.vendor-display-card:hover .vendor-description-text {
+    opacity: 1;
+}
+
+/* --- Responsive Breakpoints --- */
+@media (max-width: 991px) {
+    .vendors-grid-matrix {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    .vendors-main-title { font-size: 2rem; }
+}
+
+@media (max-width: 680px) {
+    .vendors-grid-matrix {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .vendors-main-title { font-size: 1.7rem; }
+    .vendors-subtitle { font-size: 0.9rem; }
+    .vendor-display-card { padding: 24px 20px; }
+    
+    /* Lock typography minimum boundaries safely on narrow windows */
+    .vendor-name-title { font-size: 1.35rem; }
+    .vendor-description-text { font-size: 1rem; line-height: 1.6; }
+    .schedule-days { font-size: 0.85rem; }
+    .schedule-hours { font-size: 0.95rem; }
+}
+
+</style>
+
+<script>
+    // --- Cafes & Restaurants Showcase Intersection Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    const vendorSectionZone = document.getElementById("vendors-trigger-zone");
+    const headingWordsList = document.querySelectorAll(".v-word");
+    const vendorMatrixCards = document.querySelectorAll(".scroll-stagger-item");
+
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.1, 
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const vendorSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Path Step A: Assemble Title text word-by-word
+                headingWordsList.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 100);
+                });
+
+                // Track Path Step B: Slide matrix cards upward one-by-one
+                vendorMatrixCards.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("card-revealed")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("card-revealed");
+                        }, index * 90); 
+                    }
+                });
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    if (vendorSectionZone) {
+        vendorSectionObserver.observe(vendorSectionZone);
+    }
+});
+
+</script>
+
+<!-- METRICS & TRUST COUNTER SECTION -->
+<section class="metrics-section" id="metrics-trigger-zone">
+    <div class="metrics-container">
+        
+        <!-- Scroll-Triggered Letter-by-Letter Hidden Section Header -->
+        <h2 class="metrics-hidden-heading" id="metrics-scroll-title">Our Growth in Numbers</h2>
+
+        <!-- 3-Column Metrics Grid Layout (Matches reference image structure) -->
+        <div class="metrics-row-grid">
+            
+            <!-- Metric Card 1: Happy Customers -->
+            <div class="metric-stat-card">
+                <div class="metric-number-wrapper">
+                    <!-- The value attribute passes absolute targeting metadata to the counter script -->
+                    <span class="count-value" data-target="10">0</span><span class="count-suffix">M+</span>
+                </div>
+                <p class="metric-label-text">Happy Customers</p>
+                <!-- Decorative background vector element aura -->
+                <div class="stat-card-glow"></div>
+            </div>
+
+            <!-- Metric Card 2: Restaurants Available -->
+            <div class="metric-stat-card">
+                <div class="metric-number-wrapper">
+                    <span class="count-value" data-target="500">0</span><span class="count-suffix">k+</span>
+                </div>
+                <p class="metric-label-text">Restaurants Available</p>
+                <div class="stat-card-glow"></div>
+            </div>
+
+            <!-- Metric Card 3: Successful Deliveries -->
+            <div class="metric-stat-card">
+                <div class="metric-number-wrapper">
+                    <span class="count-value" data-target="30">0</span><span class="count-suffix">M+</span>
+                </div>
+                <p class="metric-label-text">Successful Deliveries</p>
+                <div class="stat-card-glow"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Metrics Showcase Structural Grid Layout --- */
+.metrics-section {
+    /* Exact custom constraint compliance: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+
+.metrics-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* --- Letter-by-Letter Animated Heading Core --- */
+.metrics-hidden-heading {
+    font-size: calc(1.4rem + 0.4vw);
+    font-weight: 800;
+    color: #000000; /* Solid high-contrast black font headers */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 45px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Character level fragment slice configuration node styling */
+.metric-letter {
+    display: inline-block;
+    opacity: 0.1; /* Initial state baseline filter parameter prior to scroll action execution loops */
+    transform: scale(0.6) translateY(10px);
+    transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), 
+                transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+.metric-letter.letter-revealed {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* --- Clean 3-Column Parallel Horizontal Track Flex Layout Grid --- */
+.metrics-row-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    width: 100%;
+}
+
+.metric-stat-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    position: relative;
+    border: 1px solid #edf2f7;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                border-color 0.4s ease, 
+                box-shadow 0.4s ease;
+}
+
+/* --- Premium Interactive Hover Glow Aura Drop Shadow Projections --- */
+.metric-stat-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(230, 92, 64, 0.25); /* Subtle brand coral border highlight line */
+    /* Multi-layered soft personalized brand glow profile */
+    box-shadow: 0 20px 40px rgba(230, 92, 64, 0.06), 
+                0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+/* Internal Card Micro Ambient Glowing Node Backplate Ring */
+.stat-card-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    width: 150px;
+    height: 150px;
+    background-color: rgba(230, 92, 64, 0.08);
+    border-radius: 50%;
+    filter: blur(40px);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.metric-stat-card:hover .stat-card-glow {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* --- Typography and Metrics Counters Color Schemes --- */
+.metric-number-wrapper {
+    position: relative;
+    z-index: 2;
+    /* High visibility bold metrics counter fonts styling architecture */
+    font-size: calc(2.4rem + 0.8vw);
+    font-weight: 800;
+    color: #000000; /* Crisp solid high-contrast black number value blocks */
+    line-height: 1.1;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+}
+
+/* Red Plus Accent Color Mapping from your Uploaded Reference Mockup Asset Template */
+.count-suffix {
+    color: var(--primary-color); /* Premium brand coral tone maps to the plus markers */
+    margin-left: 2px;
+}
+
+.metric-label-text {
+    position: relative;
+    z-index: 2;
+    font-size: calc(0.95rem + 0.1vw);
+    font-weight: 600;
+    color: #718096; /* Soft neutral modern secondary text configuration */
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.metric-stat-card:hover .metric-label-text {
+    color: #000000; /* Shifts to max black density text clarity when item focus card highlights initialize */
+}
+
+/* --- Layout Responsiveness Breakpoints --- */
+@media (max-width: 991px) {
+    .metrics-row-grid {
+        gap: 25px;
+    }
+    .metrics-hidden-heading { font-size: 1.6rem; }
+}
+
+@media (max-width: 768px) {
+    .metrics-row-grid {
+        grid-template-columns: 1fr; /* Collapses horizontal metrics grid array row downstream into full stack list column streams */
+        gap: 20px;
+    }
+    .metric-stat-card {
+        padding: 25px 20px;
+    }
+}
+
+</style>
+
+<script>
+    // --- Metrics Counter Ticking Matrix & Letter Scroll Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Configuration
+    const metricsTriggerZone = document.getElementById("metrics-trigger-zone");
+    const headingTitleText = document.getElementById("metrics-scroll-title");
+    const numericCounterNodes = document.querySelectorAll(".count-value");
+
+    // 2. Fragment Slice Letter-by-Letter Initialization Setup
+    let letterSpanElements = [];
+    if (headingTitleText) {
+        const rawStringData = headingTitleText.textContent.trim();
+        headingTitleText.textContent = ""; // Clear baseline original text string
+
+        letterSpanElements = Array.from(rawStringData).map(char => {
+            const charSpan = document.createElement("span");
+            charSpan.classList.add("metric-letter");
+            charSpan.innerHTML = char === " " ? "&nbsp;" : char;
+            headingTitleText.appendChild(charSpan);
+            return charSpan;
+        });
+    }
+
+    // 3. Increment Ticking Counter Animation Performance Engine Logic
+    function executeCountUpAnimation(numericNode) {
+        const targetLimit = parseInt(numericNode.getAttribute("data-target"), 10);
+        const durationLength = 1500; // Counter sequence completes over exactly 1.5 seconds
+        const stepTimeInterval = Math.max(Math.floor(durationLength / targetLimit), 12);
+        
+        let activeCurrentValue = 0;
+        
+        // Calculate dynamic value step growth leaps for higher integers (e.g. 500k counter metrics nodes)
+        const incrementalStepLeap = targetLimit > 100 ? Math.ceil(targetLimit / 100) : 1;
+
+        const countingTimerLoop = setInterval(() => {
+            activeCurrentValue += incrementalStepLeap;
+            
+            if (activeCurrentValue >= targetLimit) {
+                numericNode.textContent = targetLimit; // Hard pin counter value precisely to targeted threshold
+                clearInterval(countingTimerLoop);
+            } else {
+                numericNode.textContent = activeCurrentValue;
+            }
+        }, stepTimeInterval);
+    }
+
+    // 4. Interaction Observer Configuration Performance Mapping
+    const observerControlOptions = {
+        root: null,
+        threshold: 0.15, // Activates when 15% of section boundary crosses layout borders
+        rootMargin: "0px 0px -40px 0px"
+    };
+
+    const metricsRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Step A: Reveal text letters string progressively character by character
+                letterSpanElements.forEach((spanNode, index) => {
+                    setTimeout(() => {
+                        spanNode.classList.add("letter-revealed");
+                    }, index * 40); // 40ms stagger interval loops
+                });
+
+                // Track Timeline Step B: Initialize number counting ticker sequences concurrently
+                numericCounterNodes.forEach(counterNode => {
+                    executeCountUpAnimation(counterNode);
+                });
+
+                // Disconnect metrics observer pipeline channel to protect processor clock cycles from running duplicate loops
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerControlOptions);
+
+    // 5. Bind Active Monitoring Target Context Channel
+    if (metricsTriggerZone) {
+        metricsRevealObserver.observe(metricsTriggerZone);
+    }
+});
+
+</script>
+
+<!-- APP DOWNLOAD & LIVE METRICS SECTION -->
+<section class="app-metrics-section" id="app-metrics-trigger">
+    <div class="app-metrics-container">
+        
+        <!-- Left Side: Word-by-word Title & Store Download Links -->
+        <div class="app-metrics-left">
+            <h2 class="app-download-title" id="download-scroll-title">
+                <span class="dl-word">Download</span>
+                <span class="dl-word">The</span>
+                <span class="dl-word accent-coral">Stackly</span>
+                <span class="dl-word">App</span>
+                <span class="dl-word">For</span>
+                <span class="dl-word">Faster</span>
+                <span class="dl-word">Ordering</span>
+            </h2>
+            
+            <p class="app-download-desc" id="download-para-slide">
+                Get real-time live map tracking, biometric quick checkout protocols, and exclusive local kitchen discount drops straight on your mobile interface.
+            </p>
+            
+            <!-- Store CTA Actions linking to 404 fallback page -->
+            <div class="store-links-row" id="download-btn-rise">
+                <a href="404.html" class="store-badge-action" title="Download on iOS App Store">
+                    <img src="https://placeholder.com" alt="App Store Badge">
+                </a>
+                <a href="404.html" class="store-badge-action" title="Download on Google Play Store">
+                    <img src="https://placeholder.com" alt="Google Play Badge">
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Side: Phone Imagery Overlay with Interactive Live Counters -->
+        <div class="app-metrics-right" id="download-media-slide">
+            <!-- Localized Soft Brand Glow Aura plate -->
+            <div class="media-glow-backdrop"></div>
+            
+            <div class="app-mockup-frame">
+                <img src="https://placeholder.com" alt="Stackly Mobile Interface" class="phone-mockup-img">
+            </div>
+
+            <!-- Floating Right Live Stats Overlay Counter Card -->
+            <div class="floating-metrics-card">
+                <div class="stat-counter-box">
+                    <span class="live-counter-number" data-target="98">0</span><span class="live-counter-suffix">%</span>
+                </div>
+                <p class="stat-counter-label">On-Time Deliveries</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- App & Metrics Split Layout Structural Base --- */
+.app-metrics-section {
+    /* Exact custom constraint matching layout dimensions: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #fafbfc;
+    overflow: hidden;
+    position: relative;
+}
+
+.app-metrics-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- Left Column Elements & Staggered Word Reveals --- */
+.app-metrics-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-download-title {
+    font-size: calc(1.8rem + 0.8vw);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #000000; /* Solid absolute black headings configuration */
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+
+.app-download-title .accent-coral {
+    color: var(--primary-color);
+}
+
+/* Word-by-word slide preset animation parameters mappings */
+.dl-word {
+    display: inline-block;
+    opacity: 0.15; /* Base dim layout configuration state prior to intersection hooks triggers */
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.dl-word.word-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.app-download-desc {
+    font-size: 1.05rem;
+    color: #000000; /* Solid absolute black reading paragraph texts body */
+    line-height: 1.65;
+    margin-bottom: 30px;
+    max-width: 520px;
+    opacity: 0;
+    transform: translateX(-50px); /* Slides smoothly out rightwards from left bounds boundary edges */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.app-download-desc.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Store CTA Buttons Row */
+.store-links-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    opacity: 0;
+    transform: translateY(25px); /* Rises upward out of container ground plane grids */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.store-links-row.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.store-badge-action {
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+    animation: downloadBtnFloat 4s ease-in-out infinite alternate;
+}
+
+.store-badge-action:nth-child(2) { animation-delay: 0.5s; }
+
+.store-badge-action:hover {
+    transform: translateY(-4px) scale(1.04) !important;
+    box-shadow: 0 12px 22px rgba(230, 92, 64, 0.2);
+}
+
+@keyframes downloadBtnFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+}
+
+.store-badge-action img {
+    height: 42px;
+    display: block;
+}
+
+/* --- Right Column Layout: Mockup Graphics & Counter Cards --- */
+.app-metrics-right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 480px;
+    opacity: 0;
+    transform: translateX(60px); /* Slides inward from the right margins bounds */
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.app-metrics-right.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Premium backplate localized neon ambient glowing loop shadow */
+.media-glow-backdrop {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    background-color: rgba(230, 92, 64, 0.1);
+    border-radius: 50%;
+    filter: blur(55px);
+    z-index: 1;
+}
+
+.app-mockup-frame {
+    position: relative;
+    z-index: 2;
+    max-width: 240px;
+    width: 100%;
+    border-radius: 32px;
+    border: 8px solid #1e293b; /* Sleek mock hardware device boundary lines */
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.app-metrics-right:hover .app-mockup-frame {
+    transform: translateY(-6px) scale(1.02) rotate(1deg);
+    box-shadow: 0 30px 65px rgba(230, 92, 64, 0.12);
+}
+
+.phone-mockup-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --- Floating High Focus Analytics Interactive Counter Card --- */
+.floating-metrics-card {
+    position: absolute;
+    bottom: 12%;
+    right: 4%;
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 18px 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    border: 1px solid #edf2f7;
+    z-index: 3;
+    max-width: 180px;
+    text-align: center;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.app-metrics-right:hover .floating-metrics-card {
+    transform: translateY(-4px) scale(1.04);
+    border-color: rgba(230, 92, 64, 0.2);
+    box-shadow: 0 20px 40px rgba(230, 92, 64, 0.08);
+}
+
+.live-counter-number {
+    font-size: calc(2rem + 0.4vw);
+    font-weight: 800;
+    color: #000000; /* Solid black number digits values configuration mapping */
+    line-height: 1;
+}
+
+.live-counter-suffix {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-left: 1px;
+}
+
+.stat-counter-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #718096;
+    margin-top: 6px;
+    line-height: 1.3;
+}
+
+/* --- Layout Responsiveness Adaptation Breakpoints --- */
+@media (max-width: 991px) {
+    .app-metrics-container { gap: 40px; }
+    .app-download-title { font-size: 2.1rem; }
+}
+
+@media (max-width: 768px) {
+    .app-metrics-container {
+        grid-template-columns: 1fr; /* Collapses horizontal columns array down into clean single layout track line streams */
+        text-align: center;
+        gap: 50px;
+    }
+    .app-download-title { justify-content: center; }
+    .app-download-desc {
+        margin-left: auto;
+        margin-right: auto;
+        transform: translateY(30px);
+    }
+    .app-download-desc.slide-active { transform: translateY(0); }
+    .store-links-row { justify-content: center; }
+    .app-metrics-right {
+        transform: translateY(30px);
+        order: -1; /* Pushes phone mockup above text indicators on mobile viewports for compact design flow balance */
+        height: 400px;
+    }
+    .app-metrics-right.slide-active { transform: translateY(0); }
+    .floating-metrics-card { bottom: 5%; right: 15%; }
+}
+
+@media (max-width: 480px) {
+    .app-download-title { font-size: 1.75rem; }
+    .store-links-row { flex-direction: column; align-items: center; }
+    .store-badge-action { width: 100%; max-width: 200px; }
+    .store-badge-action img { width: 100%; height: auto; }
+    .floating-metrics-card { position: relative; bottom: auto; right: auto; margin-top: 20px; width: 100%; max-width: 240px; }
+}
+
+</style>
+
+<script>
+    // --- App Download Split Row Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Map
+    const sectionContainer = document.getElementById("app-metrics-trigger");
+    const headingWords = document.querySelectorAll(".dl-word");
+    const textParagraph = document.getElementById("download-para-slide");
+    const actionsButtonsGroup = document.getElementById("download-btn-rise");
+    const mediaGraphicsColumn = document.getElementById("download-media-slide");
+    const liveCounterNode = document.querySelector(".live-counter-number");
+
+    // 2. Count-Up Logic Performance Engine Loop
+    function triggerCountUpAnimation(nodeElement) {
+        const valueLimit = parseInt(nodeElement.getAttribute("data-target"), 10);
+        const durationCycle = 1500; // Sequence updates finish continuously over exactly 1.5 seconds
+        const pacingInterval = Math.max(Math.floor(durationCycle / valueLimit), 15);
+        
+        let initialStep = 0;
+        const countingTimer = setInterval(() => {
+            initialStep += 1;
+            if (initialStep >= valueLimit) {
+                nodeElement.textContent = valueLimit;
+                clearInterval(countingTimer);
+            } else {
+                nodeElement.textContent = initialStep;
+            }
+        }, pacingInterval);
+    }
+
+    // 3. Intersection Parameters Setup Coordinates
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.15, // Fires layout changes when 15% of section boundary crosses tracking windows lines
+        rootMargin: "0px 0px -40px 0px"
+    };
+
+    // 4. Timeline Orchestration Loop Executions
+    const appMetricsSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Path Step A: Assemble Title phrase layout word-by-word sequentially
+                headingWords.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 90); // 90ms stagger velocity
+                });
+
+                // Path Step B: Slide paragraph narrative copy inward smoothly
+                if (textParagraph) {
+                    textParagraph.classList.add("slide-active");
+                }
+
+                // Path Step C: Rise store download link badges upward from bottom bounds canvas plane
+                if (actionsButtonsGroup) {
+                    setTimeout(() => {
+                        actionsButtonsGroup.classList.add("rise-active");
+                    }, 350);
+                }
+
+                // Path Step D: Slide right graphic mockup hardware frame system inward smoothly
+                if (mediaGraphicsColumn) {
+                    mediaGraphicsColumn.classList.add("slide-active");
+                }
+
+                // Path Step E: Fire automatic count up performance sequence on number digit wrapper node
+                if (liveCounterNode) {
+                    setTimeout(() => {
+                        triggerCountUpAnimation(liveCounterNode);
+                    }, 400); // Waits for image slide completion vectors to match parameters layouts
+                }
+
+                // Terminate target observer listener safely to secure processor cycles footprint
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    if (sectionContainer) {
+        appMetricsSectionObserver.observe(sectionContainer);
+    }
+});
+
+</script>
+</body>
+</html>
