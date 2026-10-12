@@ -1,0 +1,2454 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly - Food Delivery</title>
+    <!-- FontAwesome for background food icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- PRELOADER PAGE -->
+    <div id="preloader">
+        <!-- Floating Decorative Vectors -->
+        <i class="fa-solid fa-burger bg-icon"></i>
+        <i class="fa-solid fa-pizza-slice bg-icon"></i>
+        <i class="fa-solid fa-drumstick-bite bg-icon"></i>
+        <i class="fa-solid fa-ice-cream bg-icon"></i>
+        <i class="fa-solid fa-donut bg-icon"></i>
+        <i class="fa-solid fa-hotdog bg-icon"></i>
+
+        <div class="loader-content">
+            <!-- Animated Scooter Vector -->
+            <div class="scooter-wrapper">
+                <div class="speed-lines"></div>
+                <svg class="scooter-svg" viewBox="0 0 24 24">
+                    <path d="M19 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m-9-2c0-.55-.45-1-1-1H8v2h1c.55 0 1-.45 1-1m-4 2c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m13.5-11H15v2h3.5c.28 0 .5.22.5.5v1.65l-2.08 4.16C16.58 9.53 16.1 9 15.5 9H11V7h1V5h-2v2h1v2H7.26c-.42-1.16-1.52-2-2.81-2-1.38 0-2.57.93-2.92 2.22L1 9.34V11h2.09c.35 1.29 1.54 2.22 2.92 2.22.84 0 1.6-.35 2.15-.92H11v1.42c-.6.47-1.08 1.12-1.35 1.88-1.27-.3-2.45-.6-3.65-.9l-.5 1.94c1.2.3 2.38.6 3.65.9C9.4 17.47 10.1 18 11 18h4.5c1.66 0 3-1.34 3-3v-1.78l2.67-5.34c.53-1.07-.25-2.38-1.45-2.38-.07 0-.15 0-.22.03V5.5c0-1.38-1.12-2.5-2.5-2.5z"/>
+                </svg>
+            </div>
+
+            <!-- Brand Info -->
+            <h1 class="brand-name">Stackly</h1>
+            <p class="tagline">Deliciousness delivered instantly</p>
+
+            <!-- Custom 2-second Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const progressBar = document.getElementById("progress");
+    const preloader = document.getElementById("preloader");
+
+    // Start the progress bar animation immediately on DOM load
+    setTimeout(() => {
+        progressBar.style.width = "100%";
+    }, 50);
+
+    // Hide the preloader completely after exactly 2 seconds (2000 milliseconds)
+    setTimeout(() => {
+        preloader.classList.add("hide-preloader");
+        document.body.style.overflow = "auto"; // Re-enable body scrolling
+    }, 2000);
+});
+
+</script>
+
+<header class="main-header">
+        <div class="header-container">
+            <!-- Brand Logo (Refreshes Page) -->
+            <a href="index.html" class="logo-container" onclick="window.location.reload();">
+                <img src="https://placeholder.com" alt="Stackly Logo" class="brand-logo">
+            </a>
+
+            <!-- Desktop Navigation Menus (Centered) -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link ">Home</a>
+                <a href="restaurants.html" class="nav-link active">Restaurants</a>
+                <a href="offers.html" class="nav-link">Offers</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Right Side Actions (Auth, Cart, Hamburger Trigger) -->
+            <div class="header-actions">
+                <button class="btn-auth">Sign In</button>
+                
+                <!-- Fixed Cart Icon using Inline SVG Vector -->
+                <a href="404.html" class="cart-icon-btn" title="View Cart">
+                    <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-badge">0</span>
+                </a>
+
+                <!-- Mobile Hamburger Trigger using Inline SVG Vector -->
+                <button class="hamburger-btn" id="hamburger-trigger" aria-label="Open Menu">
+                    <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer Overlay -->
+    <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+
+    <!-- Mobile Navigation Side Drawer (75% width) -->
+    <aside class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-header">
+            <span class="drawer-brand">Stackly</span>
+            <!-- Close Drawer Button using Inline SVG Vector -->
+            <button class="close-drawer-btn" id="close-drawer" aria-label="Close Menu">
+                <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+     <nav class="mobile-nav-menu">
+            <a href="index.html" class="mobile-nav-link active">Home</a>
+            <a href="restaurants.html" class="mobile-nav-link">Restaurants</a>
+            <a href="offers.html" class="mobile-nav-link">Offers</a>
+            <a href="orders.html" class="mobile-nav-link">Orders</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="drawer-footer">
+            <button class="btn-auth-mobile">Sign In</button>
+        </div>
+    </aside>
+
+  
+
+  
+
+
+
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerTrigger = document.getElementById("hamburger-trigger");
+    const closeDrawerBtn = document.getElementById("close-drawer");
+    const mobileOverlay = document.getElementById("mobile-overlay");
+    const mobileDrawer = document.getElementById("mobile-drawer");
+    const bodyElement = document.body;
+
+    // Open Drawer Menu and Activate Scroll Lock
+    function openMobileMenu() {
+        mobileDrawer.classList.add("active");
+        mobileOverlay.classList.add("active");
+        bodyElement.classList.add("no-scroll");
+    }
+
+    // Close Drawer Menu and Restore Page Scrolling
+    function closeMobileMenu() {
+        mobileDrawer.classList.remove("active");
+        mobileOverlay.classList.remove("active");
+        bodyElement.classList.remove("no-scroll");
+    }
+
+    // Event Bindings
+    if (hamburgerTrigger) {
+        hamburgerTrigger.addEventListener("click", openMobileMenu);
+    }
+
+    if (closeDrawerBtn) {
+        closeDrawerBtn.addEventListener("click", closeMobileMenu);
+    }
+
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener("click", closeMobileMenu);
+    }
+});
+
+
+</script>
+
+<!-- RESTAURANTS DIRECTORY HERO BANNER -->
+<section class="rest-hero-section" id="rest-hero-trigger">
+    <!-- Subdued grid line art backdrop asset -->
+    <div class="rest-hero-grid-bg"></div>
+
+    <div class="rest-hero-container">
+        
+        <!-- Left Column: Search & Text Content Stack -->
+        <div class="rest-hero-left">
+            <h1 class="rest-hero-title" id="rest-scroll-title">
+                <span class="rest-word">Discover</span>
+                <span class="rest-word">The</span>
+                <span class="rest-word accent-brand">Finest Cuisines</span>
+                <span class="rest-word">Near</span>
+                <span class="rest-word">Your</span>
+                <span class="rest-word">Door</span>
+            </h1>
+            
+            <p class="rest-hero-description" id="rest-para-slide">
+                Browse through premium neighborhood kitchens, gourmet bakeries, and five-star culinary institutions. Filter your mood, track your delivery live, and eat elite.
+            </p>
+            
+            <!-- Food Category Tag Pills (Floating Style with Hovers) -->
+            <div class="rest-floating-filters" id="rest-filters-rise">
+                <a href="404.html" class="filter-pill-tag">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <span>Healthy Organic</span>
+                </a>
+                <a href="404.html" class="filter-pill-tag">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg>
+                    <span>Trending Hubs</span>
+                </a>
+                <a href="404.html" class="filter-pill-tag">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 3 19 21 5 21"></polygon><path d="M9 7h6M9 11h6M9 15h6"></path></svg>
+                    <span>Top Discounts</span>
+                </a>
+            </div>
+
+            <!-- Primary Actions Group -->
+            <div class="rest-hero-cta-group" id="rest-btn-rise">
+                <a href="404.html" class="btn-rest-primary">Explore All Kitchens</a>
+                <a href="404.html" class="btn-rest-secondary">View Daily Deals</a>
+            </div>
+        </div>
+
+        <!-- Right Column: Overlapping Food Framing Composition & Live Badges -->
+        <div class="rest-hero-right" id="rest-media-slide">
+            <!-- Central localized glowing aura backdrop disk -->
+            <div class="rest-media-glow-disk"></div>
+            
+            <!-- Main visual plate rising from bottom limits -->
+            <div class="rest-main-image-frame">
+                <img src="https://placeholder.com" alt="Featured Gourmet Dish" class="rest-hero-main-img">
+            </div>
+
+            <!-- Floating Trust Badges (Autonomous Hover Loop Sequence) -->
+            <div class="rest-float-badge badge-stars">
+                <div class="badge-icon-circle gold-tint">★</div>
+                <div class="badge-text-stack">
+                    <strong>4.9 Rating</strong>
+                    <span>50k+ Reviews</span>
+                </div>
+            </div>
+
+            <div class="rest-float-badge badge-speed">
+                <div class="badge-icon-circle blue-tint">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                </div>
+                <div class="badge-text-stack">
+                    <strong>Super Fast</strong>
+                    <span>Instant Drop-off</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Restaurants Directory Hero Base Layout --- */
+.rest-hero-section {
+    padding: 80px 20px;
+    background-color: #fafbfc;
+    overflow: hidden;
+    position: relative;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+}
+
+/* Linear geometric fine structural network blueprint underlay */
+.rest-hero-grid-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(230, 92, 64, 0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(230, 92, 64, 0.02) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.rest-hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 50px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- Left Side Content Configurations & Word Revelations --- */
+.rest-hero-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.rest-hero-title {
+    font-size: calc(2rem + 1.2vw);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #000000; /* Crisp high-contrast black typography */
+    margin-bottom: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+}
+
+.rest-hero-title .accent-brand {
+    color: var(--primary-color, #e65c40);
+}
+
+/* Scroll Word-by-Word Animation Hooks Initial Parameters */
+.rest-word {
+    display: inline-block;
+    opacity: 0.15;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.rest-word.word-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.rest-hero-description {
+    font-size: 1.1rem;
+    color: #000000; /* Solid high-contrast black paragraph typography blocks */
+    line-height: 1.7;
+    margin-bottom: 30px;
+    max-width: 550px;
+    opacity: 0;
+    transform: translateX(-60px); /* Slides smoothly inward out from left viewport margin boundaries */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rest-hero-description.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Content Panel Hover Text Glow Configurations */
+.rest-hero-left:hover .rest-hero-title {
+    text-shadow: 0 0 20px rgba(230, 92, 64, 0.1);
+}
+
+/* Floating Filter Tag Pills Row */
+.rest-floating-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rest-floating-filters.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.filter-pill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #000000;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.filter-pill-tag svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--primary-color, #e65c40);
+}
+
+.filter-pill-tag:hover {
+    border-color: rgba(230, 92, 64, 0.25);
+    box-shadow: 0 8px 16px rgba(230, 92, 64, 0.06);
+    transform: translateY(-3px);
+    color: var(--primary-color, #e65c40);
+}
+
+/* Call to Action Buttons Group Setup */
+.rest-hero-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rest-hero-cta-group.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-rest-primary {
+    background-color: #1e293b; /* Premium high contrast deep blue-black */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 10px 20px rgba(30, 41, 59, 0.12);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-rest-primary:hover {
+    background-color: var(--primary-color, #e65c40);
+    box-shadow: 0 12px 24px rgba(230, 92, 64, 0.25);
+    transform: translateY(-3px);
+}
+
+.btn-rest-secondary {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-rest-secondary:hover {
+    border-color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+}
+
+/* --- Right Side Graphics Stack & Linear Rise Entries --- */
+.rest-hero-right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 480px;
+    /* Bottom-up upwards scaling configuration initialization settings */
+    opacity: 0;
+    transform: translateY(80px); 
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rest-hero-right.slide-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.rest-media-glow-disk {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    background-color: rgba(230, 92, 64, 0.08); /* Localized brand ambient aura disc */
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: 1;
+}
+
+.rest-main-image-frame {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 440px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Autonomous high-performance floating loop sequence execution */
+    animation: masterPlatterFloat 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes masterPlatterFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-14px) rotate(2deg); }
+}
+
+.rest-hero-right:hover .rest-main-image-frame {
+    transform: scale(1.03) translateY(-4px);
+}
+
+.rest-hero-main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* --- Creative Trust Overlay Badge Cards --- */
+.rest-float-badge {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #edf2f7;
+    z-index: 3;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+.rest-float-badge:hover {
+    transform: scale(1.08) translateY(-4px) !important;
+    border-color: rgba(230, 92, 64, 0.2);
+    box-shadow: 0 15px 30px rgba(230, 92, 64, 0.1);
+    cursor: default;
+}
+
+.badge-icon-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+.gold-tint { background-color: #fffbeb; color: #d97706; font-size: 1.1rem; }
+.blue-tint { background-color: #eff6ff; color: #2563eb; }
+.blue-tint svg { width: 16px; height: 16px; stroke: currentColor; }
+
+.badge-text-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.badge-text-stack strong { font-size: 0.85rem; color: #000000; }
+.badge-text-stack span { font-size: 0.75rem; color: #718096; font-weight: 500; }
+
+/* Dynamic asynchronous counter loops vectors mapping */
+.badge-stars { top: 18%; left: -5%; animation: badgeFloatOne 4s ease-in-out infinite alternate; }
+.badge-speed { bottom: 15%; right: -5%; animation: badgeFloatTwo 4.5s ease-in-out infinite alternate 0.3s; }
+
+@keyframes badgeFloatOne { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+@keyframes badgeFloatTwo { 0% { transform: translateY(0); } 100% { transform: translateY(10px); } }
+
+/* --- Cross-Device Responsiveness Breakpoints --- */
+@media (max-width: 1024px) {
+    .rest-hero-container { gap: 30px; }
+    .badge-stars { left: 0; }
+    .badge-speed { right: 0; }
+}
+
+@media (max-width: 768px) {
+    .rest-hero-container {
+        grid-template-columns: 1fr; /* Drop structural dual column layout down single stream columns row track */
+        text-align: center;
+        gap: 50px;
+    }
+    .rest-hero-title { justify-content: center; }
+    .rest-hero-description { margin-left: auto; margin-right: auto; }
+    .rest-floating-filters { justify-content: center; }
+    .rest-hero-cta-group { justify-content: center; }
+    
+    .rest-hero-right {
+        order: -1; /* Elevates visual food platter above description copies on compact views for layout balance */
+        height: 380px;
+        transform: translateY(40px); /* Synchronizes mobile coordinate shifts smoothly */
+    }
+    .rest-hero-right.slide-active { transform: translateY(0); }
+    .rest-main-image-frame { max-width: 320px; }
+    .rest-media-glow-disk { width: 260px; height: 260px; }
+}
+
+@media (max-width: 480px) {
+    .rest-floating-filters { flex-direction: column; align-items: stretch; gap: 8px; }
+    .filter-pill-tag { width: 100%; justify-content: center; }
+    .rest-hero-cta-group { flex-direction: column; align-items: stretch; gap: 12px; }
+    .btn-rest-primary, .btn-rest-secondary { width: 100%; text-align: center; }
+    .rest-float-badge { display: none; } /* Drop overlay absolute panels on tight mobile views to eliminate framing collisions */
+}
+
+</style>
+
+<script>
+    /**
+ * STACKLY FOOD DELIVERY WEBSITE
+ * Isolated Operations Script: Restaurants Directory Hero Section
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Target Selector Handles Configuration Elements Space
+    const heroSectionZone = document.getElementById("rest-hero-trigger");
+    const headingWordsList = document.querySelectorAll(".rest-word");
+    const subParagraphDesc = document.getElementById("rest-para-slide");
+    const filterPillsRow = document.getElementById("rest-filters-rise");
+    const primaryCtaGroup = document.getElementById("rest-btn-rise");
+    const rightMediaColumn = document.getElementById("rest-media-slide");
+
+    // 2. Intersection Evaluation Control Observer Options
+    const restHeroObserverOptions = {
+        root: null,
+        threshold: 0.1, // Fires script loops once 10% of element boundary crosses tracking frames lines
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    // 3. Sequential Timeline Orchestration Matrix Loop
+    const restHeroRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Path Step A: Assemble Title text word-by-word progressively
+                headingWordsList.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 95); // 95ms crisp layout text staggers
+                });
+
+                // Track Path Step B: Slide description copy block elements inward from left margins
+                if (subParagraphDesc) {
+                    subParagraphDesc.classList.add("slide-active");
+                }
+
+                // Track Path Step C: Slide & scale right visual graphics column upward from bottom boundaries limits
+                if (rightMediaColumn) {
+                    rightMediaColumn.classList.add("slide-active");
+                }
+
+                // Track Path Step D: Raise floating filter tags layer upward gracefully from ground line planes
+                if (filterPillsRow) {
+                    setTimeout(() => {
+                        filterPillsRow.classList.add("rise-active");
+                    }, 300);
+                }
+
+                // Track Path Step E: Raise primary action CTA buttons group upward concurrently
+                if (primaryCtaGroup) {
+                    setTimeout(() => {
+                        primaryCtaGroup.classList.add("rise-active");
+                    }, 400);
+                }
+
+                // Terminate target observer listener safely to secure footprint processor clock speeds
+                observer.unobserve(entry.target);
+            }
+        });
+    }, restHeroObserverOptions);
+
+    // 4. Bind Active Monitoring Target Channel Context
+    if (heroSectionZone) {
+        restHeroRevealObserver.observe(heroSectionZone);
+    }
+});
+
+</script>
+
+<!-- FEATURED RESTAURANTS DIRECTORY CATALOG -->
+<section class="rest-grid-section" id="rest-grid-trigger-zone">
+    <div class="rest-grid-container">
+        
+        <!-- Scroll-Triggered Word-by-Word Header Block -->
+        <div class="rest-grid-header-row">
+            <h2 class="rest-grid-main-title" id="rest-grid-scroll-title">
+                <span class="rg-word">Explore</span>
+                <span class="rg-word">Top</span>
+                <span class="rg-brand accent-brand">Rated</span>
+                <span class="rg-word">Kitchens</span>
+            </h2>
+            <p class="rest-grid-subtitle">Order from certified culinary spaces and five-star community favorites near you.</p>
+        </div>
+
+        <!-- 3-Column Directory Grid -->
+        <div class="rest-directory-grid">
+            
+            <!-- Restaurant Card 1 -->
+            <div class="restaurant-profile-card scroll-cascade-item">
+                <div class="rest-card-banner">
+                    <img src="https://placeholder.com" alt="Burger Craft Co" class="rest-banner-img">
+                    <span class="rest-badge-tag badge-promo">Free Delivery</span>
+                    <div class="rest-badge-time">25-35 min</div>
+                </div>
+                <div class="rest-card-body-stack">
+                    <div class="rest-title-meta-row">
+                        <h3 class="rest-brand-name">Burger Craft Co.</h3>
+                        <span class="rest-rating-pill">★ 4.9</span>
+                    </div>
+                    <p class="rest-cuisine-tags">Burgers • American • Gourmet Fast Food</p>
+                    <div class="rest-price-location-floor">
+                        <span class="rest-price-indicator">Avg. $12 • Min. Order $10</span>
+                        <a href="404.html" class="rest-action-circle-btn" title="View Full Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Card 2 -->
+            <div class="restaurant-profile-card scroll-cascade-item">
+                <div class="rest-card-banner">
+                    <img src="https://placeholder.com" alt="La Piazza" class="rest-banner-img">
+                    <span class="rest-badge-tag badge-discount">20% OFF</span>
+                    <div class="rest-badge-time">30-40 min</div>
+                </div>
+                <div class="rest-card-body-stack">
+                    <div class="rest-title-meta-row">
+                        <h3 class="rest-brand-name">La Piazza Napoletana</h3>
+                        <span class="rest-rating-pill">★ 4.8</span>
+                    </div>
+                    <p class="rest-cuisine-tags">Pizza • Italian • Wood-fired Delicacies</p>
+                    <div class="rest-price-location-floor">
+                        <span class="rest-price-indicator">Avg. $18 • Min. Order $15</span>
+                        <a href="404.html" class="rest-action-circle-btn" title="View Full Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Card 3 -->
+            <div class="restaurant-profile-card scroll-cascade-item">
+                <div class="rest-card-banner">
+                    <img src="https://placeholder.com" alt="The Sushi Room" class="rest-banner-img">
+                    <span class="rest-badge-tag badge-trending">Trending</span>
+                    <div class="rest-badge-time">20-30 min</div>
+                </div>
+                <div class="rest-card-body-stack">
+                    <div class="rest-title-meta-row">
+                        <h3 class="rest-brand-name">The Sushi Room</h3>
+                        <span class="rest-rating-pill">★ 4.9</span>
+                    </div>
+                    <p class="rest-cuisine-tags">Sushi • Japanese • Seafood Gourmet</p>
+                    <div class="rest-price-location-floor">
+                        <span class="rest-price-indicator">Avg. $28 • Min. Order $25</span>
+                        <a href="404.html" class="rest-action-circle-btn" title="View Full Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Card 4 -->
+            <div class="restaurant-profile-card scroll-cascade-item">
+                <div class="rest-card-banner">
+                    <img src="https://placeholder.com" alt="Green Bistro" class="rest-banner-img">
+                    <span class="rest-badge-tag badge-promo">Free Delivery</span>
+                    <div class="rest-badge-time">15-25 min</div>
+                </div>
+                <div class="rest-card-body-stack">
+                    <div class="rest-title-meta-row">
+                        <h3 class="rest-brand-name">Green Bistro Salads</h3>
+                        <span class="rest-rating-pill">★ 4.7</span>
+                    </div>
+                    <p class="rest-cuisine-tags">Healthy • Vegetarian • Organic Bowls</p>
+                    <div class="rest-price-location-floor">
+                        <span class="rest-price-indicator">Avg. $9 • Min. Order $8</span>
+                        <a href="404.html" class="rest-action-circle-btn" title="View Full Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Card 5 -->
+            <div class="restaurant-profile-card scroll-cascade-item">
+                <div class="rest-card-banner">
+                    <img src="https://placeholder.com" alt="Wok and Roll" class="rest-banner-img">
+                    <span class="rest-badge-tag badge-discount">10% OFF</span>
+                    <div class="rest-badge-time">25-35 min</div>
+                </div>
+                <div class="rest-card-body-stack">
+                    <div class="rest-title-meta-row">
+                        <h3 class="rest-brand-name">Wok &amp; Roll Cantone</h3>
+                        <span class="rest-rating-pill">★ 4.6</span>
+                    </div>
+                    <p class="rest-cuisine-tags">Asian • Chinese • Stir-Fry Street</p>
+                    <div class="rest-price-location-floor">
+                        <span class="rest-price-indicator">Avg. $14 • Min. Order $12</span>
+                        <a href="404.html" class="rest-action-circle-btn" title="View Full Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Card 6 -->
+            <div class="restaurant-profile-card scroll-cascade-item">
+                <div class="rest-card-banner">
+                    <img src="https://placeholder.com" alt="The Velvet Patisserie" class="rest-banner-img">
+                    <span class="rest-badge-tag badge-trending">Trending</span>
+                    <div class="rest-badge-time">20-30 min</div>
+                </div>
+                <div class="rest-card-body-stack">
+                    <div class="rest-title-meta-row">
+                        <h3 class="rest-brand-name">The Velvet Patisserie</h3>
+                        <span class="rest-rating-pill">★ 4.9</span>
+                    </div>
+                    <p class="rest-cuisine-tags">Desserts • French Macarons • Cakes</p>
+                    <div class="rest-price-location-floor">
+                        <span class="rest-price-indicator">Avg. $16 • Min. Order $15</span>
+                        <a href="404.html" class="rest-action-circle-btn" title="View Full Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Global Variables --- */
+:root {
+    --primary-color: #e65c40; /* Stackly Signature Brand Coral */
+}
+
+/* --- Restaurant Catalog Grid Layout Structural Base --- */
+.rest-grid-section {
+    /* Fixed precise top and bottom layout spacing rules */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.rest-grid-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.rest-grid-header-row {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+/* Scroll Word-by-Word Title Configuration */
+.rest-grid-main-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #000000; /* Solid high-contrast black heading text */
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+
+.rest-grid-main-title .accent-brand {
+    color: var(--primary-color);
+}
+
+.rg-word {
+    display: inline-block;
+    opacity: 0.15; /* Dim baseline state before observer visibility triggers reveal */
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.rg-word.word-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.rest-grid-subtitle {
+    font-size: 1.05rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* --- Reusable 3-Column Catalog Grid System --- */
+.rest-directory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px 30px;
+    width: 100%;
+}
+
+/* --- Restaurant Profile Cards & Interactive Glowing Aura --- */
+.restaurant-profile-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #edf2f7;
+    display: flex;
+    flex-direction: column;
+    /* Scroll presentation variables settings */
+    opacity: 0;
+    transform: translateY(50px); /* Cascades upward on loop entry transitions */
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.restaurant-profile-card.card-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modern Card Lift and Soft Localized Glow Shadow Projections */
+.restaurant-profile-card:hover {
+    border-color: rgba(230, 92, 64, 0.2);
+    box-shadow: 0 25px 45px rgba(230, 92, 64, 0.05),
+                0 4px 12px rgba(0, 0, 0, 0.01);
+    transform: translateY(-6px);
+}
+
+/* Card Banner Presentation Aspect Layout */
+.rest-card-banner {
+    position: relative;
+    width: 100%;
+    padding-top: 52%; /* Consistent aspect mapping for cross-device alignment */
+    background-color: #f7f9fc;
+    overflow: hidden;
+}
+
+.rest-banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.restaurant-profile-card:hover .rest-banner-img {
+    transform: scale(1.04);
+}
+
+/* Overlay Action Badges */
+.rest-badge-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.badge-promo { background-color: #22c55e; } 
+.badge-discount { background-color: var(--primary-color); } 
+.badge-trending { background-color: #3b82f6; } 
+
+.rest-badge-time {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    z-index: 2;
+}
+
+/* --- Card Content Core Stack Details --- */
+.rest-card-body-stack {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.rest-title-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.rest-brand-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #000000;
+    letter-spacing: -0.3px;
+}
+
+.rest-rating-pill {
+    background-color: #fffbeb;
+    color: #d97706;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.rest-cuisine-tags {
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.rest-price-location-floor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 14px;
+    margin-top: auto;
+}
+
+.rest-price-indicator {
+    font-size: 0.9rem;
+    font-weight: 700; /* Made slightly heavier for high-visibility rate scanning */
+    color: #1a202c; /* Hard contrast black-grey tone */
+    letter-spacing: -0.1px;
+}
+
+.rest-action-circle-btn {
+    width: 34px;
+    height: 34px;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.rest-action-circle-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.restaurant-profile-card:hover .rest-action-circle-btn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transform: scale(1.08);
+}
+
+/* --- Catalog Grid Responsiveness Breakpoints --- */
+@media (max-width: 991px) {
+    .rest-directory-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+@media (max-width: 680px) {
+    .rest-directory-grid {
+        grid-template-columns: 1fr; /* Switch multi-column tracks directly into single layout streams */
+        gap: 20px;
+    }
+    .rest-grid-main-title { font-size: 1.7rem; }
+    .rest-grid-subtitle { font-size: 0.95rem; }
+    .rest-card-body-stack { padding: 18px 20px; }
+}
+
+</style>
+
+<script>
+    // --- Restaurants Directory Catalog Intersection Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    const gridTriggerZone = document.getElementById("rest-grid-trigger-zone");
+    const headingWordsList = document.querySelectorAll(".rg-word");
+    const catalogStaggerCards = document.querySelectorAll(".scroll-cascade-item");
+
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.08, 
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const catalogGridObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Path Step A: Assemble Title text word-by-word
+                headingWordsList.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 100);
+                });
+
+                // Track Path Step B: Slide restaurant cards upward one-by-one sequentially
+                catalogStaggerCards.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("card-revealed")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("card-revealed");
+                        }, index * 90); 
+                    }
+                });
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    if (gridTriggerZone) {
+        catalogGridObserver.observe(gridTriggerZone);
+    }
+});
+
+</script>
+
+<!-- RESTAURANTS SPECIAL PROMOTIONS GRID -->
+<section class="rest-promo-section" id="promo-cascade-trigger">
+    <div class="rest-promo-container">
+        
+        <!-- Promo Card 1: Main Large Special Deal -->
+        <div class="promo-masonry-card large-card cascade-item">
+            <div class="promo-card-glow-overlay"></div>
+            <!-- Background Image Layer -->
+            <img src="https://placeholder.com" alt="Special Deal Combo" class="promo-bg-img">
+            
+            <div class="promo-card-content">
+                <span class="promo-tag">Limited Time Offer</span>
+                <h3 class="promo-title">Weekend Family Feasts</h3>
+                <p class="promo-subtitle">Enjoy up to 35% OFF on premium multi-cuisine platters from verified master kitchens.</p>
+                <div class="promo-action-floor">
+                    <a href="404.html" class="btn-promo-action">
+                        <span>Claim Offer</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Promo Card 2: Side Split Deal 1 -->
+        <div class="promo-masonry-card split-card cascade-item">
+            <div class="promo-card-glow-overlay"></div>
+            <img src="https://placeholder.com" alt="Healthy Discounts" class="promo-bg-img">
+            
+            <div class="promo-card-content">
+                <span class="promo-tag tag-green">Healthy Selection</span>
+                <h3 class="promo-title">Green Bistro Passes</h3>
+                <p class="promo-subtitle">Get free delivery on all organic salad bowls and calorie-conscious macro matrices this week.</p>
+                <div class="promo-action-floor">
+                    <a href="404.html" class="btn-promo-action">
+                        <span>Order Clean</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Promo Card 3: Side Split Deal 2 -->
+        <div class="promo-masonry-card split-card cascade-item">
+            <div class="promo-card-glow-overlay"></div>
+            <img src="https://placeholder.com" alt="Dessert Treats" class="promo-bg-img">
+            
+            <div class="promo-card-content">
+                <span class="promo-tag tag-blue">Trending Sweets</span>
+                <h3 class="promo-title">Midnight Dessert Drops</h3>
+                <p class="promo-subtitle">Buy 1 Get 1 Free on all tiered French patisseries and artisan gelatos past 9 PM.</p>
+                <div class="promo-action-floor">
+                    <a href="404.html" class="btn-promo-action">
+                        <span>Unlock Sweet</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Restaurants Promotions Framework --- */
+.rest-promo-section {
+    /* Exact requested padding balance: 50px top, 30px bottom */
+    padding: 50px 20px 30px 20px;
+    background-color: #fafbfc;
+    overflow: hidden;
+}
+
+.rest-promo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: repeat(2, 220px);
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- Masonry Cards Mechanics --- */
+.promo-masonry-card {
+    background-color: #1e293b;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 35px;
+    border: 1px solid #edf2f7;
+    
+    /* Scroll presentation initial attributes for one-by-one rendering */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.promo-masonry-card.large-card {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3; /* Spans full height of the container row block grid */
+}
+
+/* One-by-One Fade Visual Activation Hook */
+.promo-masonry-card.item-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Card Background Image Layers & Interactive Zooms --- */
+.promo-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.45; /* Darkened image baseline visibility score to secure text reading safety */
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.promo-masonry-card:hover .promo-bg-img {
+    transform: scale(1.04) rotate(0.5deg);
+    opacity: 0.55;
+}
+
+/* --- High Performance Content Localized Coral Glows --- */
+.promo-card-glow-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.15) 0%, transparent 70%);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.promo-masonry-card:hover {
+    border-color: rgba(230, 92, 64, 0.3);
+    box-shadow: 0 25px 50px rgba(230, 92, 64, 0.08);
+}
+
+.promo-masonry-card:hover .promo-card-glow-overlay {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* --- Card Typography Details --- */
+.promo-card-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.promo-tag {
+    background-color: var(--primary-color, #e65c40);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+}
+
+.promo-tag.tag-green { background-color: #22c55e; }
+.promo-tag.tag-blue { background-color: #3b82f6; }
+
+.promo-title {
+    font-size: calc(1.3rem + 0.4vw);
+    font-weight: 800;
+    color: #ffffff; /* Brilliant white headings over darkened media backplates */
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.promo-subtitle {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85); /* Highly readable softened white descriptive copy */
+    line-height: 1.5;
+    margin-bottom: 22px;
+    max-width: 440px;
+}
+
+/* Interactive Action Links Inside Cards */
+.btn-promo-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.btn-promo-action::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff;
+    transform: scaleX(0.3);
+    transform-origin: left;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.promo-masonry-card:hover .btn-promo-action::after {
+    transform: scaleX(1);
+    background-color: var(--primary-color, #e65c40);
+}
+
+.promo-masonry-card:hover .btn-promo-action {
+    color: var(--primary-color, #e65c40);
+}
+
+.btn-promo-action svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    transition: transform 0.2s ease;
+}
+
+.promo-masonry-card:hover .btn-promo-action svg {
+    transform: translateX(3px);
+}
+
+/* --- Full Grid Cross-Device Responsiveness --- */
+@media (max-width: 991px) {
+    .rest-promo-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto; /* Drops structural masonry constraints on tablet viewports */
+    }
+    .promo-masonry-card.large-card {
+        grid-column: auto;
+        grid-row: auto;
+        height: 320px;
+    }
+    .promo-masonry-card {
+        height: 240px;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 580px) {
+    .rest-promo-container { gap: 20px; }
+    .promo-masonry-card { height: auto; min-height: 240px; padding: 24px 20px; }
+    .promo-subtitle { font-size: 0.9rem; margin-bottom: 18px; }
+}
+
+</style>
+
+
+<script>
+    // --- Restaurants Promotions Cascading Intersection Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Select all promo cards targeted for progressive cascade entry loops
+    const promotionalItems = document.querySelectorAll(".cascade-item");
+
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.08, // Fires animation calculations when 8% of element enters layout lines
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const promotionsCascadeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Fetch currently visible cards inside viewport limits grid
+                const visiblePromos = Array.from(promotionalItems).filter(item => {
+                    const trackingBounds = item.getBoundingClientRect();
+                    return trackingBounds.top < window.innerHeight && trackingBounds.bottom > 0;
+                });
+
+                // Fire sequential stagger sequence logic array
+                visiblePromos.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("item-revealed")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("item-revealed");
+                        }, index * 120); // Each item triggers gracefully 120ms behind the previous element
+                    }
+                });
+            }
+        });
+    }, scrollRevealOptions);
+
+    // Bind active observers loop tracker
+    promotionalItems.forEach(item => promotionsCascadeObserver.observe(item));
+});
+
+</script>
+
+<!-- FULL WIDTH 2-LINE CTA BANNER SECTION -->
+<section class="full-width-cta-section" id="banner-trigger-zone">
+    <!-- Dedicated high-definition texture/pattern background image layer -->
+    <img src="https://placeholder.com" alt="Banner Pattern Backdrop" class="cta-banner-bg-img">
+    
+    <!-- Floating Vector Icons Context Backdrop Canvas Elements -->
+    <div class="banner-floating-vectors-canvas">
+        <div class="vector-float-node node-leaf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22c1.25-3.66 5.5-6 10-6s8.75 2.34 10 6H2z"></path><path d="M12 2a15.3 15.3 0 0 1 4 10H8a15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="vector-float-node node-spark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </div>
+        <div class="vector-float-node node-heart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+    </div>
+
+    <!-- Inner Core Presentation Flex Grid -->
+    <div class="cta-banner-container">
+        
+        <!-- Left Side: Clean 2-Line High Contrast Text Assembly Block -->
+        <div class="cta-banner-text-block" id="banner-text-slide">
+            <h2 class="cta-line-one">Hungry? Get Your Favorite Meals Crafted By Master Kitchens</h2>
+            <p class="cta-line-two">Join over 50,000+ happy daily diners using Stackly to satisfy instant cravings instantly.</p>
+        </div>
+
+        <!-- Right Side: Rising Interactive Action Element Block -->
+        <div class="cta-banner-action-block" id="banner-btn-rise">
+            <a href="404.html" class="btn-banner-primary-action">Claim Your First Offer</a>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Full Width Banner Structural Framework --- */
+.full-width-cta-section {
+    /* Exact custom constraint compliance dimensions: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    width: 100%; /* Guarantees strict full-width viewport coverage boundaries */
+    background: linear-gradient(135deg, #1e293b, #0f172a); /* Premium deep blue-black foundation */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Section Full-Bleed Background Visual Layer --- */
+.cta-banner-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.06; /* Subdued backdrop presence profile to protect high text clarity scores */
+}
+
+.cta-banner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    z-index: 3; /* Forces content matrices to render reliably forward above graphics layers */
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.cta-banner-text-block {
+    display: flex;
+    flex-direction: column;
+    max-width: 760px;
+    /* Scroll slide animation initial state settings */
+    opacity: 0;
+    transform: translateX(-70px); /* Slides inward smoothly from the left margins */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-banner-text-block.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.cta-line-one {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #ffffff; /* Brilliant white for ultimate pop against deep dark foundation background */
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    transition: text-shadow 0.3s ease;
+}
+
+.cta-line-two {
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85); /* Slightly softened high contrast layout description line */
+    transition: color 0.3s ease;
+}
+
+/* Premium Text/Content Hover Glow Feedback Effects */
+.cta-banner-text-block:hover .cta-line-one {
+    /* Multi-layered soft white neon typographical localized ambient glow aura projection */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 
+                 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.cta-banner-text-block:hover .cta-line-two {
+    color: #ffffff; /* Refuses dimming filters on hover focus layers */
+}
+
+/* --- Right Column: Bottom Upwards Rising Call To Action Button --- */
+.cta-banner-action-block {
+    opacity: 0;
+    transform: translateY(40px); /* Pushed downstream downwards out of container configurations */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-banner-action-block.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-banner-primary-action {
+    display: inline-block;
+    background-color: var(--primary-color); /* Matches exact premium brand coral token */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 18px 40px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 10px 25px rgba(230, 92, 64, 0.25);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-banner-primary-action:hover {
+    background-color: #ffffff;
+    color: #1e293b;
+    transform: translateY(-4px) scale(1.02);
+    /* Soft clean high focus button pop glow drop illumination block */
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.25);
+}
+
+/* --- Floating Context Vector Nodes Canvas Layer --- */
+.banner-floating-vectors-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.vector-float-node {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.08); /* Subtle transparent background canvas vectors footprint */
+    transition: color 0.4s ease;
+}
+
+.vector-float-node svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentColor;
+}
+
+/* Pin floating node coordinate parameters across the full canvas zone layout bounds */
+.node-leaf { top: 15%; right: 28%; animation: bannerFloatCycleOne 4.5s ease-in-out infinite alternate; }
+.node-spark { bottom: 20%; left: 4%; animation: bannerFloatCycleTwo 5s ease-in-out infinite alternate 0.5s; }
+.node-heart { top: 35%; left: 45%; animation: bannerFloatCycleOne 3.8s ease-in-out infinite alternate 0.2s; }
+
+@keyframes bannerFloatCycleOne {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-12px) rotate(10deg); }
+}
+
+@keyframes bannerFloatCycleTwo {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(12px) rotate(-10deg); }
+}
+
+/* --- Full Cross-Device Grid Adaptation Breakpoints --- */
+@media (max-width: 991px) {
+    .cta-line-one { font-size: 1.8rem; }
+    .btn-banner-primary-action { padding: 16px 32px; font-size: 1rem; }
+}
+
+@media (max-width: 768px) {
+    .cta-banner-container {
+        flex-direction: column; /* Collapses layout structure downstream into neat center stacked blocks stream */
+        text-align: center;
+        gap: 35px;
+    }
+    .cta-banner-text-block {
+        transform: translateY(30px); /* Adjusts side linear slide axis pathways into simple clean vertical setups on compressed screen spaces */
+    }
+    .cta-banner-text-block.slide-active { transform: translateY(0); }
+    .node-leaf, .node-heart { display: none; } /* Drop redundant interior canvas elements to keep viewport footprint tight and fast */
+}
+
+@media (max-width: 480px) {
+    .cta-line-one { font-size: 1.5rem; }
+    .cta-line-two { font-size: 0.95rem; }
+    .btn-banner-primary-action { width: 100%; text-align: center; } /* Span button element fully to browser limits on smartphone displays */
+}
+
+</style>
+
+<script>
+    // --- Full-Width CTA Banner Scrolling Interaction Observer Trigger ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Select animation targets elements space
+    const targetBannerSection = document.getElementById("banner-trigger-zone");
+    const bannerSlideText = document.getElementById("banner-text-slide");
+    const bannerRiseBtn = document.getElementById("banner-btn-rise");
+
+    // Config parameters parameters mapping values
+    const bannerObserverOptions = {
+        root: null,
+        threshold: 0.15, // Activates loop logic when 15% of section boundary crosses layout viewport boundaries
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const bannerRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Step 1: Slide left typographical 2-line block inwards smoothly
+                if (bannerSlideText) {
+                    bannerSlideText.classList.add("slide-active");
+                }
+
+                // Track Step 2: Rise right primary call-to-action button upwards gracefully from bottom canvas limits
+                if (bannerRiseBtn) {
+                    setTimeout(() => {
+                        bannerRiseBtn.classList.add("rise-active");
+                    }, 250); // Small interval stagger offset to execute directly behind headline slide finishes
+                }
+
+                // Disconnect section observer monitor channel to lock render configurations exactly on first view cycle entry
+                observer.unobserve(entry.target);
+            }
+        });
+    }, bannerObserverOptions);
+
+    if (targetBannerSection) {
+        bannerRevealObserver.observe(targetBannerSection);
+    }
+});
+
+</script>
+
+<!-- CHEF'S CHOICE CULINARY SIGNATURES SECTION -->
+<section class="chef-signatures-section" id="signatures-trigger-zone">
+    <div class="chef-sig-container">
+        
+        <!-- Scroll-Triggered Word-by-Word Section Header -->
+        <div class="chef-sig-header">
+            <h2 class="chef-sig-title" id="signatures-scroll-title">
+                <span class="cs-word">Chef's</span>
+                <span class="cs-word">Choice</span>
+                <span class="cs-word accent-coral">Culinary</span>
+                <span class="cs-word">Signatures</span>
+            </h2>
+            <p class="chef-sig-subtitle">Handpicked seasonal masterworks crafted exclusively by our top onboarded culinary masters.</p>
+        </div>
+
+        <!-- Creative Asymmetric Gallery Matrix Grid -->
+        <div class="chef-sig-gallery-grid">
+            
+            <!-- Signature Item 1 -->
+            <div class="sig-gallery-item cascade-item">
+                <div class="sig-card-glow-filter"></div>
+                <div class="sig-img-container">
+                    <img src="https://placeholder.com" alt="Truffle Glazed Salmon Platter" class="sig-main-img">
+                </div>
+                <div class="sig-meta-overlay">
+                    <span class="sig-pill-label">Signature Plate</span>
+                    <h3 class="sig-item-title">Truffle Glazed Salmon</h3>
+                    <p class="sig-vendor-subtext">By Ocean Grill Kitchens</p>
+                    <div class="sig-action-row">
+                        <span class="sig-item-rate">Est. Rate $24.50</span>
+                        <a href="404.html" class="sig-arrow-circle" title="Explore Dish Details">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signature Item 2 -->
+            <div class="sig-gallery-item cascade-item">
+                <div class="sig-card-glow-filter"></div>
+                <div class="sig-img-container">
+                    <img src="https://placeholder.com" alt="Artisan Berry Waffles" class="sig-main-img">
+                </div>
+                <div class="sig-meta-overlay">
+                    <span class="sig-pill-label">Breakfast Choice</span>
+                    <h3 class="sig-item-title">Artisan Berry Waffles</h3>
+                    <p class="sig-vendor-subtext">By Velvet Patisserie</p>
+                    <div class="sig-action-row">
+                        <span class="sig-item-rate">Est. Rate $14.99</span>
+                        <a href="404.html" class="sig-arrow-circle" title="Explore Dish Details">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signature Item 3 -->
+            <div class="sig-gallery-item cascade-item">
+                <div class="sig-card-glow-filter"></div>
+                <div class="sig-img-container">
+                    <img src="https://placeholder.com" alt="Smoked Ribeye Steak Stack" class="sig-main-img">
+                </div>
+                <div class="sig-meta-overlay">
+                    <span class="sig-pill-label">Gourmet Special</span>
+                    <h3 class="sig-item-title">Smoked Ribeye Stack</h3>
+                    <p class="sig-vendor-subtext">By Steakhouse Elite</p>
+                    <div class="sig-action-row">
+                        <span class="sig-item-rate">Est. Rate $32.00</span>
+                        <a href="404.html" class="sig-arrow-circle" title="Explore Dish Details">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Chef Signatures Section Framework --- */
+.chef-signatures-section {
+    /* Precise constraint parameters: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+
+.chef-sig-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.chef-sig-header {
+    text-align: left;
+    margin-bottom: 45px;
+}
+
+/* Staggered Word-by-Word Title Construction */
+.chef-sig-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #000000; /* Absolute solid black layout headers */
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+
+.chef-sig-title .accent-coral {
+    color: var(--primary-color, #e65c40);
+}
+
+.cs-word {
+    display: inline-block;
+    opacity: 0.15; /* Dim state filter configuration point prior to scroll triggers */
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.cs-word.word-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chef-sig-subtitle {
+    font-size: 1.05rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* --- Creative Asymmetric Gallery Matrix Grid --- */
+.chef-sig-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- Gallery Items & Premium Interaction Glow Filters --- */
+.sig-gallery-item {
+    background-color: #0f172a;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    height: 380px;
+    border: 1px solid #edf2f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    
+    /* Scroll presentation variables settings for one-by-one waterfall */
+    opacity: 0;
+    transform: translateY(60px); /* Glides upward gracefully from baseline grounds */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.sig-gallery-item.item-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modern Card Hover Glow-Lens and Lift Filter Reactions */
+.sig-gallery-item:hover {
+    border-color: rgba(230, 92, 64, 0.3);
+    /* Soft localized brand glowing aura drop projection shadow */
+    box-shadow: 0 25px 50px rgba(230, 92, 64, 0.1);
+    transform: translateY(-6px);
+}
+
+/* Internal Radial Glow Overlay Sheet */
+.sig-card-glow-filter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.2) 0%, transparent 70%);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.sig-gallery-item:hover .sig-card-glow-filter {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Image Assets Scaling */
+.sig-img-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.sig-main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    opacity: 0.55; /* Softened contrast to shield dark ambient copy overlay layers */
+}
+
+.sig-gallery-item:hover .sig-main-img {
+    transform: scale(1.05) rotate(0.5deg);
+    opacity: 0.65;
+}
+
+/* --- Metadata Text Layout Overlays --- */
+.sig-meta-overlay {
+    position: relative;
+    z-index: 3;
+    padding: 30px;
+    width: 100%;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 70%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sig-pill-label {
+    background-color: var(--primary-color, #e65c40);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.sig-item-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff; /* High-contrast white header against the dark ambient overlay */
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+}
+
+.sig-vendor-subtext {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.sig-action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 14px;
+}
+
+.sig-item-rate {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff; /* Explicit requested rate line integration formatting */
+}
+
+.sig-arrow-circle {
+    width: 34px;
+    height: 34px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.sig-arrow-circle svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.sig-gallery-item:hover .sig-arrow-circle {
+    background-color: var(--primary-color, #e65c40);
+    transform: scale(1.1);
+}
+
+/* --- Asymmetric Layout Enhancements for Wide Screens --- */
+@media (min-width: 992px) {
+    /* Converts the second middle block item into a taller masonry pillar profile to vary the layout rhythm */
+    .sig-gallery-item:nth-child(2) {
+        height: 410px;
+        transform: translateY(-15px); /* Sets up clean offset breaks */
+    }
+    .sig-gallery-item:nth-child(2).item-revealed {
+        transform: translateY(-15px);
+    }
+}
+
+/* --- Cross-Device Responsiveness Breakpoints --- */
+@media (max-width: 991px) {
+    .chef-sig-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    .sig-gallery-item { height: 340px; }
+}
+
+@media (max-width: 640px) {
+    .chef-sig-gallery-grid {
+        grid-template-columns: 1fr; /* Drops down grid into single stacked row stream blocks */
+        gap: 20px;
+    }
+    .chef-sig-title { font-size: 1.8rem; }
+    .chef-sig-subtitle { font-size: 0.95rem; }
+    .sig-meta-overlay { padding: 24px; }
+    .sig-gallery-item { height: 300px; }
+}
+
+</style>
+
+<script>
+    // --- Chef's Choice Gallery Interactions Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Configuration Elements Map
+    const sectionContainerZone = document.getElementById("signatures-trigger-zone");
+    const headingWordsNodes = document.querySelectorAll(".cs-word");
+    const galleryMasonryCards = document.querySelectorAll(".cascade-item");
+
+    // 2. Intersection Tracking Parameter Options Setup
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.08, // Fires sequence logic calculations once 8% of layout crosses viewport filters
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    // 3. Execution Timeline Observer Matrix Loop
+    const signaturesSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Path Step A: Assemble Title text word-by-word progressively
+                headingWordsNodes.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-active");
+                    }, index * 95); // 95ms progressive layout text stagger pacing delay
+                });
+
+                // Track Timeline Path Step B: Slide gallery masonry item panels upward one-by-one sequentially
+                galleryMasonryCards.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("item-revealed")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("item-revealed");
+                        }, index * 120); // 120ms waterfall card loading delay interval loops
+                    }
+                });
+
+                // Disconnect target listener channel to lock render configurations exactly on first view cycle entry
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    // 4. Bind Active Monitoring Target Context Channel
+    if (sectionContainerZone) {
+        signaturesSectionObserver.observe(sectionContainerZone);
+    }
+});
+
+</script>
+
+<!-- CREATIVE ASYMMETRIC KITCHEN GALLERY -->
+<section class="creative-gallery-section" id="mosaic-trigger-zone">
+    <div class="mosaic-container">
+        
+        <!-- Header Section Fades In Sequentially -->
+        <div class="mosaic-header mosaic-node">
+            <h2 class="mosaic-main-heading">The Hidden Gems Circle</h2>
+            <p class="mosaic-sub-heading">Uncover neighborhood culinary masters and limited-edition menus sliding under the radar.</p>
+        </div>
+
+        <!-- Asymmetric Mosaic Canvas -->
+        <div class="mosaic-canvas-track">
+            
+            <!-- Card 1: Left Angled Anchor -->
+            <div class="mosaic-skew-card left-anchor mosaic-node">
+                <div class="mosaic-ambient-glow"></div>
+                <div class="mosaic-img-box">
+                    <img src="https://placeholder.com" alt="The Smoked Rib Cantina" class="mosaic-asset-img">
+                </div>
+                <div class="mosaic-card-details">
+                    <div class="mosaic-tag-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <span>Pitmaster BBQ</span>
+                    </div>
+                    <h3 class="mosaic-item-title">The Smoked Rib Cantina</h3>
+                    <div class="mosaic-floor-row">
+                        <span class="mosaic-rate-text">Avg. $22 • Min. $15</span>
+                        <a href="404.html" class="mosaic-action-circle" title="View Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Center Featured Hero (Oversized & Highlighted) -->
+            <div class="mosaic-skew-card center-hero mosaic-node">
+                <div class="mosaic-ambient-glow"></div>
+                <div class="mosaic-featured-badge">Chef's Spotlight</div>
+                <div class="mosaic-img-box">
+                    <img src="https://placeholder.com" alt="Truffle and Crust Artisan" class="mosaic-asset-img">
+                </div>
+                <div class="mosaic-card-details">
+                    <div class="mosaic-tag-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg>
+                        <span>Artisan Italian</span>
+                    </div>
+                    <h3 class="mosaic-item-title">Truffle &amp; Crust Woodfired</h3>
+                    <div class="mosaic-floor-row">
+                        <span class="mosaic-rate-text">Avg. $35 • Min. $20</span>
+                        <a href="404.html" class="mosaic-action-circle" title="View Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Right Angled Anchor -->
+            <div class="mosaic-skew-card right-anchor mosaic-node">
+                <div class="mosaic-ambient-glow"></div>
+                <div class="mosaic-img-box">
+                    <img src="https://placeholder.com" alt="Matcha Patisserie" class="mosaic-asset-img">
+                </div>
+                <div class="mosaic-card-details">
+                    <div class="mosaic-tag-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 3 19 21 5 21"></polygon><path d="M9 7h6M9 11h6M9 15h6"></path></svg>
+                        <span>French Organic</span>
+                    </div>
+                    <h3 class="mosaic-item-title">Matcha Patisserie House</h3>
+                    <div class="mosaic-floor-row">
+                        <span class="mosaic-rate-text">Avg. $14 • Min. $10</span>
+                        <a href="404.html" class="mosaic-action-circle" title="View Menu">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Creative Mosaic Section Framework --- */
+.creative-gallery-section {
+    /* Explicit core padding constraints: 50px top, 30px bottom */
+    padding: 50px 20px 30px 20px;
+    background-color: #0b0f19; /* Deep cinematic midnight canvas backdrop */
+    position: relative;
+    overflow: hidden;
+}
+
+.mosaic-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* --- Section Typography Headers --- */
+.mosaic-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.mosaic-main-heading {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #ffffff; /* High-contrast crisp white titles */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.mosaic-sub-heading {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* One-by-One Stagger Entry Initial Animation Settings */
+.mosaic-node {
+    opacity: 0;
+    transform: translateY(45px); /* Smooth linear rise upward on active scroll */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mosaic-node.node-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Asymmetric Layout Ribbon Design --- */
+.mosaic-canvas-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.mosaic-skew-card {
+    background-color: #111827;
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.5s ease, 
+                border-color 0.5s ease;
+}
+
+/* Asymmetric Structural Depth Variations (Desktop Sizing Engine) */
+.left-anchor {
+    width: 30%;
+    height: 380px;
+    transform: perspective(1000px) rotateY(8deg) translateY(15px);
+}
+
+.right-anchor {
+    width: 30%;
+    height: 380px;
+    transform: perspective(1000px) rotateY(-8deg) translateY(15px);
+}
+
+.center-hero {
+    width: 40%;
+    height: 460px; /* Oversized centerpiece definition */
+    z-index: 5;
+    border-color: rgba(230, 92, 64, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* Realigning Base Active Vectors when Elements cross Observer Filters */
+.left-anchor.node-revealed { transform: perspective(1000px) rotateY(8deg) translateY(15px); }
+.right-anchor.node-revealed { transform: perspective(1000px) rotateY(-8deg) translateY(15px); }
+.center-hero.node-revealed { transform: perspective(1000px) scale(1) translateY(0); }
+
+/* --- High Performance 3D Hover & Neon Aura Glows --- */
+.mosaic-ambient-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.22) 0%, transparent 75%);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.mosaic-skew-card:hover {
+    border-color: rgba(230, 92, 64, 0.35);
+    box-shadow: 0 30px 60px rgba(230, 92, 64, 0.12);
+}
+
+.mosaic-skew-card:hover .mosaic-ambient-glow {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+.left-anchor:hover { transform: perspective(1000px) rotateY(4deg) scale(1.02) translateY(5px) !important; z-index: 6; }
+.right-anchor:hover { transform: perspective(1000px) rotateY(-4deg) scale(1.02) translateY(5px) !important; z-index: 6; }
+.center-hero:hover { transform: perspective(1000px) scale(1.03) translateY(-8px) !important; }
+
+/* Image Framing Components */
+.mosaic-img-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.mosaic-asset-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.45; /* Softened contrast to shield dark content overlays safely */
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.mosaic-skew-card:hover .mosaic-asset-img {
+    transform: scale(1.05);
+    opacity: 0.55;
+}
+
+/* Featured Spotlight Badge Header */
+.mosaic-featured-badge {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background-color: var(--primary-color, #e65c40);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 3;
+    box-shadow: 0 4px 12px rgba(230, 92, 64, 0.3);
+}
+
+/* --- Metadata Text Layout Overlays --- */
+.mosaic-card-details {
+    position: relative;
+    z-index: 3;
+    padding: 30px;
+    width: 100%;
+    background: linear-gradient(to top, rgba(11, 15, 25, 0.98) 0%, rgba(11, 15, 25, 0.4) 75%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.mosaic-tag-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #fca5a5; /* Soft brand coral highlight line font styling */
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.mosaic-tag-row svg { width: 13px; height: 14px; stroke: currentColor; }
+
+.mosaic-item-title {
+    font-size: calc(1.15rem + 0.2vw);
+    font-weight: 800;
+    color: #ffffff; /* High contrast white header copy inside dark backplates overlays */
+    margin-bottom: 16px;
+    letter-spacing: -0.2px;
+}
+
+.mosaic-floor-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 14px;
+}
+
+.mosaic-rate-text {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ffffff; /* Explicit rate integration formatting mapping */
+}
+
+.mosaic-action-circle {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.mosaic-action-circle svg { width: 16px; height: 16px; stroke: currentColor; }
+.mosaic-skew-card:hover .mosaic-action-circle { background-color: var(--primary-color, #e65c40); transform: scale(1.1); }
+
+/* --- Full Responsive Matrix Collapsing --- */
+@media (max-width: 991px) {
+    .mosaic-canvas-track {
+        flex-direction: column; /* Collapses 3D angles into a vertical card stack */
+        gap: 24px;
+    }
+    .mosaic-skew-card {
+        width: 100% !important;
+        height: 280px !important;
+        transform: none !important; /* Disables 3D angles on tablet displays */
+    }
+    .mosaic-skew-card.node-revealed { transform: none !important; }
+    .mosaic-main-heading { font-size: 1.9rem; }
+    .mosaic-featured-badge { top: 20px; left: 20px; }
+    .mosaic-card-details { padding: 24px; }
+}
+
+@media (max-width: 480px) {
+    .mosaic-main-heading { font-size: 1.6rem; }
+    .mosaic-sub-heading { font-size: 0.95rem; }
+    .mosaic-skew-card { height: 250px !important; }
+    .mosaic-floor-row { flex-direction: column; align-items: stretch; gap: 12px; }
+    .mosaic-action-circle { width: 100%; border-radius: 10px; height: 38px; } /* Converts button to full wide element row on smartphones viewports */
+}
+
+</style>
+
+<script>
+    // --- Kitchen Mosaic Circle One-by-One Staggered Entry Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Select all components marked with the dynamic mosaic node identifier class
+    const mosaicNodesList = document.querySelectorAll(".mosaic-node");
+
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.05, // Fires layout adjustments when 5% of container crosses viewport tracking fields
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const mosaicCascadeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Fetch nodes positioned within viewport window boundaries
+                const visibleNodes = Array.from(mosaicNodesList).filter(node => {
+                    const currentBounds = node.getBoundingClientRect();
+                    return currentBounds.top < window.innerHeight && currentBounds.bottom > 0;
+                });
+
+                // Fire sequential cascade waterfall reveal loop delays calculations dynamically
+                visibleNodes.forEach((nodeElement, index) => {
+                    if (!nodeElement.classList.contains("node-revealed")) {
+                        setTimeout(() => {
+                            nodeElement.classList.add("node-revealed");
+                        }, index * 140); // Generates smooth individual 140ms step staggers
+                    }
+                });
+            }
+        });
+    }, scrollRevealOptions);
+
+    // Bind active observers loop tracker onto targets collection matrix array
+    mosaicNodesList.forEach(node => mosaicCascadeObserver.observe(node));
+});
+
+</script>
