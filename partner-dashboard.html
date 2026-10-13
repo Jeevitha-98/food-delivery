@@ -1,0 +1,2132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Studio Dashboard - Stackly</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-root-body">
+
+    <!-- GLOBAL STUDIO HEADER CONTROLLER NODE -->
+    <header class="db-master-header">
+        <div class="db-header-left">
+            <!-- Responsive Mobile Hamburger Toggle Action Icon -->
+            <button type="button" class="db-hamburger-trigger" id="sidebar-toggle-btn" aria-label="Toggle Navigation Sidebar Menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            
+            <!-- Dynamic Dashboard Reload Link Anchor Frame -->
+            <a href="javascript:void(0);" onclick="window.location.reload();" class="db-brand-logo-btn" title="Refresh Dashboard Workspace Workspace">
+               
+                <span>STACKLY <strong class="studio-badge">STUDIO</strong></span>
+            </a>
+        </div>
+
+        
+        <div class="db-header-right">
+            <!-- Active Notification Bell Icon Layer -->
+          <button type="button" class="db-notification-bell"
+    onclick="window.location.href='404.html'"
+    title="View Active Kitchen Alerts">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+    </svg>
+    <span class="bell-active-indicator-pulse"></span>
+</button>
+            
+            <div class="db-user-profile-pill">
+                <div class="db-user-avatar">👤</div>
+                
+                    <span class="db-welcome-label">Chef Studio</span>
+                    <!-- Email Prefix String Injected Dynamically Here -->
+                    <strong class="db-dynamic-username" id="partner-header-username-slot">Partner</strong>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CORE WORKSPACE CANVAS WRAPPER -->
+    <div class="db-workspace-wrapper">
+        
+        <!-- SIDEBAR NAVIGATION MENU MECHANICS -->
+        <aside class="db-navigation-sidebar" id="dashboard-sidebar-panel">
+            <nav class="db-sidebar-nav-menu">
+                
+                <button type="button" class="sidebar-menu-item active" onclick="switchDashboardSection('overview-section', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>Studio Overview</span>
+                </button>
+
+                <button type="button" class="sidebar-menu-item" onclick="switchDashboardSection('orders-section', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span>Active Orders Log</span>
+                </button>
+
+                <button type="button" class="sidebar-menu-item" onclick="switchDashboardSection('recipes-section', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <span>Recipe Vault Matrix</span>
+                </button>
+
+                <button type="button" class="sidebar-menu-item" onclick="switchDashboardSection('earnings-section', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <span>Financial Metrics</span>
+                </button>
+
+                <button type="button" class="sidebar-menu-item" onclick="switchDashboardSection('settings-section', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Studio Configurations</span>
+                </button>
+
+                <!-- Clean Return Logout Action Trigger -->
+                <button type="button" class="sidebar-menu-item btn-sidebar-logout" id="dashboard-logout-trigger">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                    <span>Terminate Session</span>
+                </button>
+
+            </nav>
+        </aside>
+
+        <!-- MAIN INTERACTIVE HUB CONTENT SLOT -->
+        <main class="db-main-content-canvas">
+            <div class="db-canvas-padding-box">
+                
+              <!-- Section Wise Window: Studio Overview (Enhanced) -->
+<div class="db-router-section-window view-visible" id="overview-section">
+    
+    <!-- TOP ROW: HIGH-FIDELITY LIVE METRICS CARDS -->
+    <div class="studio-metrics-deck">
+        
+        <!-- Metric Card 1: Live Active Orders -->
+        <div class="studio-metric-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            <div class="card-metric-header">
+                <span class="metric-icon icon-bg-coral">🛵</span>
+                <span class="metric-trend-badge trend-up">+14% This Wk</span>
+            </div>
+            <div class="card-metric-body">
+                <strong class="metric-giant-number">28</strong>
+                <span class="metric-label-text">Active Kitchen Orders</span>
+            </div>
+        </div>
+
+        <!-- Metric Card 2: Daily Gross Earnings -->
+        <div class="studio-metric-card focus-green-glow">
+            <div class="card-glow-halo"></div>
+            <div class="card-metric-header">
+                <span class="metric-icon icon-bg-green">💰</span>
+                <span class="metric-trend-badge trend-up">+8.4% Today</span>
+            </div>
+            <div class="card-metric-body">
+                <strong class="metric-giant-number">₹14,250</strong>
+                <span class="metric-label-text">Today's Gross Revenue</span>
+            </div>
+        </div>
+
+        <!-- Metric Card 3: Studio Efficiency Rating -->
+        <div class="studio-metric-card focus-blue-glow">
+            <div class="card-glow-halo"></div>
+            <div class="card-metric-header">
+                <span class="metric-icon icon-bg-blue">★</span>
+                <span class="metric-trend-badge trend-stable">Top Rated</span>
+            </div>
+            <div class="card-metric-body">
+                <strong class="metric-giant-number">4.92</strong>
+                <span class="metric-label-text">Kitchen Trust Score</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MIDDLE ROW: SPLIT WORKFLOW CANVAS TRACK -->
+    <div class="studio-workflow-split-grid">
+        
+        <!-- Left Wing Track: Real-Time Active Operations Tracking Queue -->
+        <div class="workflow-wing-panel">
+            <h3 class="panel-section-heading">Live Prep Queue <span>(3)</span></h3>
+            <div class="live-prep-cards-stack">
+                
+                <!-- Queue Item 1 -->
+                <div class="prep-queue-row">
+                    <div class="prep-status-indicator status-blinking-orange"></div>
+                    <div class="prep-item-details">
+                        <strong>Order #8041 — Premium Family Platter</strong>
+                        <span>Assigned to station 3 • 4 Mins elapsed</span>
+                    </div>
+                </div>
+
+                <!-- Queue Item 2 -->
+                <div class="prep-queue-row">
+                    <div class="prep-status-indicator status-blinking-orange"></div>
+                    <div class="prep-item-details">
+                        <strong>Order #8042 — Truffle Glazed Salmon</strong>
+                        <span>Assigned to station 1 • 2 Mins elapsed</span>
+                    </div>
+                </div>
+
+                <!-- Queue Item 3 -->
+                <div class="prep-queue-row">
+                    <div class="prep-status-indicator status-blinking-green"></div>
+                    <div class="prep-item-details">
+                        <strong>Order #8039 — Midnight Dessert Combo</strong>
+                        <span>Plated &amp; Ready for Courier Dispatch</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Wing Track: Recent Customer Transaction Ledger Table -->
+        <div class="workflow-wing-panel table-panel">
+            <h3 class="panel-section-heading">Recent Transactions Ledger</h3>
+            <div class="ledger-table-viewport">
+                <table class="studio-ledger-table">
+                    <thead>
+                        <tr>
+                            <th>CLIENT PREFIX</th>
+                            <th>DISH</th>
+                            <th>EST. PRICE</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>jeevi</strong></td>
+                            <td>Crunchy Chicken Burger</td>
+                            <td>₹240.00</td>
+                            <td><span class="table-badge badge-success">Delivered</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>admin</strong></td>
+                            <td>Woodfired Pepperoni Pizza</td>
+                            <td>₹480.00</td>
+                            <td><span class="table-badge badge-success">Delivered</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>marcus_v</strong></td>
+                            <td>Artisan Berry Waffles</td>
+                            <td>₹310.00</td>
+                            <td><span class="table-badge badge-pending">Preparing</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    /* --- Enhanced Studio Overview Modules Dashboard Framework --- */
+.studio-metrics-deck {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    width: 100%;
+}
+
+/* Minimalist Flat Card Design */
+.studio-metric-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7; /* Hairline clean border separator */
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.studio-metric-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Localized Focus Glow Aura System Trigger */
+.studio-metric-card .card-glow-halo {
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.studio-metric-card:hover .card-glow-halo { opacity: 1; }
+
+/* Focus Glow Variations Alignment Tokens */
+.focus-coral-glow:hover { border-color: rgba(230, 92, 64, 0.25); box-shadow: 0 15px 35px rgba(230, 92, 64, 0.04); }
+.focus-green-glow:hover { border-color: rgba(34, 197, 94, 0.25); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.04); }
+.focus-green-glow .card-glow-halo { background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%); }
+.focus-blue-glow:hover { border-color: rgba(59, 130, 246, 0.25); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.04); }
+.focus-blue-glow .card-glow-halo { background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%); }
+
+.card-metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.metric-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+}
+
+.icon-bg-coral { background-color: #fff5f2; color: #e65c40; }
+.icon-bg-green { background-color: #f0fdf4; color: #22c55e; }
+.icon-bg-blue { background-color: #eff6ff; color: #3b82f6; }
+
+.metric-trend-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.trend-up { background-color: #f0fdf4; color: #166534; }
+.trend-stable { background-color: #fffbeb; color: #b45309; }
+
+.card-metric-body { display: flex; flex-direction: column; }
+.metric-giant-number { font-size: 2.1rem; font-weight: 800; color: #111827; line-height: 1.1; margin-bottom: 4px; }
+.metric-label-text { font-size: 0.88rem; font-weight: 600; color: #718096; }
+
+/* --- Asymmetric 2-Column Split Track Section Framework --- */
+.studio-workflow-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr; /* Proportional asymmetrical workflow column split */
+    gap: 30px;
+    width: 100%;
+}
+
+.workflow-wing-panel {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.panel-section-heading {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.panel-section-heading span { color: #718096; font-weight: 600; font-size: 0.95rem; }
+
+/* Prep Queue Row Alignment List */
+.live-prep-cards-stack { display: flex; flex-direction: column; gap: 12px; }
+
+.prep-queue-row {
+    background-color: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.prep-status-indicator {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+.prep-status-indicator::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%; background-color: inherit; animation: pulseRadarRing 1.8s infinite ease-in-out;
+}
+@keyframes pulseRadarRing { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2.4); opacity: 0; } }
+
+.status-blinking-orange { background-color: #f59e0b; }
+.status-blinking-green { background-color: #22c55e; }
+
+.prep-item-details { display: flex; flex-direction: column; }
+.prep-item-details strong { font-size: 0.9rem; color: #1e293b; font-weight: 700; line-height: 1.4; }
+.prep-item-details span { font-size: 0.78rem; color: #718096; font-weight: 600; margin-top: 1px; }
+
+/* --- Recent Transactions Ledger Table Properties --- */
+.ledger-table-viewport {
+    width: 100%;
+    overflow-x: auto; /* Enables custom micro horizontal swipe gestures safely on mobile devices */
+}
+
+.studio-ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.studio-ledger-table th {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 12px 16px;
+    border-bottom: 2px solid #edf2f7;
+}
+
+.studio-ledger-table td {
+    padding: 14px 16px;
+    font-size: 0.92rem;
+    color: #1e293b;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.studio-ledger-table tr:last-child td { border-bottom: none; }
+.studio-ledger-table td strong { font-weight: 700; color: #111827; }
+
+.table-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+.badge-success { background-color: #e6fcf5; color: #22c55e; }
+.badge-pending { background-color: #fff9db; color: #f59e0b; }
+
+/* --- Full Grid Cross-Device Layout Responsiveness Breakpoints --- */
+@media (max-width: 1024px) {
+    .studio-metrics-deck { grid-template-columns: repeat(2, 1fr); gap: 20px; } /* Shifts metrics cards deck grid down into 2 columns splits layout */
+    .studio-workflow-split-grid { grid-template-columns: 1fr; gap: 25px; } /* Drops asymmetrical columns down into vertical tracks */
+}
+
+@media (max-width: 640px) {
+    .studio-metrics-deck { grid-template-columns: 1fr; gap: 16px; margin-top: 15px; } /* Stretches single metric cards fully viewport breadth limits */
+    .db-router-section-window { padding: 24px 18px !important; }
+    .studio-ledger-table th, .studio-ledger-table td { padding: 12px 10px; font-size: 0.85rem; }
+}
+
+</style>
+              <!-- Section Wise Window: Active Orders Log (Enhanced) -->
+<div class="db-router-section-window" id="orders-section">
+    
+    <!-- SUB-HEADER SUMMARY MATRIX -->
+    <div class="orders-log-summary">
+        <div class="orders-log-header-left">
+            <h2 class="routing-section-headline">Active Orders Log</h2>
+            <p class="orders-log-subtext">Manage real-time production stages and dispatch logistics parameters.</p>
+        </div>
+        <div class="orders-live-status-counter">
+            <span class="live-counter-pill pulse-orange">● 3 Cooking</span>
+            <span class="live-counter-pill pulse-green">● 2 Ready</span>
+        </div>
+    </div>
+
+    <!-- RESPONSIVE OPERATIONAL KANBAN TRACK PIPELINE -->
+    <div class="orders-kanban-pipeline">
+        
+        <!-- COLUMN 1: PREPARATION & COOKING STAGE -->
+        <div class="kanban-lane-column">
+            <div class="lane-header">
+                <span class="lane-title-text">In The Kitchen</span>
+                <span class="lane-count-badge count-cooking">3</span>
+            </div>
+            
+            <div class="lane-cards-deck">
+                
+                <!-- Order Ticket Alpha -->
+                <div class="kanban-order-ticket border-left-orange">
+                    <div class="ticket-header-meta">
+                        <strong class="ticket-id-string">#STK-8045</strong>
+                        <span class="ticket-timer-clock-badge">🕒 4m ago</span>
+                    </div>
+                    <h4 class="ticket-client-name">Client: <strong>jeevi</strong></h4>
+                    <div class="ticket-dishes-list">
+                        <div class="dish-item-row"><span>1x</span> Crunchy Chicken Burger</div>
+                        <div class="dish-item-row"><span>1x</span> Gourmet Seasoned Fries</div>
+                    </div>
+                    <div class="ticket-action-floor">
+                        <span class="rate-indicator-label">₹360.00</span>
+                       <button type="button" class="btn-ticket-advance border-orange"
+    onclick="window.location.href='404.html'">
+    Mark Ready
+</button>  </div>
+                </div>
+
+                <!-- Order Ticket Beta -->
+                <div class="kanban-order-ticket border-left-orange">
+                    <div class="ticket-header-meta">
+                        <strong class="ticket-id-string">#STK-8046</strong>
+                        <span class="ticket-timer-clock-badge">🕒 12m ago</span>
+                    </div>
+                    <h4 class="ticket-client-name">Client: <strong>admin</strong></h4>
+                    <div class="ticket-dishes-list">
+                        <div class="dish-item-row"><span>2x</span> Woodfired Pepperoni Pizza</div>
+                    </div>
+                    <div class="ticket-action-floor">
+                        <span class="rate-indicator-label">₹960.00</span>
+                       <button type="button" class="btn-ticket-advance border-orange"
+    onclick="window.location.href='404.html'">
+    Mark Ready
+</button>  </div>
+                </div>
+
+                <!-- Order Ticket Gamma -->
+                <div class="kanban-order-ticket border-left-orange">
+                    <div class="ticket-header-meta">
+                        <strong class="ticket-id-string">#STK-8048</strong>
+                        <span class="ticket-timer-clock-badge">🕒 1m ago</span>
+                    </div>
+                    <h4 class="ticket-client-name">Client: <strong>marcus_v</strong></h4>
+                    <div class="ticket-dishes-list">
+                        <div class="dish-item-row"><span>1x</span> Teriyaki Noodle Bowl</div>
+                    </div>
+                    <div class="ticket-action-floor">
+                        <span class="rate-indicator-label">₹280.00</span>
+                       <button type="button" class="btn-ticket-advance border-orange"
+    onclick="window.location.href='404.html'">
+    Mark Ready
+</button> </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- COLUMN 2: PLATED & READY FOR COURIER PICKUP -->
+        <div class="kanban-lane-column">
+            <div class="lane-header">
+                <span class="lane-title-text">Ready For Dispatch</span>
+                <span class="lane-count-badge count-ready">2</span>
+            </div>
+
+            <div class="lane-cards-deck">
+                
+                <!-- Order Ticket Delta -->
+                <div class="kanban-order-ticket border-left-green">
+                    <div class="ticket-header-meta">
+                        <strong class="ticket-id-string">#STK-8041</strong>
+                        <span class="ticket-status-text text-green">Plated ✓</span>
+                    </div>
+                    <h4 class="ticket-client-name">Client: <strong>suresh_k</strong></h4>
+                    <div class="ticket-dishes-list">
+                        <div class="dish-item-row"><span>1x</span> Salmon Sashimi Combo</div>
+                    </div>
+                    <div class="ticket-action-floor">
+                        <span class="rate-indicator-label">₹540.00</span>
+                       <button type="button" class="btn-ticket-advance bg-green"
+    onclick="window.location.href='404.html'">
+    Handover Courier
+</button>  </div>
+                </div>
+
+                <!-- Order Ticket Epsilon -->
+                <div class="kanban-order-ticket border-left-green">
+                    <div class="ticket-header-meta">
+                        <strong class="ticket-id-string">#STK-8039</strong>
+                        <span class="ticket-status-text text-green">Plated ✓</span>
+                    </div>
+                    <h4 class="ticket-client-name">Client: <strong>divya_r</strong></h4>
+                    <div class="ticket-dishes-list">
+                        <div class="dish-item-row"><span>3x</span> French Raspberry Macarons Pack</div>
+                    </div>
+                    <div class="ticket-action-floor">
+                        <span class="rate-indicator-label">₹360.00</span>
+                        <button type="button" class="btn-ticket-advance bg-green"
+    onclick="window.location.href='404.html'">
+    Handover Courier
+</button>  </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    /* --- Enhanced Active Orders Log Section Styles --- */
+.orders-log-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.orders-log-subtext {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+.orders-live-status-counter {
+    display: flex;
+    gap: 12px;
+}
+
+.live-counter-pill {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+.pulse-orange { background-color: #fff7ed; color: #d97706; }
+.pulse-green { background-color: #f0fdf4; color: #166534; }
+
+/* --- Kanban Layout Multi-Lane Framework --- */
+.orders-kanban-pipeline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Parallel twin lane splits setup */
+    gap: 30px;
+    width: 100%;
+}
+
+.kanban-lane-column {
+    background-color: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.lane-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #edf2f7;
+    padding-bottom: 12px;
+}
+
+.lane-title-text {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1e293b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lane-count-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+    color: #ffffff;
+}
+.count-cooking { background-color: #f59e0b; }
+.count-ready { background-color: #22c55e; }
+
+/* --- Kanban Ticket Element Architecture --- */
+.lane-cards-deck {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.kanban-order-ticket {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.kanban-order-ticket:hover {
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.03);
+    transform: translateY(-2px);
+}
+
+/* Localized Accent Edge Status Indicators */
+.border-left-orange { border-left: 4px solid #f59e0b; }
+.border-left-green { border-left: 4px solid #22c55e; }
+
+.ticket-header-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.ticket-id-string {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.ticket-timer-clock-badge {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #718096;
+    background-color: #f1f5f9;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.ticket-status-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.text-green { color: #22c55e; }
+
+.ticket-client-name {
+    font-size: 0.85rem;
+    color: #4a5568;
+    margin: 0 0 10px 0;
+    font-weight: 500;
+}
+.ticket-client-name strong { color: #111827; font-weight: 700; }
+
+.ticket-dishes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: #f8fafc;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.dish-item-row {
+    font-size: 0.9rem;
+    color: #1e293b;
+    font-weight: 600;
+}
+.dish-item-row span {
+    color: #e65c40; /* Highlights dish counts using brand coral */
+    font-weight: 800;
+    margin-right: 4px;
+}
+
+.ticket-action-floor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 12px;
+    margin-top: auto;
+}
+
+.rate-indicator-label {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.btn-ticket-advance {
+    background-color: transparent;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.border-orange { border: 1px solid #f59e0b; color: #f59e0b; }
+.border-orange:hover { background-color: #f59e0b; color: #ffffff; }
+
+.bg-green { border: 1px solid #22c55e; background-color: #22c55e; color: #ffffff; }
+.bg-green:hover { background-color: #16a34a; border-color: #16a34a; }
+
+/* --- Full Grid Cross-Device Layout Responsiveness Breakpoints --- */
+@media (max-width: 1024px) {
+    .orders-kanban-pipeline {
+        grid-template-columns: 1fr; /* Collapses dual lanes into a single clean vertical stack row on tablets */
+        gap: 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .orders-log-summary { flex-direction: column; gap: 14px; align-items: stretch; }
+    .orders-live-status-counter { justify-content: flex-start; }
+    .kanban-lane-column { padding: 15px; border-radius: 16px; }
+    .kanban-order-ticket { padding: 16px; }
+    .btn-ticket-advance { width: 100%; text-align: center; margin-top: 8px; }
+    .ticket-action-floor { flex-direction: column; align-items: flex-start; gap: 4px; }
+}
+
+/* =============================================================
+ * SITEWIDE VIEWPORT SCROLL OVERRIDE CORRECTIONS
+ * ============================================================= */
+
+/* 1. Global Page Ground Rule Hard Resets */
+body {
+    overflow-x: hidden !important; /* Blocks broken horizontal layout overflow leaks safely */
+    overflow-y: auto !important;   /* Guarantees the browser always tracks native vertical movements */
+}
+
+/* 2. Authentication Pages (Login/Signup Canvas Fix) */
+.auth-page-body, .signup-page-body {
+    min-height: 100vh;
+    height: auto !important; /* Permits container growth to hold stacked layouts seamlessly */
+    overflow-y: auto !important;
+}
+
+/* 3. Master Dashboard Base Framework Corrections */
+.dashboard-root-body {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: visible !important; /* Releases container borders to allow full tracking downward */
+}
+
+.db-workspace-wrapper {
+    min-height: calc(100vh - 70px);
+    height: auto !important;
+}
+
+/* 4. Main Interactive Dynamic Hub Canvas Platform */
+.db-main-content-canvas {
+    height: auto !important;
+    min-height: 100%;
+    overflow-y: visible !important; /* Allows internal router sections to scroll page natively */
+}
+
+/* 5. Mobile Fluid Responsive Viewports Reset */
+@media (max-width: 991px) {
+    /* Ensures that expanding the mobile hamburger menu does not lock background screen tracking */
+    .db-navigation-sidebar {
+        overflow-y: auto !important; /* Permits the menu list track to scroll independently on smartphones */
+    }
+}
+
+</style>
+
+             <!-- Section Wise Window: Recipe Vault Matrix (Enhanced) -->
+<div class="db-router-section-window" id="recipes-section">
+    
+    <!-- SUB-HEADER SUMMARY MATRIX -->
+    <div class="recipe-vault-summary">
+        <div class="recipe-vault-header-left">
+            <h2 class="routing-section-headline">Recipe Vault Matrix</h2>
+            <p class="recipe-vault-subtext">Catalog, protect, and monitor your kitchen's certified menu blueprints [INDEX].</p>
+        </div>
+        <div class="recipe-action-holder">
+            <button type="button" class="btn-add-recipe" onclick="alert('Launching secure formula builder context...')">+ Add New Formula</button>
+        </div>
+    </div>
+
+    <!-- RESPONSIVE RECIPE CATALOG GRID MATRIX -->
+    <div class="recipe-vault-grid">
+        
+        <!-- Recipe Card 1 -->
+        <div class="recipe-profile-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            <div class="recipe-media-frame">
+                <img src="https://placeholder.com" alt="Crunchy Chicken Burger" class="recipe-thumb-asset">
+                <span class="recipe-status-tag status-active">Active Menu</span>
+            </div>
+            <div class="recipe-card-body">
+                <h3 class="recipe-item-name">Crunchy Chicken Burger</h3>
+                <div class="recipe-metrics-row">
+                    <span class="recipe-metric-badge">⏱ 12m Prep</span>
+                    <span class="recipe-metric-badge">🔥 640 kcal</span>
+                </div>
+                <div class="recipe-ingredients-preview">
+                    <strong>Core Blueprint Components:</strong>
+                    <p>Brioche Bun, Marinated Chicken Breast, Secret Spiced Batter, House Mayo, Pickles [INDEX].</p>
+                </div>
+                <div class="recipe-floor-actions">
+                    <strong class="recipe-pricing-label">₹140.00</strong>
+                    <button type="button" class="btn-recipe-edit" onclick="window.location.href='404.html'">
+    Edit Formula
+</button> </div>
+            </div>
+        </div>
+
+        <!-- Recipe Card 2 -->
+        <div class="recipe-profile-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            <div class="recipe-media-frame">
+                <img src="https://placeholder.com" alt="Woodfired Pepperoni Pizza" class="recipe-thumb-asset">
+                <span class="recipe-status-tag status-active">Active Menu</span>
+            </div>
+            <div class="recipe-card-body">
+                <h3 class="recipe-item-name">Woodfired Pepperoni Pizza</h3>
+                <div class="recipe-metrics-row">
+                    <span class="recipe-metric-badge">⏱ 15m Prep</span>
+                    <span class="recipe-metric-badge">🔥 980 kcal</span>
+                </div>
+                <div class="recipe-ingredients-preview">
+                    <strong>Core Blueprint Components:</strong>
+                    <p>72-Hour Sourdough Crust, San Marzano Tomatoes, Fresh Mozzarella, Premium Spicy Pepperoni [INDEX].</p>
+                </div>
+                <div class="recipe-floor-actions">
+                    <strong class="recipe-pricing-label">₹480.00</strong>
+                   <button type="button" class="btn-recipe-edit" onclick="window.location.href='404.html'">
+    Edit Formula
+</button> </div>
+            </div>
+        </div>
+
+        <!-- Recipe Card 3 -->
+        <div class="recipe-profile-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            <div class="recipe-media-frame">
+                <img src="https://placeholder.com" alt="Truffle Glazed Salmon" class="recipe-thumb-asset">
+                <span class="recipe-status-tag status-draft">Draft Mode</span>
+            </div>
+            <div class="recipe-card-body">
+                <h3 class="recipe-item-name">Truffle Glazed Salmon</h3>
+                <div class="recipe-metrics-row">
+                    <span class="recipe-metric-badge">⏱ 22m Prep</span>
+                    <span class="recipe-metric-badge">🔥 520 kcal</span>
+                </div>
+                <div class="recipe-ingredients-preview">
+                    <strong>Core Blueprint Components:</strong>
+                    <p>Atlantic Salmon Fillet, White Truffle Oil Infusion, Asparagus Spears, Wild Honey Glaze [INDEX].</p>
+                </div>
+                <div class="recipe-floor-actions">
+                    <strong class="recipe-pricing-label">₹620.00</strong>
+                    <button type="button" class="btn-recipe-edit" onclick="window.location.href='404.html'">
+    Edit Formula
+</button> </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<style>
+    /* --- Enhanced Recipe Vault Matrix Section Layout Styles --- */
+.recipe-vault-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+.recipe-vault-subtext {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+.btn-add-recipe {
+    background-color: #111827; /* Deep Charcoal Midnight slate button backplate */
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(17, 24, 39, 0.1);
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.btn-add-recipe:hover {
+    background-color: var(--primary-color, #e65c40); /* Lights up into brand coral accent on hover focus */
+    transform: translateY(-2px);
+}
+
+/* --- Responsive 3-Column Catalog Grid System --- */
+.recipe-vault-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.recipe-profile-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7; /* Hairline clean border separation line layout token */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.recipe-profile-card:hover {
+    border-color: rgba(230, 92, 64, 0.25);
+    box-shadow: 0 20px 40px rgba(230, 92, 64, 0.04);
+    transform: translateY(-4px);
+}
+
+/* Internal Card Ambient Glow Ring Element Layer */
+.recipe-profile-card .card-glow-halo {
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.recipe-profile-card:hover .card-glow-halo { opacity: 1; }
+
+/* Media viewport image aspect ratio framing component box */
+.recipe-media-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 58%;
+    background-color: #f8fafc;
+    overflow: hidden;
+}
+
+.recipe-thumb-asset {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.recipe-profile-card:hover .recipe-thumb-asset { transform: scale(1.04); }
+
+/* Overlay Indicator Status Badges */
+.recipe-status-tag {
+    position: absolute;
+    top: 15px; left: 15px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+.status-active { background-color: #22c55e; }
+.status-draft { background-color: #64748b; }
+
+/* --- Card Content Details Stack --- */
+.recipe-card-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.recipe-item-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #111827; /* Solid absolute high focus black typography rules */
+    margin: 0 0 8px 0;
+    letter-spacing: -0.2px;
+}
+
+.recipe-metrics-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.recipe-metric-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #4a5568;
+    background-color: #f1f5f9;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.recipe-ingredients-preview {
+    margin-bottom: 20px;
+}
+.recipe-ingredients-preview strong {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 4px;
+}
+.recipe-ingredients-preview p {
+    font-size: 0.88rem;
+    color: #4a5568;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.recipe-floor-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 14px;
+    margin-top: auto;
+}
+
+.recipe-pricing-label {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.btn-recipe-edit {
+    background: transparent;
+    border: 1px solid #cbd5e1;
+    color: #4a5568;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.btn-recipe-edit:hover {
+    border-color: #111827;
+    color: #111827;
+    background-color: #f8fafc;
+}
+
+/* --- Full Grid Cross-Device Layout Responsiveness Breakpoints --- */
+@media (max-width: 1024px) {
+    .recipe-vault-grid {
+        grid-template-columns: repeat(2, 1fr); /* Collapses catalog deck grid down into 2 columns on tablet sizes displays */
+        gap: 24px;
+    }
+}
+
+@media (max-width: 680px) {
+    .recipe-vault-grid {
+        grid-template-columns: 1fr; /* Switch multi-column tracks downstream into single stream list rows on mobile screens */
+        gap: 20px;
+    }
+    .recipe-vault-summary { flex-direction: column; gap: 14px; align-items: stretch; }
+    .btn-add-recipe { width: 100%; text-align: center; }
+}
+
+</style>
+
+              <!-- Section Wise Window: Financial Metrics (Enhanced) -->
+<div class="db-router-section-window" id="earnings-section">
+    
+    <!-- SUB-HEADER SUMMARY MATRIX -->
+    <div class="finance-vault-summary">
+        <div class="finance-vault-header-left">
+            <h2 class="routing-section-headline">Financial Metrics</h2>
+            <p class="finance-vault-subtext">Monitor your gross sales, pending receivables, and automated disbursement metrics.</p>
+        </div>
+        <div class="finance-action-holder">
+            <button type="button" class="btn-request-payout" onclick="alert('Disbursement pipeline initialized safely for processing...')">Request Instant Payout</button>
+        </div>
+    </div>
+
+    <!-- RESPONSIVE FINANCIAL BALANCES CARD DECK -->
+    <div class="finance-balances-deck">
+        
+        <!-- Balance Card 1: Available Payout -->
+        <div class="finance-balance-card focus-green-glow">
+            <div class="card-glow-halo"></div>
+            <div class="balance-card-header">
+                <span class="balance-icon icon-bg-green">💰</span>
+                <span class="balance-status-dot status-green-active">Ready</span>
+            </div>
+            <div class="balance-card-body">
+                <strong class="balance-giant-number">₹32,480.00</strong>
+                <span class="balance-label-text">Available for Payout</span>
+            </div>
+        </div>
+
+        <!-- Balance Card 2: Escrow Pending -->
+        <div class="finance-balance-card focus-blue-glow">
+            <div class="card-glow-halo"></div>
+            <div class="balance-card-header">
+                <span class="balance-icon icon-bg-blue">🕒</span>
+                <span class="balance-status-dot status-blue-escrow">In Escrow</span>
+            </div>
+            <div class="balance-card-body">
+                <strong class="balance-giant-number">₹8,120.00</strong>
+                <span class="balance-label-text">Pending Clearance</span>
+            </div>
+        </div>
+
+        <!-- Balance Card 3: Lifetime Earnings -->
+        <div class="finance-balance-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            <div class="balance-card-header">
+                <span class="balance-icon icon-bg-coral">📈</span>
+                <span class="balance-status-dot status-coral-total">Cumulative</span>
+            </div>
+            <div class="balance-card-body">
+                <strong class="balance-giant-number">₹1,84,650.00</strong>
+                <span class="balance-label-text">Lifetime Gross Revenue</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CORE QUANTITATIVE CHART VISUALIZATION LAYER -->
+    <div class="finance-chart-integration-box">
+        <h3 class="chart-section-title">Revenue Trajectory (Past 6 Months)</h3>
+        
+        <!-- Custom Financial Projections Line Chart Placeholder Function Call -->
+        <ChartPlaceholder chartDescription="Line chart plotting Gross Revenue and Payout Minimum Threshold by calendar month intervals over a discrete 6-month domain. Title: 'Monthly Income Performance Analytics'. Plot 'Month Year' string fields ['May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026', 'Sep 2026', 'Oct 2026'] sequentially along the horizontal X-axis. Plot the quantitative Gross Revenue metrics values [₹120K, ₹145K, ₹138K, ₹165K, ₹184K, ₹192K] along the primary vertical Y-axis as a prominent brand coral line series. Plot a constant horizontal reference baseline at ₹50K labeled as 'Disbursement Threshold' as a helper dashed line layer to provide financial safety benchmarks context. Enable hover crosshair tooltips, grid line parameters matrix, and a descriptive legend indicating 'Gross Revenue (₹)' and 'Disbursement Minimum (₹)' series labels securely." />
+
+        <!-- Explicit text narrative detailing Points of Interest (POIs) -->
+        <p class="chart-context-narrative">
+            The income trajectory showcases robust multi-month growth, peaking in <strong>October 2026</strong> at a milestone valuation of <strong>₹1,92,000.00</strong>. Operational metrics have consistently scaled significantly above your kitchen's baseline <strong>₹50,000.00 Disbursement Minimum Threshold</strong> marker line since May, reflecting a steady acceleration in customer platform orders.
+        </p>
+    </div>
+
+</div>
+
+<style>
+    /* --- Enhanced Financial Metrics Section Layout Styles --- */
+.finance-vault-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+.finance-vault-subtext {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+.btn-request-payout {
+    background-color: #22c55e; /* Vibrant financial green action button plate */
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+    transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-request-payout:hover {
+    background-color: #16a34a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
+}
+
+/* --- Responsive Accounting Balances Cards Deck --- */
+.finance-balances-deck {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.finance-balance-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7; /* Hairline clean border separator */
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.finance-balance-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Localized Focus Glow Aura System Trigger */
+.finance-balance-card .card-glow-halo {
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.finance-balance-card:hover .card-glow-halo { opacity: 1; }
+
+/* Focus Glow Variations Alignment Tokens */
+.focus-coral-glow:hover { border-color: rgba(230, 92, 64, 0.25); box-shadow: 0 15px 35px rgba(230, 92, 64, 0.04); }
+.focus-green-glow:hover { border-color: rgba(34, 197, 94, 0.25); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.04); }
+.focus-green-glow .card-glow-halo { background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%); }
+.focus-blue-glow:hover { border-color: rgba(59, 130, 246, 0.25); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.04); }
+.focus-blue-glow .card-glow-halo { background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%); }
+
+.balance-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.balance-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+}
+
+.balance-status-dot {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.status-green-active { background-color: #f0fdf4; color: #22c55e; }
+.status-blue-escrow { background-color: #eff6ff; color: #3b82f6; }
+.status-coral-total { background-color: #fff5f2; color: #e65c40; }
+
+.balance-card-body { display: flex; flex-direction: column; }
+.balance-giant-number { font-size: 1.9rem; font-weight: 800; color: #111827; line-height: 1.1; margin-bottom: 6px; letter-spacing: -0.5px; }
+.balance-label-text { font-size: 0.88rem; font-weight: 600; color: #718096; }
+
+/* --- Financial Analytics Chart Box Integration Canvas --- */
+.finance-chart-integration-box {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 24px;
+    padding: 30px;
+    width: 100%;
+}
+
+.chart-section-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 25px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chart-context-narrative {
+    font-size: 0.95rem;
+    color: #4a5568;
+    line-height: 1.65;
+    margin: 25px 0 0 0;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 18px;
+}
+.chart-context-narrative strong { color: #111827; font-weight: 700; }
+
+/* --- Full Grid Cross-Device Layout Responsiveness Breakpoints --- */
+@media (max-width: 1024px) {
+    .finance-balances-deck {
+        grid-template-columns: repeat(2, 1fr); /* Collapses cards deck split grid down to 2 columns on tablets displays */
+        gap: 20px;
+    }
+}
+
+@media (max-width: 680px) {
+    .finance-balances-deck {
+        grid-template-columns: 1fr; /* Switch metrics panels down into full single vertical stack row flow on mobile phones */
+        gap: 16px;
+    }
+    .finance-vault-summary { flex-direction: column; gap: 14px; align-items: stretch; }
+    .btn-request-payout { width: 100%; text-align: center; }
+    .finance-chart-integration-box { padding: 20px 15px; border-radius: 16px; }
+    .balance-giant-number { font-size: 1.65rem; }
+}
+
+</style>
+
+             <!-- Section Wise Window: Studio Configurations (Enhanced) -->
+<div class="db-router-section-window" id="settings-section">
+    
+    <!-- SUB-HEADER SUMMARY MATRIX -->
+    <div class="settings-vault-summary">
+        <div class="settings-vault-header-left">
+            <h2 class="routing-section-headline">Studio Configurations</h2>
+            <p class="settings-vault-subtext">Manage your kitchen brand profile, active operating loops, and verified payout disbursement channels.</p>
+        </div>
+    </div>
+
+    <!-- CORE INTEGRATED CONFIGURATIONS PANEL BODY -->
+    <div class="settings-form-wrapper-box">
+        <form id="studio-configurations-intake-form" novalidate>
+            
+            <!-- SECTION BLOCK 1: BRAND PARAMETERS -->
+            <div class="settings-field-group-block">
+                <h3 class="settings-block-heading">Kitchen Brand Parameters</h3>
+                
+                <div class="settings-input-grid-row dual-split">
+                    <!-- Form Input Block: Kitchen Name (Blocks Numbers) -->
+                    <div class="settings-input-field-row">
+                        <label for="studio-brand-name-field" class="settings-field-label">OFFICIAL KITCHEN BRAND NAME</label>
+                        <input type="text" id="studio-brand-name-field" value="Burger Craft Co" autocomplete="off">
+                    </div>
+
+                    <!-- Form Input Block: Registered Email -->
+                    <div class="settings-input-field-row">
+                        <label for="studio-email-field" class="settings-field-label">PRIMARY OPERATIONAL EMAIL</label>
+                        <input type="email" id="studio-email-field" value="partner@stacklystudio.com" autocomplete="off" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION BLOCK 2: OPERATING TIMINGS -->
+            <div class="settings-field-group-block">
+                <h3 class="settings-block-heading">Operating Metrics Loops</h3>
+                
+                <div class="settings-input-grid-row triple-split">
+                    <!-- Form Input Block: Opening Loop Time -->
+                    <div class="settings-input-field-row">
+                        <label for="studio-open-time" class="settings-field-label">DAILY KITCHEN OPENING TIME</label>
+                        <input type="time" id="studio-open-time" value="09:00">
+                    </div>
+
+                    <!-- Form Input Block: Closing Loop Time -->
+                    <div class="settings-input-field-row">
+                        <label for="studio-close-time" class="settings-field-label">DAILY KITCHEN CLOSING TIME</label>
+                        <input type="time" id="studio-close-time" value="23:00">
+                    </div>
+
+                    <!-- Form Input Block: Preparation Headroom Buffer -->
+                    <div class="settings-input-field-row">
+                        <label for="studio-prep-buffer" class="settings-field-label">EST. PREP HEADROOM BUFFER</label>
+                        <div class="settings-select-wrapper">
+                            <select id="studio-prep-buffer">
+                                <option value="15">10 - 15 Minutes</option>
+                                <option value="25" selected>15 - 25 Minutes</option>
+                                <option value="40">25 - 40 Minutes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION BLOCK 3: DISBURSEMENT CHANNELS -->
+            <div class="settings-field-group-block">
+                <h3 class="settings-block-heading">Disbursement Bank Channel Matrix</h3>
+                
+                <div class="settings-input-grid-row dual-split">
+                    <!-- Form Input Block: Bank IFSC Code -->
+                    <div class="settings-input-field-row">
+                        <label for="studio-ifsc-field" class="settings-field-label">BANK IFSC CLEARANCE CODE</label>
+                        <input type="text" id="studio-ifsc-field" value="HDFC0001242" maxlength="11" autocomplete="off">
+                    </div>
+
+                    <!-- Form Input Block: Bank Account Number (Blocks Alphabets) -->
+                    <div class="settings-input-field-row">
+                        <label for="studio-account-field" class="settings-field-label">VERIFIED CLEARING ACCOUNT NUMBER</label>
+                        <input type="text" id="studio-account-field" value="501004321245" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Universal Floating Warning Error Validation Bubble -->
+            <div class="settings-validation-alert" id="settings-error-bubble">Please fill the fields before saving setup configuration parameters.</div>
+
+            <!-- Action Save Submit Trigger Button Component -->
+            <div class="settings-action-floor-row">
+               <button type="button" class="btn-settings-save" onclick="window.location.href='404.html'">
+    SAVE CONFIGURATION MATRIX
+</button> </div>
+
+        </form>
+    </div>
+
+</div>
+
+
+<style>
+    /* --- Enhanced Studio Configurations Section Layout Styles --- */
+.settings-vault-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+.settings-vault-subtext {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+.settings-form-wrapper-box {
+    background-color: #ffffff;
+    width: 100%;
+}
+
+.settings-field-group-block {
+    margin-bottom: 35px;
+    border-bottom: 1px dashed #edf2f7; /* Split block configuration dividers */
+    padding-bottom: 15px;
+}
+.settings-field-group-block:last-of-type { border-bottom: none; }
+
+.settings-block-heading {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 0 0 24px 0;
+}
+
+/* Responsive Grid Rows Splitting Framework */
+.settings-input-grid-row {
+    display: grid;
+    gap: 24px;
+    width: 100%;
+}
+
+.settings-input-grid-row.dual-split { grid-template-columns: repeat(2, 1fr); }
+.settings-input-grid-row.triple-split { grid-template-columns: repeat(3, 1fr); }
+
+.settings-input-field-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.settings-field-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #718096;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.settings-input-field-row input,
+.settings-input-field-row select {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111827; /* High contrast solid absolute black input text fields strings */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.settings-input-field-row input:disabled {
+    background-color: #f8fafc;
+    color: #94a3b8;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
+/* Focus illumination halos parameters matching dashboard theme specs */
+.settings-input-field-row input:focus,
+.settings-input-field-row select:focus {
+    border-color: rgba(230, 92, 64, 0.6); /* Soft coral highlight perimeter lines */
+    box-shadow: 0 0 0 4px rgba(230, 92, 64, 0.08);
+}
+
+/* Custom Select Dropdown Chevron Mapping Vector */
+.settings-select-wrapper { position: relative; width: 100%; }
+.settings-select-wrapper select { appearance: none; cursor: pointer; padding-right: 45px; }
+.settings-select-wrapper::after {
+    content: '▼'; font-size: 0.65rem; color: #a0aec0;
+    position: absolute; right: 18px; top: 50%; transform: translateY(-50%); pointer-events: none;
+}
+
+/* Ticking Warning Error Popup Alert Bubble CSS */
+.settings-validation-alert {
+    background-color: #ff4d4d;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(255, 77, 77, 0.15);
+    margin-bottom: 24px;
+    width: 100%;
+    text-align: center;
+    display: none; /* Hidden unless validation script flags anomalies loop */
+}
+
+/* Action Save Button Component Profile */
+.settings-action-floor-row {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 24px;
+}
+
+.btn-settings-save {
+    background-color: #111827; /* Deep Charcoal Midnight Blue Plate button */
+    color: #ffffff;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-settings-save:hover {
+    background-color: var(--primary-color, #e65c40); /* Lights up into signature brand coral on button hover */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(230, 92, 64, 0.2);
+}
+
+/* --- Configurations Form Full Grid Cross-Device Layout Responsiveness --- */
+@media (max-width: 991px) {
+    .settings-input-grid-row.triple-split { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .settings-input-grid-row.dual-split,
+    .settings-input-grid-row.triple-split { 
+        grid-template-columns: 1fr; /* Drops multi column splits down fully into parallel vertical stream lines row */
+        gap: 10px;
+    }
+    .settings-block-heading { margin-bottom: 18px; }
+    .btn-settings-save { width: 100%; text-align: center; } /* Span button element fully to mobile browser limits */
+    .settings-input-field-row { margin-bottom: 12px; }
+}
+
+</style>
+
+<script>
+    // --- Studio Configurations Form Input Regex Guard Filters & Save Logic Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Map Target Elements Configuration Channels
+    const configurationsForm = document.getElementById("studio-configurations-intake-form");
+    const studioBrandNameField = document.getElementById("studio-brand-name-field");
+    const studioAccountField = document.getElementById("studio-account-field");
+    const settingsErrorBubble = document.getElementById("settings-error-bubble");
+
+    // =============================================================
+    // 2. REGEX AUTOMATED INPUT BLOCKING PARSING (NATIVE FIELD FILTERS)
+    // =============================================================
+    
+    // Guard A: Brand Name Field - Block digits values string entries instantly on character entry
+    if (studioBrandNameField) {
+        studioBrandNameField.addEventListener("input", function() {
+            // Replaces digits globally inside text node values stream on the fly
+            this.value = this.value.replace(/[0-9]/g, "");
+        });
+    }
+
+    // Guard B: Verified Account Field - Block alphabetical characters entries instantly on key input loops
+    if (studioAccountField) {
+        studioAccountField.addEventListener("input", function() {
+            // Replaces non-numerical keys globally inside entry strings space instantly
+            this.value = this.value.replace(/[^0-9]/g, "");
+        });
+    }
+
+    // =============================================================
+    // 3. SEVAL INTENT VALIDATION ACCURACY SUBMISSION CORE
+    // =============================================================
+    if (configurationsForm && settingsErrorBubble) {
+        configurationsForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Hold original execution pipeline triggers vector
+
+            // Fetch live runtime parameters check metrics values
+            const nameCheckVal = studioBrandNameField ? studioBrandNameField.value.trim() : "";
+            const accountCheckVal = studioAccountField ? studioAccountField.value.trim() : "";
+            const ifscCheckVal = document.getElementById("studio-ifsc-field") ? document.getElementById("studio-ifsc-field").value.trim() : "";
+
+            // Check if critical input fields are empty string placeholders space
+            if (nameCheckVal === "" || accountCheckVal === "" || ifscCheckVal === "") {
+                // Validation parameters check fails -> expose warning alert box template parameters
+                settingsErrorBubble.style.display = "block";
+                settingsErrorBubble.scrollIntoView({ behavior: "smooth", block: "center" });
+            } else {
+                // All fields pass validation filters securely -> fire success operational alert
+                settingsErrorBubble.style.display = "none";
+                alert("✓ Kitchen Studio Configurations Matrix updated successfully!");
+            }
+        });
+
+        // Hide warning alert box indicators instantly the moment a user resumes input edits corrections
+        const settingsInputsArray = [studioBrandNameField, studioAccountField, document.getElementById("studio-ifsc-field")];
+        settingsInputsArray.forEach(inputElementNode => {
+            if (inputElementNode) {
+                inputElementNode.addEventListener("input", () => {
+                    settingsErrorBubble.style.display = "none";
+                });
+            }
+        });
+    }
+});
+
+</script>
+            </div>
+        </main>
+
+    </div>
+
+ <style>
+  
+/* ===== MOBILE SIDEBAR: BLURRED BACKGROUND ===== */
+
+@media (max-width: 991px) {
+    /* Prevent background scrolling when menu is open */
+    body.mobile-sidebar-open {
+        overflow: hidden !important;
+    }
+
+    /* Blur and disable interaction with the background content */
+    body.mobile-sidebar-open .db-main-content-canvas {
+        filter: blur(4px);
+        pointer-events: none;
+        user-select: none;
+        transition: filter 0.25s ease;
+    }
+
+    /* Keep header clear and above the blurred content */
+    .db-master-header {
+        z-index: 1100;
+        background-color: #ffffff;
+    }
+
+    /* Keep the sidebar sharp, scrollable and interactive */
+    .db-navigation-sidebar {
+        z-index: 1050;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        background-color: #ffffff;
+    }
+
+    body.mobile-sidebar-open .db-navigation-sidebar.sidebar-expanded {
+        filter: none;
+        pointer-events: auto;
+    }
+}
+
+    /* --- Master Kitchen Studio Dashboard Framework --- */
+.dashboard-root-body {
+    background-color: #f8fafc; /* Crisp clean slate workspace backdrop */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+}
+
+/* --- Global Studio Header Controller Layout --- */
+.db-master-header {
+    background-color: #ffffff;
+    height: 70px;
+    border-bottom: 1px solid #edf2f7; /* Soft micro hairline separator line */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 1000;
+}
+
+.db-header-left, .db-header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.db-brand-logo-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #111827;
+}
+
+.db-brand-logo-btn span {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: -0.2px;
+}
+
+.studio-badge {
+    color: #e65c40; /* Platform Signature Brand Coral */
+    font-size: 0.72rem;
+    background-color: #fff5f2;
+    padding: 2px 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+.db-brand-img-asset {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* Responsive Hamburger Toggle Action Button Component */
+.db-hamburger-trigger {
+    background: transparent;
+    border: none;
+    color: #1e293b;
+    cursor: pointer;
+    padding: 4px;
+    display: none; /* Hidden by default on widescreen desktop canvas viewports */
+    align-items: center;
+}
+
+.db-hamburger-trigger svg { width: 22px; height: 22px; stroke: currentColor; }
+.db-hamburger-trigger:hover { color: #e65c40; }
+
+/* Notification Bell Layer Elements */
+.db-notification-bell {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    position: relative;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+.db-notification-bell svg { width: 20px; height: 20px; stroke: currentColor; }
+.db-notification-bell:hover { color: #1e293b; }
+
+.bell-active-indicator-pulse {
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 8px; height: 8px;
+    background-color: #e65c40; /* Brand coral alert dot */
+    border-radius: 50%;
+}
+
+/* User Profile Metadata Stack Details */
+.db-user-profile-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 1px solid #e2e8f0;
+    padding-left: 16px;
+}
+
+.db-user-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.db-user-identity-stack { display: flex; flex-direction: column; }
+.db-welcome-label { font-size: 0.72rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; }
+.db-dynamic-username { font-size: 0.9rem; font-weight: 800; color: #111827; }
+
+/* --- Core Workspace Canvas Layout --- */
+.db-workspace-wrapper {
+    display: flex;
+    margin-top: 70px; /* Headroom buffer spacing constraints offset under fixed header bar line */
+    min-height: calc(100vh - 70px);
+    width: 100%;
+}
+
+/* --- Sidebar Menu Mechanics Frame Layout --- */
+.db-navigation-sidebar {
+    width: 260px;
+    background-color: #ffffff;
+    border-right: 1px solid #edf2f7;
+    position: fixed;
+    top: 70px; left: 0; bottom: 0;
+    z-index: 900;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.db-sidebar-nav-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    gap: 8px;
+    height: 100%;
+}
+
+.sidebar-menu-item {
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    color: #64748b;
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: all 0.25s ease;
+}
+
+.sidebar-menu-item svg {
+    width: 18px; height: 18px;
+    stroke: currentColor;
+    fill: none;
+    transition: transform 0.25s ease;
+}
+
+/* Focus Interaction States Configurations Mappings */
+.sidebar-menu-item:hover {
+    color: #1e293b;
+    background-color: #f8fafc;
+}
+.sidebar-menu-item:hover svg { transform: translateX(2px); }
+
+.sidebar-menu-item.active {
+    background-color: #fff5f2;
+    color: #e65c40; /* High Focus Active Section Tone Token */
+}
+
+/* Special Profile Action Logout Selector Button Position */
+.btn-sidebar-logout {
+    margin-top: auto; /* Forces logout button securely down to footer ground plane */
+    color: #64748b;
+}
+.btn-sidebar-logout:hover {
+    background-color: #fff1f2;
+    color: #ef4444; /* Alert warning red accent on session termination target focus */
+}
+
+/* --- Main content Canvas Panel Platform --- */
+.db-main-content-canvas {
+    flex: 1;
+    margin-left: 260px; /* Matches sidebar fixed spacing breadth profile offsets constraints */
+    width: calc(100% - 260px);
+}
+
+.db-canvas-padding-box {
+    /* Exact parameter mapping configuration constraints: 50px top padding, 30px bottom padding */
+    padding: 50px 30px 30px 30px;
+}
+
+/* --- Section Wise Dynamic Windows Router Elements --- */
+.db-router-section-window {
+    display: none; /* Collapses passive frames tracks completely from the active layouts workflow */
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 24px;
+    padding: 40px;
+    min-height: 400px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+}
+
+.db-router-section-window.view-visible {
+    display: block; /* Reveals active section block workspace window frame instantly */
+}
+
+.routing-section-headline {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #111827; /* Solid absolute high focus black typography rules */
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+/* --- Responsive Layout Aggression Viewport Breaks Caps --- */
+@media (max-width: 991px) {
+    .db-hamburger-trigger { display: inline-flex; } /* Exposes toggle icon trigger on mobile windows screens */
+    
+    .db-navigation-sidebar {
+        transform: translateX(-100%); /* Hides sidebar track off screen boundaries on small device frames */
+        box-shadow: 20px 0 50px rgba(15, 23, 42, 0.05);
+    }
+    
+    /* Flyout active expansion override class rule triggered by hamburger script toggle clicks loops */
+    .db-navigation-sidebar.sidebar-expanded {
+        transform: translateX(0);
+    }
+    
+    .db-main-content-canvas {
+        margin-left: 0;
+        width: 100%;
+    }
+    .db-canvas-padding-box { padding: 40px 20px 30px 20px; }
+}
+
+@media (max-width: 480px) {
+    .db-brand-logo-btn span { display: none; } /* Shrinks headers elements room footprint to guarantee zero overlaps tracks */
+    .db-canvas-padding-box { padding: 30px 15px 30px 15px; }
+    .db-router-section-window { padding: 24px 18px; border-radius: 16px; }
+    .routing-section-headline { font-size: 1.4rem; }
+}
+
+ </style>
+
+ <script>
+    // --- Kitchen Studio Dashboard Identity Extraction & Section Router Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // =============================================================
+    // 1. DYNAMIC IDENTITY PREFIX EXTRACTION ENGINE (REQUESTED FEATURE)
+    // =============================================================
+    const partnerUsernameSlotNode = document.getElementById("partner-header-username-slot");
+    // Extract stored customer electronic key out of local identity cache data strings channels
+    const targetIdentityToken = localStorage.getItem("stackly_logged_user_identity") || "jeevi@gmail.com"; 
+
+    if (partnerUsernameSlotNode && targetIdentityToken) {
+        // Splice string array directly before the @ indicator boundary token block
+        const identityPrefixSegment = targetIdentityToken.split("@")[0];
+        
+        // Capitalize the first letter of the prefix segment for a professional presentation profile
+        const polishedUsernameString = identityPrefixSegment.charAt(0).toUpperCase() + identityPrefixSegment.slice(1);
+        
+        // Inject value instantly into the header text block space slot container node
+        partnerUsernameSlotNode.textContent = polishedUsernameString;
+    }
+
+    // =============================================================
+    // 2. MOBILE HAMBURGER EXPANSION TOGGLE LOGIC CORE TRACK
+    // =============================================================
+
+// ===== MOBILE HAMBURGER AND BACKGROUND BLUR =====
+const mobileHamburgerTriggerBtn =
+    document.getElementById("sidebar-toggle-btn");
+
+const navigationSidebarPanel =
+    document.getElementById("dashboard-sidebar-panel");
+
+function setMobileSidebarState(isOpen) {
+    if (!navigationSidebarPanel || !mobileHamburgerTriggerBtn) return;
+
+    navigationSidebarPanel.classList.toggle("sidebar-expanded", isOpen);
+    document.body.classList.toggle("mobile-sidebar-open", isOpen);
+
+    mobileHamburgerTriggerBtn.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+    );
+}
+
+if (mobileHamburgerTriggerBtn && navigationSidebarPanel) {
+    mobileHamburgerTriggerBtn.setAttribute("aria-expanded", "false");
+
+    mobileHamburgerTriggerBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        const isOpen =
+            navigationSidebarPanel.classList.contains("sidebar-expanded");
+
+        setMobileSidebarState(!isOpen);
+    });
+
+    // Close only when clicking outside both the sidebar and hamburger
+    document.addEventListener("click", function (event) {
+        if (
+            !navigationSidebarPanel.contains(event.target) &&
+            !mobileHamburgerTriggerBtn.contains(event.target)
+        ) {
+            setMobileSidebarState(false);
+        }
+    });
+
+    // Close the mobile menu when returning to desktop width
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > 991) {
+            setMobileSidebarState(false);
+        }
+    });
+}
+
+
+    // =============================================================
+    // 3. HARD TERMINATE SESSION EXIT REDIRECTION LOOP TRIGGER
+    // =============================================================
+    const dashboardLogoutTriggerBtn = document.getElementById("dashboard-logout-trigger");
+    if (dashboardLogoutTriggerBtn) {
+        dashboardLogoutTriggerBtn.addEventListener("click", () => {
+            const doubleCheckSessionExit = confirm("Are you sure you want to terminate your active dashboard session?");
+            if (doubleCheckSessionExit) {
+                // Clear identity storage buffers keys channels safely
+                localStorage.removeItem("stackly_logged_user_identity");
+                localStorage.removeItem("stackly_logged_user_role");
+                
+                // Return browser path directly back to login layout screen pipeline mockup
+                window.location.href = "login.html";
+            }
+        });
+    }
+});
+
+// =============================================================
+// 4. FRONT-END ASYNCHRONOUS SECTION WISE ROUTER PIPELINE (REQUESTED)
+// =============================================================
+/**
+ * Switches between section-wise target display frames dashboard windows rows paths
+ * @param {String} targetSectionWindowId 
+ * @param {HTMLButtonElement} clickMenuElementReference 
+ */
+function switchDashboardSection(targetSectionWindowId, clickMenuElementReference) {
+    
+    // Step A: Collect all individual section windows instances tagged inside main canvas wrapper block
+    const allRouterWindowsList = document.querySelectorAll(".db-router-section-window");
+    allRouterWindowsList.forEach(windowNode => {
+        windowNode.classList.remove("view-visible"); // Collapse visibility paths
+    });
+
+    // Step B: Target requested window handle element node directly and fire active display token
+    const requestedTargetWindowNode = document.getElementById(targetSectionWindowId);
+    if (requestedTargetWindowNode) {
+        requestedTargetWindowNode.classList.add("view-visible");
+    }
+
+    // Step C: Update focus background indicators tabs styling rules parameters inside menu list list track
+    const siblingMenuButtons = document.querySelectorAll(".sidebar-menu-item");
+    siblingMenuButtons.forEach(btnNode => {
+        btnNode.classList.remove("active");
+    });
+    
+    if (clickMenuElementReference) {
+        clickMenuElementReference.classList.add("active");
+    }
+
+    // Step D: Soft collapse mobile sidebar flyout layer panel wrapper container safely post selection action loop
+   // Close sidebar and restore background after selecting a section
+const navigationSidebarPanel =
+    document.getElementById("dashboard-sidebar-panel");
+
+const mobileHamburgerTriggerBtn =
+    document.getElementById("sidebar-toggle-btn");
+
+if (navigationSidebarPanel) {
+    navigationSidebarPanel.classList.remove("sidebar-expanded");
+}
+
+document.body.classList.remove("mobile-sidebar-open");
+
+if (mobileHamburgerTriggerBtn) {
+    mobileHamburgerTriggerBtn.setAttribute("aria-expanded", "false");
+}
+}
+
+ </script>
+</body>
+</html>

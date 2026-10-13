@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Stackly</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="signup-page-body">
+
+    <!-- CORE CARD CONTROLLER WRAPPER LAYER -->
+    <main class="signup-card-wrapper">
+        <div class="signup-card-inner">
+            
+            <!-- Top Logo & Navigation Header Row -->
+            <header class="signup-card-header">
+                <div class="signup-brand-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    <span>STACKLY</span>
+                </div>
+                <a href="login.html" class="btn-back-login">← BACK TO LOG IN</a>
+            </header>
+
+            <!-- Main Heading Copy Stack -->
+            <div class="signup-heading-stack">
+                <h1 class="signup-main-title">Create <span class="accent-coral">Account</span></h1>
+                <p class="signup-sub-title">Register your artisan profile to open your customized sandbox project registry dashboard and track order milestones.</p>
+            </div>
+
+            <!-- Registration Interactive Form -->
+            <form id="stackly-secure-signup-form" novalidate>
+                
+                <!-- Input Block: Full Name -->
+                <div class="signup-input-field-group">
+                    <label for="signup-name-input" class="signup-field-label">YOUR FULL NAME</label>
+                    <input type="text" id="signup-name-input" placeholder="Enter your full name..." autocomplete="off">
+                </div>
+
+                <!-- Input Block: Email Address -->
+                <div class="signup-input-field-group">
+                    <label for="signup-email-input" class="signup-field-label">EMAIL ADDRESS</label>
+                    <input type="email" id="signup-email-input" placeholder="you@example.com" autocomplete="off">
+                </div>
+
+                <!-- Input Block: Phone Number -->
+                <div class="signup-input-field-group">
+                    <label for="signup-phone-input" class="signup-field-label">10-DIGIT MOBILE NUMBER</label>
+                    <input type="text" id="signup-phone-input" placeholder="10-digit mobile number" maxlength="10" autocomplete="off">
+                </div>
+
+                <!-- Input Block: Password Key with Toggle Eye -->
+                <div class="signup-input-field-group">
+                    <label for="signup-password-input" class="signup-field-label">PASSWORD KEY</label>
+                    <div class="signup-password-wrapper">
+                        <input type="password" id="signup-password-input" placeholder="••••••••">
+                        <button type="button" class="signup-password-eye" onclick="toggleFieldMasking('signup-password-input')" aria-label="Toggle password visibility">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Input Block: Confirm Password Key with Toggle Eye -->
+                <div class="signup-input-field-group">
+                    <label for="signup-confirm-input" class="signup-field-label">CONFIRM PASSWORD KEY</label>
+                    <div class="signup-password-wrapper">
+                        <input type="password" id="signup-confirm-input" placeholder="••••••••">
+                        <button type="button" class="signup-password-eye" onclick="toggleFieldMasking('signup-confirm-input')" aria-label="Toggle password visibility">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Universal Warning Error Validation Bubble -->
+                <div class="signup-validation-bubble" id="signup-error-bubble">Please fill the fields</div>
+                
+                <!-- Success Confirmation Banner Toast -->
+                <div class="signup-success-toast" id="signup-success-banner">✓ Successfully signed up! Redirecting to login...</div>
+
+                <!-- Primary Action Submit Trigger Button -->
+                <button type="submit" class="btn-signup-submit-action">SIGN UP ➔</button>
+
+            </form>
+
+            <!-- Bottom Login Redirection Link Footer Component -->
+            <footer class="signup-card-footer-anchor">
+                <span>Already have an account?</span> <a href="login.html" class="login-redirect-link">Log In</a>
+            </footer>
+
+        </div>
+    </main>
+
+  <style>
+    /* --- Stackly Minimalist Registration Form Layout --- */
+.signup-page-body {
+    background-color: #f8fafc; /* Ultra-light clean workspace backdrop */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.signup-card-wrapper {
+    width: 100%;
+    padding: 50px 20px 30px 20px; /* Precise top/bottom padding presets */
+    display: flex;
+    justify-content: center;
+}
+
+.signup-card-inner {
+    background-color: #ffffff; /* Pristine white card canvas matching your domain styling */
+    width: 100%;
+    max-width: 580px; /* Exact proportional size mapped from image */
+    border-radius: 40px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.03);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card Header Components */
+.signup-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.signup-brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #1e293b;
+}
+
+.signup-brand-logo svg {
+    width: 24px;
+    height: 24px;
+    color: #e65c40; /* Stackly Core Coral Token */
+}
+
+.signup-brand-logo span {
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.btn-back-login {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 8px 18px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #4a5568;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-back-login:hover {
+    background-color: #111827;
+    color: #ffffff;
+    border-color: #111827;
+}
+
+/* Header Typography Setup */
+.signup-heading-stack {
+    margin-bottom: 35px;
+}
+
+.signup-main-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 14px 0;
+    letter-spacing: -1px;
+}
+
+.signup-main-title .accent-coral {
+    color: #e65c40; /* Stackly Brand Coral Accent */
+}
+
+.signup-sub-title {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Form Input Block Structural Alignment Rows */
+.signup-input-field-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 22px;
+}
+
+.signup-field-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #4a5568;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.signup-input-field-group input {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1e293b;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.signup-input-field-group input:focus {
+    border-color: #e65c40; /* Focus halo shifts to brand coral */
+    box-shadow: 0 0 0 4px rgba(230, 92, 64, 0.08);
+}
+
+.signup-input-field-group input::placeholder {
+    color: #94a3b8;
+}
+
+/* Password Eye Masking Layer Wrapper */
+.signup-password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.signup-password-wrapper input {
+    padding-right: 50px;
+}
+
+.signup-password-eye {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #a0aec0;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.signup-password-eye svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+}
+
+.signup-password-eye:hover {
+    color: #e65c40;
+}
+
+/* --- Validation Error Warning Alert Bubble --- */
+.signup-validation-bubble {
+    background-color: #ff4d4d;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 12px 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(255, 77, 77, 0.15);
+    margin-bottom: 24px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.signup-validation-bubble.show-error {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* --- Dynamic Success Notification Banner --- */
+.signup-success-toast {
+    background-color: #22c55e;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 12px 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.2);
+    margin-bottom: 24px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.signup-success-toast.show-success {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@keyframes cardVibrate {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+.signup-card-inner.vibrate { animation: cardVibrate 0.4s ease-in-out; }
+
+/* Primary Submit Button Element Component */
+.btn-signup-submit-action {
+    width: 100%;
+    background-color: #111827; /* Corporate absolute solid dark charcoal midnight blue */
+    color: #ffffff;
+    border: none;
+    padding: 16px 20px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-signup-submit-action:hover {
+    background-color: #1f2937;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(17, 24, 39, 0.15);
+}
+
+/* Bottom Redirection Links Footer Component */
+.signup-card-footer-anchor {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-top: 30px;
+}
+
+.login-redirect-link {
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.login-redirect-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 1.5px;
+    background-color: #e65c40; /* Custom solid red-coral underline brand bar line */
+}
+
+.login-redirect-link:hover { color: #e65c40; }
+
+/* Full Layout Cross-Device Responsiveness Breakers */
+@media (max-width: 580px) {
+    .signup-card-inner { padding: 35px 20px; border-radius: 28px; }
+    .signup-main-title { font-size: 1.95rem; }
+    .btn-signup-submit-action { padding: 14px; font-size: 0.8rem; letter-spacing: 0.8px; }
+}
+
+/* ===== SIGNUP PAGE SCROLL FIX ===== */
+
+html {
+    height: auto !important;
+    min-height: 100%;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scroll-behavior: auto;
+}
+
+body.signup-page-body {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: auto !important;
+    min-height: 100vh;
+
+    margin: 0;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    position: relative;
+}
+
+.signup-card-wrapper {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 100vh;
+    height: auto !important;
+
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.signup-card-inner {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 580px;
+    box-sizing: border-box;
+}
+
+/* ===== MOBILE SCROLL SUPPORT ===== */
+
+@media (max-width: 580px) {
+    .signup-card-wrapper {
+        min-height: 100vh;
+        height: auto !important;
+        padding: 20px 12px;
+        align-items: flex-start;
+    }
+
+    .signup-card-inner {
+        padding: 30px 20px;
+        border-radius: 24px;
+    }
+}
+
+/* ===== SHORT SCREEN SUPPORT ===== */
+
+@media (max-height: 700px) {
+    .signup-card-wrapper {
+        align-items: flex-start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+  </style>
+
+  <script>
+    // --- Account Registration Input Filtering & Masking Trigger Controls Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    const signupForm = document.getElementById("stackly-secure-signup-form");
+    const nameInput = document.getElementById("signup-name-input");
+    const emailInput = document.getElementById("signup-email-input");
+    const phoneInput = document.getElementById("signup-phone-input");
+    const passwordInput = document.getElementById("signup-password-input");
+    const confirmInput = document.getElementById("signup-confirm-input");
+    
+    const errorBubble = document.getElementById("signup-error-bubble");
+    const successToast = document.getElementById("signup-success-banner");
+    const containerWrapper = document.querySelector(".signup-card-inner");
+
+    // =============================================================
+    // REGEX CHARACTER PROTECTION TRACKS (NATIVE INPUT FILTERING)
+    // =============================================================
+    
+    // Guard A: Name Field - Disallow all numerical digits on key entry
+    if (nameInput) {
+        nameInput.addEventListener("input", function() {
+            this.value = this.value.replace(/[0-9]/g, "");
+        });
+    }
+
+    // Guard B: Phone Field - Disallow all alphabetical character strings text on key entry
+    if (phoneInput) {
+        phoneInput.addEventListener("input", function() {
+            this.value = this.value.replace(/[^0-9]/g, "");
+        });
+    }
+
+    // =============================================================
+    // INTAKE CHECKS SUBMISSION VALIDATION ACCURACY MATRIX
+    // =============================================================
+    if (signupForm && errorBubble && successToast && containerWrapper) {
+        signupForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Hold original execution paths
+            
+            const nameVal = nameInput ? nameInput.value.trim() : "";
+            const emailVal = emailInput ? emailInput.value.trim() : "";
+            const phoneVal = phoneInput ? phoneInput.value.trim() : "";
+            const passVal = passwordInput ? passwordInput.value : "";
+            const confirmVal = confirmInput ? confirmInput.value : "";
+
+            // Check if any field boundary context input remains empty
+            if (nameVal === "" || emailVal === "" || phoneVal === "" || passVal === "" || confirmVal === "") {
+                successToast.classList.remove("show-success");
+                containerWrapper.classList.add("vibrate");
+                errorBubble.classList.add("show-error");
+                
+                setTimeout(() => { containerWrapper.classList.remove("vibrate"); }, 400);
+                return;
+            }
+
+            // Check if passwords pair balances exactly
+            if (passVal !== confirmVal) {
+                successToast.classList.remove("show-success");
+                errorBubble.textContent = "Passwords do not match!";
+                containerWrapper.classList.add("vibrate");
+                errorBubble.classList.add("show-error");
+                
+                setTimeout(() => { containerWrapper.classList.remove("vibrate"); }, 400);
+                return;
+            }
+
+            // All validation parameters check pass successfully -> fire success overlay toast banner
+            errorBubble.classList.remove("show-error");
+            successToast.classList.add("show-success");
+            
+            const submitBtn = signupForm.querySelector(".btn-signup-submit-action");
+            if (submitBtn) submitBtn.disabled = true;
+
+            // Route safely back to login layout page structure after 1.8 seconds delay
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1800);
+        });
+
+        // Hide warning alert bubbles instantly the moment a user resumes input edits
+        [nameInput, emailInput, phoneInput, passwordInput, confirmInput].forEach(inputNode => {
+            if (inputNode) {
+                inputNode.addEventListener("input", () => {
+                    errorBubble.classList.remove("show-error");
+                    errorBubble.textContent = "Please fill the fields"; // Reset message string back to default template rules
+                });
+            }
+        });
+    }
+});
+
+/**
+ * Universal Masking Visibility Unmask Eye Icon Click Helper
+ * @param {String} fieldId 
+ */
+function toggleFieldMasking(fieldId) {
+    const specifiedField = document.getElementById(fieldId);
+    if (specifiedField) {
+        const isCurrentTypePassword = specifiedField.getAttribute("type") === "password";
+        specifiedField.setAttribute("type", isCurrentTypePassword ? "text" : "password");
+    }
+}
+
+  </script>
+</body>
+</html>

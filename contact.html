@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly - Food Delivery</title>
+    <!-- FontAwesome for background food icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- PRELOADER PAGE -->
+    <div id="preloader">
+        <!-- Floating Decorative Vectors -->
+        <i class="fa-solid fa-burger bg-icon"></i>
+        <i class="fa-solid fa-pizza-slice bg-icon"></i>
+        <i class="fa-solid fa-drumstick-bite bg-icon"></i>
+        <i class="fa-solid fa-ice-cream bg-icon"></i>
+        <i class="fa-solid fa-donut bg-icon"></i>
+        <i class="fa-solid fa-hotdog bg-icon"></i>
+
+        <div class="loader-content">
+            <!-- Animated Scooter Vector -->
+            <div class="scooter-wrapper">
+                <div class="speed-lines"></div>
+                <svg class="scooter-svg" viewBox="0 0 24 24">
+                    <path d="M19 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m-9-2c0-.55-.45-1-1-1H8v2h1c.55 0 1-.45 1-1m-4 2c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m13.5-11H15v2h3.5c.28 0 .5.22.5.5v1.65l-2.08 4.16C16.58 9.53 16.1 9 15.5 9H11V7h1V5h-2v2h1v2H7.26c-.42-1.16-1.52-2-2.81-2-1.38 0-2.57.93-2.92 2.22L1 9.34V11h2.09c.35 1.29 1.54 2.22 2.92 2.22.84 0 1.6-.35 2.15-.92H11v1.42c-.6.47-1.08 1.12-1.35 1.88-1.27-.3-2.45-.6-3.65-.9l-.5 1.94c1.2.3 2.38.6 3.65.9C9.4 17.47 10.1 18 11 18h4.5c1.66 0 3-1.34 3-3v-1.78l2.67-5.34c.53-1.07-.25-2.38-1.45-2.38-.07 0-.15 0-.22.03V5.5c0-1.38-1.12-2.5-2.5-2.5z"/>
+                </svg>
+            </div>
+
+            <!-- Brand Info -->
+            <h1 class="brand-name">Stackly</h1>
+            <p class="tagline">Deliciousness delivered instantly</p>
+
+            <!-- Custom 2-second Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const progressBar = document.getElementById("progress");
+    const preloader = document.getElementById("preloader");
+
+    // Start the progress bar animation immediately on DOM load
+    setTimeout(() => {
+        progressBar.style.width = "100%";
+    }, 50);
+
+    // Hide the preloader completely after exactly 2 seconds (2000 milliseconds)
+    setTimeout(() => {
+        preloader.classList.add("hide-preloader");
+        document.body.style.overflow = "auto"; // Re-enable body scrolling
+    }, 2000);
+});
+
+</script>
+
+<header class="main-header">
+        <div class="header-container">
+            <!-- Brand Logo (Refreshes Page) -->
+            <a href="index.html" class="logo-container" onclick="window.location.reload();">
+                <img src="https://placeholder.com" alt="Stackly Logo" class="brand-logo">
+            </a>
+
+            <!-- Desktop Navigation Menus (Centered) -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link ">Home</a>
+                <a href="restaurants.html" class="nav-link ">Restaurants</a>
+                <a href="offers.html" class="nav-link ">Offers</a>
+                <a href="blogs.html" class="nav-link ">Blogs</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </nav>
+
+            <!-- Right Side Actions (Auth, Cart, Hamburger Trigger) -->
+            <div class="header-actions">
+               <a href="login.html">
+    <button class="btn-auth">Sign In</button>
+</a>
+                
+                <!-- Fixed Cart Icon using Inline SVG Vector -->
+                <a href="404.html" class="cart-icon-btn" title="View Cart">
+                    <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-badge">0</span>
+                </a>
+
+                <!-- Mobile Hamburger Trigger using Inline SVG Vector -->
+                <button class="hamburger-btn" id="hamburger-trigger" aria-label="Open Menu">
+                    <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer Overlay -->
+    <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+
+    <!-- Mobile Navigation Side Drawer (75% width) -->
+    <aside class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-header">
+            <span class="drawer-brand">Stackly</span>
+            <!-- Close Drawer Button using Inline SVG Vector -->
+            <button class="close-drawer-btn" id="close-drawer" aria-label="Close Menu">
+                <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+     <nav class="mobile-nav-menu">
+            <a href="index.html" class="mobile-nav-link ">Home</a>
+            <a href="restaurants.html" class="mobile-nav-link">Restaurants</a>
+            <a href="offers.html" class="mobile-nav-link">Offers</a>
+            <a href="blogs.html" class="mobile-nav-link active">Blogs</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="drawer-footer">
+            <button class="btn-auth-mobile">Sign In</button>
+        </div>
+    </aside>
+
+  
+
+  
+
+
+
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerTrigger = document.getElementById("hamburger-trigger");
+    const closeDrawerBtn = document.getElementById("close-drawer");
+    const mobileOverlay = document.getElementById("mobile-overlay");
+    const mobileDrawer = document.getElementById("mobile-drawer");
+    const bodyElement = document.body;
+
+    // Open Drawer Menu and Activate Scroll Lock
+    function openMobileMenu() {
+        mobileDrawer.classList.add("active");
+        mobileOverlay.classList.add("active");
+        bodyElement.classList.add("no-scroll");
+    }
+
+    // Close Drawer Menu and Restore Page Scrolling
+    function closeMobileMenu() {
+        mobileDrawer.classList.remove("active");
+        mobileOverlay.classList.remove("active");
+        bodyElement.classList.remove("no-scroll");
+    }
+
+    // Event Bindings
+    if (hamburgerTrigger) {
+        hamburgerTrigger.addEventListener("click", openMobileMenu);
+    }
+
+    if (closeDrawerBtn) {
+        closeDrawerBtn.addEventListener("click", closeMobileMenu);
+    }
+
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener("click", closeMobileMenu);
+    }
+});
+
+
+</script>
+<!-- CONTACT PAGE HERO BANNER -->
+<section class="contact-hero-section" id="contact-hero-trigger">
+    <!-- Fine abstract typographical line overlay overlay underlay matrix -->
+    <div class="contact-hero-grid-mesh"></div>
+
+    <div class="contact-hero-container">
+        
+        <!-- Left Column: Word-By-Word Title & Action Track Stack -->
+        <div class="contact-hero-left-content">
+            <span class="contact-pre-title" id="contact-badge-fade">Get In Touch</span>
+            
+            <h1 class="contact-hero-title" id="contact-scroll-title">
+                <span class="ch-word">We</span>
+                <span class="ch-word">Are</span>
+                <span class="ch-word accent-coral">Always</span>
+                <span class="ch-word">Ready</span>
+                <span class="ch-word">To</span>
+                <span class="ch-word">Hear</span>
+                <span class="ch-word">You</span>
+            </h1>
+            
+            <p class="contact-hero-description" id="contact-para-slide">
+                Have a question about a kitchen order, partnership opportunity, or customized food delivery enterprise account? Reach out to our specialist operations hub instantly.
+            </p>
+
+            <!-- Minimalist Quick Touch Channels Row sliding inward concurrently -->
+            <div class="contact-fast-channels" id="contact-channels-slide">
+                <div class="fast-channel-pill">
+                    <span class="channel-icon">📞</span>
+                    <div class="channel-stack">
+                        <strong>Call Support</strong>
+                        <span>+91 7010792745</span>
+                    </div>
+                </div>
+                <div class="fast-channel-pill">
+                    <span class="channel-icon icon-green">💬</span>
+                    <div class="channel-stack">
+                        <strong>Live Chat Hub</strong>
+                        <span>Average response: 2 Mins</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-hero-action" id="contact-btn-rise">
+                <a href="404.html" class="btn-contact-hero-primary">Launch Help Desk</a>
+            </div>
+        </div>
+
+        <!-- Right Column: Overlapping Collage Media Frame Rising from Bottom Bounds -->
+        <div class="contact-hero-right-media" id="contact-media-slide">
+            <!-- Central localized glowing aura backdrop disk -->
+            <div class="contact-media-glow-halo"></div>
+            
+            <!-- Main visual composition element frame -->
+            <div class="contact-image-wrapper">
+                <img src="https://placeholder.com" alt="Stackly Customer Help Desk Team" class="contact-hero-main-img">
+            </div>
+
+            <!-- Floating Overlay Card Component (Autonomous Interactive Float Sequence) -->
+            <div class="contact-float-status-card">
+                <div class="status-indicator-dot"></div>
+                <div class="status-text-block">
+                    <strong>Operations Active</strong>
+                    <span>Salem Headquarters Online</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Contact Page Hero Base Layout --- */
+.contact-hero-section {
+    padding: 80px 20px;
+    background-color: #ffffff; /* Clean flat minimalist white design canvas background */
+    overflow: hidden;
+    position: relative;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+}
+
+/* Linear geometric fine network blueprint background underlay matrix */
+.contact-hero-grid-mesh {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(230, 92, 64, 0.015) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(230, 92, 64, 0.015) 1px, transparent 1px);
+    background-size: 35px 35px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.contact-hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.contact-hero-left-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-pre-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--primary-color, #e65c40); /* Matches precise brand coral accent token */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.contact-pre-title.fade-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.contact-hero-title {
+    font-size: calc(2rem + 1.2vw);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #000000; /* Solid absolute crisp high-contrast black heading text */
+    margin-bottom: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+}
+
+.contact-hero-title .accent-coral {
+    color: var(--primary-color, #e65c40);
+}
+
+/* Word-by-word slide preset animation parameters mappings */
+.ch-word {
+    display: inline-block;
+    opacity: 0.15; /* Base dim layout status point before scroll cross-over triggers trigger reveal */
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.ch-word.word-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.contact-hero-description {
+    font-size: 1.1rem;
+    color: #000000; /* Crisp crisp solid black reading text block copy description */
+    line-height: 1.7;
+    margin-bottom: 25px;
+    max-width: 550px;
+    opacity: 0;
+    transform: translateX(-60px); /* Slides smoothly inward out from left viewport margin boundaries initially */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-hero-description.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* High Contrast Hover Content Glow Reflections on Typography Focus Header */
+.contact-hero-left-content:hover .contact-hero-title {
+    text-shadow: 0 0 20px rgba(230, 92, 64, 0.1);
+}
+
+/* Minimalist Quick Touch Channels Row */
+.contact-fast-channels {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 35px;
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-fast-channels.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.fast-channel-pill {
+    background-color: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 16px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.channel-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background-color: #fff5f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.channel-icon.icon-green { background-color: #eff6ff; }
+
+.channel-stack { display: flex; flex-direction: column; }
+.channel-stack strong { font-size: 0.85rem; color: #000000; }
+.channel-stack span { font-size: 0.8rem; color: #718096; font-weight: 600; margin-top: 1px; }
+
+.fast-channel-pill:hover {
+    border-color: rgba(230, 92, 64, 0.2);
+    box-shadow: 0 10px 20px rgba(230, 92, 64, 0.04);
+    transform: translateY(-2px);
+}
+
+/* Upwards Rising Call To Action Button Components */
+.contact-hero-action {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-hero-action.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-contact-hero-primary {
+    display: inline-block;
+    background-color: #1e293b; /* Premium deep blue-black high-contrast tone token */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 16px 38px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.12);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-contact-hero-primary:hover {
+    background-color: var(--primary-color, #e65c40);
+    box-shadow: 0 12px 24px rgba(230, 92, 64, 0.25);
+    transform: translateY(-4px) scale(1.02);
+}
+
+/* --- Right Side Column: Image Media Stack & Floating Status Badge --- */
+.contact-hero-right-media {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 480px;
+    /* Bottom-up upward vertical rise slide entry settings */
+    opacity: 0;
+    transform: translateY(80px); 
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-hero-right-media.slide-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.contact-media-glow-halo {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background-color: rgba(230, 92, 64, 0.06); /* Soft supportive localized brand ambient aura disc */
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: 1;
+}
+
+.contact-image-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.04);
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Autonomous high-performance floating loop sequence execution */
+    animation: contactImageFloat 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes contactImageFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-12px) rotate(-1deg); }
+}
+
+.contact-hero-right-media:hover .contact-image-wrapper {
+    transform: scale(1.02) translateY(-2px);
+}
+
+.contact-hero-main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- Creative Trust Overlay Status Card --- */
+.contact-float-status-card {
+    position: absolute;
+    bottom: 12%;
+    left: -4%;
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 14px 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    border: 1px solid #edf2f7;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+    animation: statusBadgeFloat 4s ease-in-out infinite alternate 0.3s;
+}
+
+@keyframes statusBadgeFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(8px); }
+}
+
+.contact-float-status-card:hover {
+    transform: scale(1.04) translateY(-3px) !important;
+    border-color: rgba(230, 92, 64, 0.2);
+    box-shadow: 0 18px 35px rgba(230, 92, 64, 0.08);
+    cursor: default;
+}
+
+.status-indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #22c55e; /* Bright glowing green pulse color node */
+    position: relative;
+}
+
+.status-indicator-dot::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%;
+    background-color: #22c55e;
+    animation: corePulseRing 1.8s infinite ease-in-out;
+}
+
+@keyframes corePulseRing {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(2.4); opacity: 0; }
+}
+
+.status-text-block { display: flex; flex-direction: column; }
+.status-text-block strong { font-size: 0.82rem; color: #000000; }
+.status-text-block span { font-size: 0.72rem; color: #718096; font-weight: 500; }
+
+/* --- Full Layout Grid Cross-Device Responsiveness --- */
+@media (max-width: 1024px) {
+    .contact-hero-container { gap: 40px; }
+    .contact-float-status-card { left: 2%; }
+}
+
+@media (max-width: 768px) {
+    .contact-hero-container {
+        grid-template-columns: 1fr; /* Collapses horizontal columns array down into clean single layout track lines */
+        text-align: center;
+        gap: 50px;
+    }
+    .contact-hero-title { justify-content: center; }
+    .contact-hero-description { margin-left: auto; margin-right: auto; }
+    .contact-fast-channels { justify-content: center; flex-wrap: wrap; gap: 14px; }
+    
+    .contact-hero-right-media {
+        order: -1; /* Pushes brand visual team illustration above content text block on mobile for view balance */
+        height: 400px;
+        transform: translateY(40px); /* Switch animation slide axis smoothly */
+    }
+    .contact-hero-right-media.slide-active { transform: translateY(0); }
+    .contact-image-wrapper { max-width: 310px; }
+    .contact-media-glow-halo { width: 250px; height: 250px; }
+    .contact-float-status-card { bottom: 4%; left: 15%; }
+}
+
+@media (max-width: 520px) {
+    .contact-hero-title { font-size: 1.85rem; }
+    .contact-fast-channels { flex-direction: column; align-items: stretch; }
+    .fast-channel-pill { justify-content: center; }
+    .btn-contact-hero-primary { width: 100%; text-align: center; } /* Stretch button fully to browser limits on smartphones viewports */
+    .contact-float-status-card { display: none; } /* Drop overlay absolute panels on tight mobile views to save space */
+}
+
+</style>
+
+<script>
+    /**
+ * STACKLY FOOD DELIVERY WEBSITE
+ * Isolated Operations Script: Contact Directory Hero Section
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Selector handles context channels mapping targets elements space
+    const sectionContainer = document.getElementById("contact-hero-trigger");
+    const preTitleBadge = document.getElementById("contact-badge-fade");
+    const headingWordsNodesList = document.querySelectorAll(".ch-word");
+    const paragraphTextCopyBody = document.getElementById("contact-para-slide");
+    const fastChannelsRowGroup = document.getElementById("contact-channels-slide");
+    const primaryActionButtonHolder = document.getElementById("contact-btn-rise");
+    const rightSideMediaGraphicsColumn = document.getElementById("contact-media-slide");
+
+    // Interaction Performance Evaluation Observer Options
+    const contactHeroObserverOptions = {
+        root: null,
+        threshold: 0.1, // Fires loop sequence calculations once 10% of container crosses baseline view tracking limits
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    // Sequential Timeline Execution Matrix Loop
+    const contactHeroRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Step A: Fade in pre title brand badge label
+                if (preTitleBadge) {
+                    preTitleBadge.classList.add("fade-active");
+                }
+
+                // Track Timeline Step B: Assemble Title header text pieces word-by-word progressively
+                headingWordsNodesList.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 95); // 95ms progressive layout text stagger delays pacing
+                });
+
+                // Track Timeline Step C: Slide description narrative copy block smoothly out from left margin limits
+                if (paragraphTextCopyBody) {
+                    paragraphTextCopyBody.classList.add("slide-active");
+                }
+
+                // Track Timeline Step D: Slide fast communication pill buttons channels row inward concurrently
+                if (fastChannelsRowGroup) {
+                    setTimeout(() => {
+                        fastChannelsRowGroup.classList.add("slide-active");
+                    }, 250);
+                }
+
+                // Track Timeline Step E: Slide right visual support illustration graphics column upward from bottom boundaries limits
+                if (rightSideMediaGraphicsColumn) {
+                    rightSideMediaGraphicsColumn.classList.add("slide-active");
+                }
+
+                // Track Timeline Step F: Rise primary launch help desk CTA button upward concurrently
+                if (primaryActionButtonHolder) {
+                    setTimeout(() => {
+                        primaryActionButtonHolder.classList.add("rise-active");
+                    }, 400);
+                }
+
+                // Terminate target observer listener safely to secure memory footprint clock speeds footprints
+                observer.unobserve(entry.target);
+            }
+        });
+    }, contactHeroObserverOptions);
+
+    if (sectionContainer) {
+        contactHeroRevealObserver.observe(sectionContainer);
+    }
+});
+
+</script>
+
+<!-- CONTACT INPUT FORM & DETAILS SECTION -->
+<section class="contact-form-section" id="form-section-trigger">
+    <div class="form-section-container">
+        
+        <!-- Left Column: Corporate Office Connectivity Tags Grid -->
+        <div class="contact-details-column">
+            <span class="contact-atelier-badge scroll-fade-node">Flagship Atelier</span>
+            <h2 class="contact-details-main-heading scroll-fade-node">Reach Our <br>Sugar Architects.</h2>
+            
+            <div class="contact-info-cards-stack">
+                
+                <!-- Detail Card 1: Office Studio Location -->
+                <div class="info-metric-card scroll-fade-node">
+                    <span class="metric-vector-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    </span>
+                    <div class="metric-text-stack">
+                        <strong>Visit Our Studio</strong>
+                        <p>MMR Complex, Periyakollappatty, Chinna Thirupathi, Salem, Tamil Nadu 636008</p>
+                    </div>
+                </div>
+
+                <!-- Detail Card 2: Hotlines Support -->
+                <div class="info-metric-card scroll-fade-node">
+                    <span class="metric-vector-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </span>
+                    <div class="metric-text-stack">
+                        <strong>Direct Hotlines</strong>
+                        <p><a href="tel:+917010792745" class="interactive-detail-link">+91 7010792745</a></p>
+                    </div>
+                </div>
+
+                <!-- Detail Card 3: Outlook Core Routing Mail Link -->
+                <div class="info-metric-card scroll-fade-node">
+                    <span class="metric-vector-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </span>
+                    <div class="metric-text-stack">
+                        <strong>Electronic Mail</strong>
+                        <p><a href="mailto:design@stacklystudio.com" class="interactive-detail-link" title="Open in Outlook / Mail Client">design@stacklystudio.com</a></p>
+                    </div>
+                </div>
+
+                <!-- Detail Card 4: Availability Timings -->
+                <div class="info-metric-card scroll-fade-node">
+                    <span class="metric-vector-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </span>
+                    <div class="metric-text-stack">
+                        <strong>Atelier Availability</strong>
+                        <p>Mon - Sun: 9:00 AM - 7:00 PM</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Column: Interactive Intake Consultation Form Block -->
+        <div class="contact-form-column scroll-fade-node">
+            <div class="form-wrapper-box">
+                <h3 class="form-main-heading">Send Us a Message 📋</h3>
+                <p class="form-sub-heading">Submit your celebration parameters. Form boundaries illuminate on active focus.</p>
+                
+                <form id="consultation-intake-form" novalidate>
+                    
+                    <div class="form-input-row">
+                        <label for="client-name-field" class="form-field-label">YOUR ELEGANT NAME</label>
+                        <input type="text" id="client-name-field" placeholder="Your elegant name..." autocomplete="off">
+                    </div>
+
+                    <div class="form-input-row">
+                        <label for="client-email-field" class="form-field-label">EMAIL ADDRESS</label>
+                        <input type="email" id="client-email-field" placeholder="name@example.com" autocomplete="off">
+                    </div>
+
+                    <div class="form-input-row">
+                        <label for="client-phone-field" class="form-field-label">10-DIGIT MOBILE NUMBER</label>
+                        <input type="text" id="client-phone-field" placeholder="10-digit mobile number" maxlength="10" autocomplete="off">
+                    </div>
+
+                    <div class="form-input-row">
+                        <label for="client-category-select" class="form-field-label">PROJECT DISCIPLINE CATEGORY</label>
+                        <div class="custom-select-wrapper">
+                            <select id="client-category-select">
+                                <option value="" disabled selected>Select a discipline category...</option>
+                                <option value="catering">Gourmet Event Catering</option>
+                                <option value="bakery">Custom Patisserie Design</option>
+                                <option value="partnership">Master Kitchen Partnership</option>
+                                <option value="enterprise">Corporate Enterprise Delivery</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-input-row">
+                        <label for="client-narrative-field" class="form-field-label">YOUR PROJECT NARRATIVE</label>
+                        <textarea id="client-narrative-field" rows="4" placeholder="Tell us about your project footprint size, timeline metrics, and flavor preferences..."></textarea>
+                    </div>
+
+                    <!-- Universal Floating Warning Error Validation Bubble -->
+                    <div class="form-validation-alert" id="form-error-bubble">Please fill the fields</div>
+
+                    <button type="submit" class="btn-form-submit">RESERVE TASTING CONSULTATION →</button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Corporate Light Interface Form Block Style Mappings --- */
+.contact-form-section {
+    /* Exact requested spacing constraints: 50px top padding, 30px bottom padding */
+    padding: 10px 20px 30px 20px;
+    background-color: #ffffff; /* Clean white canvas background configuration */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+.form-section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 60px;
+    width: 100%;
+}
+
+/* --- Left Side Content Blocks Architecture --- */
+.contact-details-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-atelier-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.contact-atelier-badge::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #e65c40; /* Signature brand coral marker dot */
+    border-radius: 50%;
+}
+
+.contact-details-main-heading {
+    font-size: calc(2rem + 0.8vw);
+    font-weight: 800;
+    line-height: 1.25;
+    color: #000000; /* Solid high-contrast absolute black heading text */
+    margin: 0 0 35px 0;
+    letter-spacing: -0.5px;
+}
+
+.contact-info-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-metric-card {
+    background-color: #ffffff; 
+    border: 1px solid #edf2f7; /* Clean, lightweight borderline split */
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Premium Focus Hover Glow Aura Shadows Profiles */
+.info-metric-card:hover {
+    border-color: rgba(230, 92, 64, 0.25);
+    box-shadow: 0 15px 35px rgba(230, 92, 64, 0.05);
+    transform: translateY(-3px);
+}
+
+.metric-vector-icon {
+    color: #e65c40; /* Premium brand coral vector icons accent */
+    margin-top: 2px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.metric-vector-icon svg { width: 18px; height: 18px; stroke: currentColor; }
+
+.metric-text-stack { display: flex; flex-direction: column; }
+.metric-text-stack strong { font-size: 0.8rem; font-weight: 700; color: #718096; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.metric-text-stack p { font-size: 0.95rem; color: #000000; line-height: 1.5; margin: 0; }
+
+.interactive-detail-link {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.interactive-detail-link:hover {
+    color: #e65c40;
+}
+
+/* --- Right Side: Clean Input Form Architecture --- */
+.contact-form-column {
+    width: 100%;
+}
+
+.form-wrapper-box {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 24px;
+    padding: 40px;
+}
+
+.form-main-heading {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #000000;
+    margin: 0 0 8px 0;
+}
+
+.form-sub-heading {
+    font-size: 0.92rem;
+    color: #718096;
+    line-height: 1.5;
+    margin: 0 0 35px 0;
+}
+
+/* Form Input Blocks Infrastructure Row Rows */
+.form-input-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.form-field-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #4a5568;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.form-input-row input, 
+.form-input-row textarea, 
+.form-input-row select {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #000000; /* Crisp crisp high contrast absolute black text fields entries strings */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input-row textarea { resize: none; line-height: 1.6; }
+
+/* Focus illumination halos parameters matching layout requirements */
+.form-input-row input:focus, 
+.form-input-row textarea:focus, 
+.form-input-row select:focus {
+    border-color: #e65c40; /* Solid brand coral on active focus */
+    box-shadow: 0 0 0 4px rgba(230, 92, 64, 0.15);
+}
+
+.form-input-row input::placeholder, 
+.form-input-row textarea::placeholder {
+    color: #a0aec0;
+}
+
+/* Custom Select Dropdown Vector Chevron Mapping */
+.custom-select-wrapper { position: relative; width: 100%; }
+.custom-select-wrapper select { appearance: none; cursor: pointer; padding-right: 45px; }
+
+.custom-select-wrapper::after {
+    content: '▼';
+    font-size: 0.65rem;
+    color: #718096;
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+.custom-select-wrapper:focus-within::after { color: #e65c40; }
+
+/* --- Ticking Warning Error Warning Alert Bubble Popup CSS --- */
+.form-validation-alert {
+    background-color: #ff4d4d;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 10px 18px;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(255, 77, 77, 0.25);
+    margin-bottom: 24px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.form-validation-alert.show-bubble {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@keyframes inputErrorVibrate {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+.form-wrapper-box.vibrate { animation: inputErrorVibrate 0.4s ease-in-out; }
+
+/* --- Action Submit Button Component Profile --- */
+.btn-form-submit {
+    width: 100%;
+    background-color: #1e293b; /* Deep blue-black high-contrast tone token */
+    border: none;
+    color: #ffffff;
+    padding: 16px 20px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-form-submit:hover {
+    background-color: #e65c40; /* Smooth coral flip on hover focus loops */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(230, 92, 64, 0.2);
+}
+
+.btn-form-submit:active { transform: scale(0.98); }
+
+/* --- Scroll One-by-One Progressive Intersections Cascade Tokens --- */
+.scroll-fade-node {
+    opacity: 0;
+    transform: translateY(35px); /* Slide up elegantly sequentially on scroll down entries */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scroll-fade-node.node-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Full Layout Grid Cross-Device Responsiveness --- */
+@media (max-width: 991px) {
+    .form-section-container { grid-template-columns: 1fr; gap: 50px; }
+    .form-wrapper-box { padding: 30px; }
+}
+
+@media (max-width: 580px) {
+    .contact-details-main-heading { font-size: 1.85rem; }
+    .form-main-heading { font-size: 1.3rem; }
+    .form-wrapper-box { padding: 24px 18px; border-radius: 18px; }
+    .info-metric-card { padding: 16px 18px; }
+    .btn-form-submit { font-size: 0.8rem; letter-spacing: 0.8px; padding: 14px 12px; }
+}
+
+</style>
+
+<script>
+    // --- Contact Form Regex Filtering, Cascades & Redirect Logic Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    const sectionTriggerZone = document.getElementById("form-section-trigger");
+    const cascadingNodesList = document.querySelectorAll(".scroll-fade-node");
+    const contactIntakeForm = document.getElementById("consultation-intake-form");
+    const nameInputField = document.getElementById("client-name-field");
+    const phoneInputField = document.getElementById("client-phone-field");
+    const emailInputField = document.getElementById("client-email-field");
+    const categorySelectField = document.getElementById("client-category-select");
+    const errorBubbleNotifier = document.getElementById("form-error-bubble");
+    const masterFormBoxWrapper = document.querySelector(".form-wrapper-box");
+
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.08, 
+        rootMargin: "0px 0px -20px 0px"
+    };
+
+    const formsSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const visibleElements = Array.from(cascadingNodesList).filter(node => {
+                    const currentBounds = node.getBoundingClientRect();
+                    return currentBounds.top < window.innerHeight && currentBounds.bottom > 0;
+                });
+
+                visibleElements.forEach((elementNode, index) => {
+                    if (!elementNode.classList.contains("node-revealed")) {
+                        setTimeout(() => {
+                            elementNode.classList.add("node-revealed");
+                        }, index * 110); 
+                    }
+                });
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    if (sectionTriggerZone) {
+        formsSectionObserver.observe(sectionTriggerZone);
+    }
+
+    // REGEX FILTERING LOGIC 
+    if (nameInputField) {
+        nameInputField.addEventListener("input", function() {
+            this.value = this.value.replace(/[0-9]/g, ""); // Blocks digits globally
+        });
+    }
+
+    if (phoneInputField) {
+        phoneInputField.addEventListener("input", function() {
+            this.value = this.value.replace(/[^0-9]/g, ""); // Blocks alphabets globally
+        });
+    }
+
+    // INTAKE SUBMISSION LOGIC
+    if (contactIntakeForm && errorBubbleNotifier && masterFormBoxWrapper) {
+        contactIntakeForm.addEventListener("submit", (event) => {
+            event.preventDefault(); 
+            
+            const nameVal = nameInputField ? nameInputField.value.trim() : "";
+            const emailVal = emailInputField ? emailInputField.value.trim() : "";
+            const phoneVal = phoneInputField ? phoneInputField.value.trim() : "";
+            const categoryVal = categorySelectField ? categorySelectField.value : "";
+
+            if (nameVal === "" || emailVal === "" || phoneVal === "" || categoryVal === "") {
+                masterFormBoxWrapper.classList.add("vibrate");
+                errorBubbleNotifier.classList.add("show-bubble");
+                setTimeout(() => { masterFormBoxWrapper.classList.remove("vibrate"); }, 400);
+            } else {
+                window.location.href = "404.html"; // Routes to your fallback landing architecture page safely
+            }
+        });
+
+        const allInputFieldsArray = [nameInputField, emailInputField, phoneInputField, categorySelectField];
+        allInputFieldsArray.forEach(inputSelectorNode => {
+            if (inputSelectorNode) {
+                inputSelectorNode.addEventListener("input", () => { errorBubbleNotifier.classList.remove("show-bubble"); });
+                if (inputSelectorNode.tagName === "SELECT") {
+                    inputSelectorNode.addEventListener("change", () => { errorBubbleNotifier.classList.remove("show-bubble"); });
+                }
+            }
+        });
+    }
+});
+
+</script>
+
+<!-- CREATIVE MAP NAVIGATION HUB SECTION -->
+<section class="map-navigation-section" id="map-hub-trigger">
+    <div class="map-hub-container">
+        
+        <!-- Left Column: Word-By-Word Title Stack & Action Card -->
+        <div class="map-hub-left">
+            <!-- Scroll Animated Word-by-Word Header Construction -->
+            <h2 class="map-hub-title" id="map-scroll-title">
+                <span class="mp-word">Locate</span>
+                <span class="mp-word">Our</span>
+                <span class="mp-word accent-brand">Flagship</span>
+                <span class="mp-word">Kitchen</span>
+                <span class="mp-word">HQ</span>
+            </h2>
+            <p class="map-hub-subtitle">Come visit our studio atelier for exclusive, real-time live recipe customization consultations.</p>
+
+            <!-- Interactive Navigation Card with Soft Hover Glow -->
+            <div class="map-details-action-card" id="map-card-rise">
+                <div class="card-glow-aurora"></div>
+                <div class="address-metadata">
+                    <span class="marker-dot"></span>
+                    <div class="address-lines-stack">
+                        <strong>Headquarters Studio</strong>
+                        <p>MMR Complex, Periyakollappatty, Chinna Thirupathi, Salem, Tamil Nadu 636008</p>
+                    </div>
+                </div>
+                
+                <!-- CTA Button opening direct routing path on external Google Maps window -->
+                <div class="map-action-wrapper">
+                    <a href="https://google.com" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-open-google-maps" 
+                       title="Open Direction Coordinates on Google Maps">
+                        <span>OPEN DIRECTIONS MAP</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Creative Asymmetric Map Graphic Framing Cockpit -->
+        <div class="map-hub-right-media" id="map-media-slide">
+            <div class="map-frame-ambient-glow"></div>
+            
+            <div class="map-canvas-mockup-frame">
+                <!-- Img Tag provided for a premium stylized roadmap visual graphic backplate -->
+                <img src="https://placeholder.com" alt="Stackly Salem Headquarters Map Coordinates" class="map-static-img-asset">
+                
+                <!-- Micro Live Overlay Coordinate Badge Overlay Card -->
+                <div class="map-coordinate-live-badge">
+                    <div class="pulse-radar-dot"></div>
+                    <span>Live GPS Track Active</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Creative Map Navigation Section Framework --- */
+.map-navigation-section {
+    /* Explicit custom padding limits criteria: 50px top padding, 30px bottom padding */
+    padding: 10px 20px 30px 20px;
+    background-color: #ffffff; /* Clean flat minimalist white layout design canvas backdrop */
+    overflow: hidden;
+    position: relative;
+}
+
+.map-hub-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr; /* Precise proportional asymmetrical layout splitting columns */
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.map-hub-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.map-hub-title {
+    font-size: calc(1.8rem + 0.8vw);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #000000; /* Strict absolute high contrast solid black text rules */
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+
+.map-hub-title .accent-brand {
+    color: var(--primary-color, #e65c40); /* Platform Signature Brand Coral */
+}
+
+/* Word-by-word slide initial layout parameters mappings */
+.mp-word {
+    display: inline-block;
+    opacity: 0.15; /* Base dim layout configuration state prior to intersection hooks triggers */
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.mp-word.word-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.map-hub-subtitle {
+    font-size: 1.05rem;
+    color: #718096;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+/* Interactive Navigation Card Structure */
+.map-details-action-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7; /* soft minimal hairline border boundary line template */
+    border-radius: 20px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px); /* Cascades upward smoothly from ground lines plane */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.map-details-action-card.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Premium Focus Hover Glow Aura Shadows Matrix Activation */
+.map-details-action-card:hover {
+    border-color: rgba(230, 92, 64, 0.25);
+    /* Soft localized brand glowing aura drop projection */
+    box-shadow: 0 20px 45px rgba(230, 92, 64, 0.05);
+}
+
+/* Internal Card Ambient Glow Ring Element Layer */
+.card-glow-aurora {
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 130px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.map-details-action-card:hover .card-glow-aurora { opacity: 1; }
+
+.address-metadata {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
+}
+
+.marker-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color, #e65c40);
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.address-lines-stack { display: flex; flex-direction: column; }
+.address-lines-stack strong { font-size: 0.85rem; font-weight: 700; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.address-lines-stack p { font-size: 1rem; color: #000000; line-height: 1.5; margin: 0; font-weight: 600; }
+
+.map-action-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-open-google-maps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background-color: #1e293b; /* Premium deep blue-black high-contrast tone token */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-open-google-maps:hover {
+    background-color: var(--primary-color, #e65c40); /* Instantly lights brand color token into focus */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(230, 92, 64, 0.2);
+}
+
+.btn-open-google-maps svg { width: 14px; height: 14px; stroke: currentColor; }
+
+/* --- Right Column Layout: Image Media Slide Entry Inward --- */
+.map-hub-right-media {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 440px;
+    /* Slide inward animation from the side margins bounds borders */
+    opacity: 0;
+    transform: translateX(60px); 
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.map-hub-right-media.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.map-frame-ambient-glow {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background-color: rgba(230, 92, 64, 0.05); /* Soft backplate drop aura ring */
+    border-radius: 50%;
+    filter: blur(45px);
+    z-index: 1;
+}
+
+/* Asymmetric Masking Frame Platform */
+.map-canvas-mockup-frame {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+    border: 1px solid #edf2f7;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+    animation: spatialMapFloat 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes spatialMapFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+.map-hub-right-media:hover .map-canvas-mockup-frame {
+    transform: scale(1.02) translateY(-4px) !important;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.06);
+}
+
+.map-static-img-asset {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Micro Live Overlay Tracker Badge Card Component */
+.map-coordinate-live-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 3;
+}
+
+.pulse-radar-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #22c55e; /* Glowing green live point marker */
+    border-radius: 50%;
+    position: relative;
+}
+
+.pulse-radar-dot::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #22c55e;
+    border-radius: 50%;
+    animation: sonarPulse Ring 1.6s infinite ease-in-out;
+}
+
+@keyframes sonarPulseRing {
+    0% { transform: scale(0.8); opacity: 0.6; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* --- Full Layout Grid Cross-Device Layout Responsiveness --- */
+@media (max-width: 991px) {
+    .map-hub-container { grid-template-columns: 1fr; gap: 50px; } /* Drop dual layout columns arrangement completely on tablets views */
+    .map-hub-right-media {
+        order: -1; /* Pushes maps image asset above descriptions elements block on mobile frames layout */
+        height: 360px;
+        transform: translateY(30px); /* Switch horizontal linear sliding pathways axis into rising vertical vectors */
+    }
+    .map-hub-right-media.slide-active { transform: translateY(0); }
+}
+
+@media (max-width: 580px) {
+    .map-hub-title { font-size: 1.8rem; }
+    .map-hub-subtitle { font-size: 0.95rem; margin-bottom: 22px; }
+    .map-details-action-card { padding: 18px; }
+    .btn-open-google-maps { font-size: 0.8rem; padding: 12px 14px; }
+}
+
+</style>
+
+<script>
+    // --- Contact Directory Maps Module Navigation Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Mapping Targets Elements Space Configuration
+    const mapHubSectionTrigger = document.getElementById("map-hub-trigger");
+    const titleWordsList = document.querySelectorAll(".mp-word");
+    const underlyingActionCard = document.getElementById("map-card-rise");
+    const rightSideMediaCanvasColumn = document.getElementById("map-media-slide");
+
+    // 2. Intersection Evaluation Control Observer Options Parameters
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.1, // Fires script tracking sequences once 10% of element boundary crosses screen tracking frames lines
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    // 3. Sequential Timeline Orchestration Matrix Loop Execution
+    const contactMapSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Path Step A: Assemble Title text word-by-word progressively
+                titleWordsList.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 95); // 95ms progressive layout text stagger delays pacing
+                });
+
+                // Track Timeline Path Step B: Slide right column support media imagery asset framework inward smoothly from side bounds borders
+                if (rightSideMediaCanvasColumn) {
+                    rightSideMediaCanvasColumn.classList.add("slide-active");
+                }
+
+                // Track Timeline Path Step C: Rise standalone interactive action details card up smoothly out from ground plane layer lines
+                if (underlyingActionCard) {
+                    setTimeout(() => {
+                        underlyingActionCard.classList.add("rise-active");
+                    }, 350);
+                }
+
+                // Terminate connection target listener safely to protect memory processor footprint clock speeds
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    if (mapHubSectionTrigger) {
+        contactMapSectionObserver.observe(mapHubSectionTrigger);
+    }
+});
+
+</script>
+
+
+<!-- FULL WIDTH SUBSCRIBE CTA BANNER SECTION -->
+<section class="subscribe-banner-section" id="subscribe-trigger-zone">
+    <!-- Subtle backdrop texture pattern image tag -->
+    <img src="https://placeholder.com" alt="Subscribe Backdrop Pattern" class="sub-banner-bg-asset">
+    
+    <!-- Floating Vector Elements Backdrop Layer -->
+    <div class="sub-floating-vectors-canvas">
+        <div class="sub-vector-node node-leaf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22c1.25-3.66 5.5-6 10-6s8.75 2.34 10 6H2z"></path><path d="M12 2a15.3 15.3 0 0 1 4 10H8a15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="sub-vector-node node-pizza">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 11h.01M11 15h.01M16 16h.01M12 11h.01M12 2a10 10 0 0 1 8 16l-8 4-8-4a10 10 0 0 1 8-16z"></path></svg>
+        </div>
+    </div>
+
+    <!-- Inner Grid Container Layout -->
+    <div class="sub-banner-container">
+        
+        <!-- Left Column: Copy Content Stack -->
+        <div class="sub-banner-text-block" id="sub-text-slide">
+            <h2 class="sub-line-one">Subscribe Our Newsletter</h2>
+            <p class="sub-line-two">Stay updated with fresh culinary news, secret weekly discount codes, and new local kitchen onboarding alerts.</p>
+        </div>
+
+        <!-- Right Column: Form Interface Layer with Real-Time Validation Bubble -->
+        <div class="sub-banner-form-block" id="sub-form-rise">
+            <form id="newsletter-subscribe-form" class="sub-form-wrapper" novalidate>
+                <div class="sub-input-field-group">
+                    <span class="sub-input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </span>
+                    <input type="email" id="subscriber-email-input" placeholder="Your Email Address..." autocomplete="off">
+                    
+                    <!-- Smart Interactive Validation Bubble Popup -->
+                    <span class="sub-validation-bubble" id="sub-error-msg">Please fill the fields</span>
+                </div>
+                <button type="submit" class="btn-sub-submit">Subscribe</button>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Subscribe Banner Framework Layout --- */
+.subscribe-banner-section {
+    /* Precise constraint compliance: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    width: 100%; /* Guarantees strict full-bleed viewport boundaries coverage */
+    background: linear-gradient(135deg, #1e293b, #0f172a); /* Premium deep dark foundation */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.sub-banner-bg-asset {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.05; /* Subdued backdrop footprint to isolate crisp text legibility weights */
+}
+
+.sub-banner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    z-index: 3; /* Forces elements to render forward reliably above graphics canvas layers */
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.sub-banner-text-block {
+    display: flex;
+    flex-direction: column;
+    /* Scroll slide animation baseline settings */
+    opacity: 0;
+    transform: translateX(-70px); /* Slides inward smoothly out from left margins */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sub-banner-text-block.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sub-line-one {
+    font-size: calc(1.8rem + 0.5vw);
+    font-weight: 800;
+    line-height: 1.25;
+    color: #ffffff; /* Brilliant white for absolute pop */
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    transition: text-shadow 0.3s ease;
+}
+
+.sub-line-two {
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85); /* Highly readable softened text label */
+    transition: color 0.3s ease;
+}
+
+/* Content Panel Interactive Glow Effects */
+.sub-banner-text-block:hover .sub-line-one {
+    /* Multi-layered soft white neon typographical localized ambient glow aura projection */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 
+                 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.sub-banner-text-block:hover .sub-line-two {
+    color: #ffffff;
+}
+
+/* --- Right Column: Input Form Framework Layout --- */
+.sub-banner-form-block {
+    width: 100%;
+    /* Scroll up animation baseline settings */
+    opacity: 0;
+    transform: translateY(40px); /* Rises upward out from ground lines plane */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sub-banner-form-block.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sub-form-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 6px 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.sub-form-wrapper:focus-within {
+    border-color: var(--primary-color); /* Premium brand coral tone highlight vector line */
+    box-shadow: 0 0 0 4px rgba(230, 92, 64, 0.15);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sub-input-field-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.sub-input-icon {
+    color: rgba(255, 255, 255, 0.4);
+    margin-left: 12px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.sub-input-icon svg { width: 20px; height: 20px; }
+
+#subscriber-email-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff; /* Absolute high visibility white characters entry string */
+    outline: none;
+}
+
+#subscriber-email-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-sub-submit {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-sub-submit:hover {
+    background-color: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn-sub-submit:active {
+    transform: scale(0.97);
+}
+
+/* Intelligent Validation Bubble Popup CSS Elements Matrix */
+.sub-validation-bubble {
+    position: absolute;
+    bottom: calc(100% + 20px);
+    left: 12px;
+    background-color: #ff4d4d;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 6px 16px rgba(255, 77, 77, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.sub-validation-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #ff4d4d transparent transparent transparent;
+}
+
+.sub-validation-bubble.show-error {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Error warning vibration shake timeline mechanics */
+@keyframes validationShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.sub-form-wrapper.shake {
+    animation: validationShake 0.4s ease-in-out;
+    border-color: #ff4d4d !important;
+}
+
+/* --- Floating Context Vector Nodes Canvas Layer --- */
+.sub-floating-vectors-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.sub-vector-node {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.06);
+}
+
+.sub-vector-node svg { width: 32px; height: 32px; stroke: currentColor; }
+.node-leaf { top: 15%; right: 40%; animation: subFloatOne 4.5s ease-in-out infinite alternate; }
+.node-pizza { bottom: 25%; left: 3%; animation: subFloatTwo 5s ease-in-out infinite alternate 0.3s; }
+
+@keyframes subFloatOne { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-10px) rotate(8deg); } }
+@keyframes subFloatTwo { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(10px) rotate(-8deg); } }
+
+/* --- Full Cross-Device Layout Responsiveness --- */
+@media (max-width: 991px) {
+    .sub-banner-container { gap: 30px; }
+    .sub-line-one { font-size: 1.7rem; }
+}
+
+@media (max-width: 768px) {
+    .sub-banner-container {
+        grid-template-columns: 1fr; /* Switch into a center stacked sequence configuration */
+        text-align: center;
+        gap: 35px;
+    }
+    .sub-banner-text-block {
+        transform: translateY(30px); /* Toggles entry coordinate vector mapping configuration vertically */
+    }
+    .sub-banner-text-block.slide-active { transform: translateY(0); }
+    .node-leaf { display: none; }
+}
+
+@media (max-width: 580px) {
+    .sub-form-wrapper {
+        flex-direction: column;
+        padding: 8px;
+        gap: 8px;
+        border-radius: 14px;
+    }
+    .sub-input-field-group { width: 100%; }
+    #subscriber-email-input { padding: 10px 12px; text-align: center; }
+    .btn-sub-submit { width: 100%; padding: 12px; }
+    .sub-validation-bubble {
+        bottom: auto;
+        top: calc(100% + 8px);
+        left: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .sub-validation-bubble::after { display: none; }
+}
+
+</style>
+
+<script>
+    // --- Subscribe Form Validation & Scroll Intersection Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Mapping Targets Elements Space
+    const subBannerTriggerZone = document.getElementById("subscribe-trigger-zone");
+    const subTextContainer = document.getElementById("sub-text-slide");
+    const subFormContainer = document.getElementById("sub-form-rise");
+    const subscriptionForm = document.getElementById("newsletter-subscribe-form");
+    const emailInputNode = document.getElementById("subscriber-email-input");
+    const errorBubbleNode = document.getElementById("sub-error-msg");
+
+    // 2. Intersection Control Parameters Configurations
+    const observerControlOptions = {
+        root: null,
+        threshold: 0.15, // Fires entry logic once 15% of banner passes intersection targets lines
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const subscribeBannerObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Step A: Slide left copy block elements inward smoothly out from margins bounds
+                if (subTextContainer) {
+                    subTextContainer.classList.add("slide-active");
+                }
+
+                // Track Timeline Step B: Rise form interface block container upwards from ground layer plane
+                if (subFormContainer) {
+                    setTimeout(() => {
+                        subFormContainer.classList.add("rise-active");
+                    }, 250);
+                }
+
+                // Disconnect container tracking vectors to secure footprint clock speeds safely
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerControlOptions);
+
+    if (subBannerTriggerZone) {
+        subscribeBannerObserver.observe(subBannerTriggerZone);
+    }
+
+    // 3. Subscription Form Accuracy Verification Mechanics Engine
+    if (subscriptionForm && emailInputNode && errorBubbleNode) {
+        subscriptionForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Halt active sequence submission to evaluate input data strings space
+            
+            const enteredEmailValue = emailInputNode.value.trim();
+
+            if (enteredEmailValue === "") {
+                // Input fails validation parameters criteria checks -> fire warning alerts blocks
+                subscriptionForm.classList.add("shake");
+                errorBubbleNode.classList.add("show-error");
+
+                // Unbind warning indicator classes post visual loops completions configurations
+                setTimeout(() => {
+                    subscriptionForm.classList.remove("shake");
+                }, 400);
+            } else {
+                // Content validation passes successfully -> route directly into 404 page layout system
+                window.location.href = "404.html";
+            }
+        });
+
+        // Hide validation bubble warnings instantly when user inputs text fixes
+        emailInputNode.addEventListener("input", () => {
+            if (emailInputNode.value.trim() !== "") {
+                errorBubbleNode.classList.remove("show-error");
+            }
+        });
+    }
+});
+
+</script>
+
+<!-- FRONT-END FOOTER SECTION -->
+<footer class="site-footer">
+    <div class="footer-top-container">
+        
+        <!-- Column 1: Brand Profile & Social Circle Row -->
+        <div class="footer-column brand-profile-col">
+            <a href="#" class="footer-logo-btn" id="back-to-top-trigger" title="Back to Top">
+                <!-- Img tag provided for your custom brand asset logo -->
+                <img src="https://placeholder.com" alt="Stackly Logo" class="footer-brand-logo">
+            </a>
+            <p class="footer-bio-text">
+                Delivering premier culinary experiences and high-fidelity dining ecosystems designed to fuel instant gratification straight to your doorstep.
+            </p>
+            <div class="footer-social-row">
+                <a href="404.html" class="social-circle-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v4h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                <a href="404.html" class="social-circle-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="24" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"></path></svg></a>
+                <a href="404.html" class="social-circle-link" aria-label="Twitter X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16h4.267l-11.733-16z M4 20l6.768-6.768M20 4l-6.768 6.768"></path></svg></a>
+                <a href="404.html" class="social-circle-link" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg></a>
+            </div>
+        </div>
+
+        <!-- Column 2: Explore Tracks Link Column -->
+        <div class="footer-column links-col">
+            <h3 class="footer-col-heading">Explore Tracks</h3>
+            <ul class="footer-links-list">
+                <li><a href="404.html" class="footer-nav-link">Nearby Kitchens</a></li>
+                <li><a href="404.html" class="footer-nav-link">Gourmet Cuisines</a></li>
+                <li><a href="404.html" class="footer-nav-link">Daily Promo Flash</a></li>
+                <li><a href="404.html" class="footer-nav-link">Eco-Friendly Pack</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 3: Event Support Link Column -->
+        <div class="footer-column links-col">
+            <h3 class="footer-col-heading">Order Support</h3>
+            <ul class="footer-links-list">
+                <li><a href="404.html" class="footer-nav-link">Live Courier Status</a></li>
+                <li><a href="404.html" class="footer-nav-link">Refund Parameters</a></li>
+                <li><a href="404.html" class="footer-nav-link">Help &amp; FAQ Center</a></li>
+                <li><a href="404.html" class="footer-nav-link">Safety Certifications</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 4: Headquarters Contact Location Details -->
+        <div class="footer-column contact-info-col">
+            <h3 class="footer-col-heading">Headquarters Location</h3>
+            <div class="contact-detail-item">
+                <span class="contact-vector-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </span>
+                <p class="contact-text-lines">
+                    MMR Complex, Periyakollappatty,<br>Chinna Thirupathi, Salem,<br>Tamil Nadu 636008
+                </p>
+            </div>
+            <div class="contact-detail-item">
+                <span class="contact-vector-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </span>
+                <a href="404.html" class="contact-phone-link">+91 7010792745</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Copyright & Policies Bar Layout -->
+    <div class="footer-bottom-bar">
+        <div class="footer-bottom-container">
+            <p class="copyright-notice">&copy; 2026 Stackly Industries. All delivery rights reserved.</p>
+            <div class="policy-links-group">
+                <a href="404.html" class="policy-link">Privacy Policy</a>
+                <a href="404.html" class="policy-link">Terms of Service</a>
+                <a href="404.html" class="policy-link">Cookie Management</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* --- High Fidelity Corporate Dark Footer layout --- */
+.site-footer {
+    background-color: #0d090f; /* Deep dark volcanic obsidian tone matched from reference image */
+    padding: 60px 0 0 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-top-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 50px 20px;
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr 0.9fr 1fr; /* Exact proportional balance spacing widths */
+    gap: 40px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Brand Profiling Elements --- */
+.footer-logo-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    align-self: flex-start;
+}
+
+.footer-brand-logo {
+    height: 38px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.footer-brand-logo:hover {
+    transform: scale(1.04);
+}
+
+.footer-bio-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.45); /* Soft, low-contrast text matching sample image profile */
+    margin-bottom: 25px;
+    max-width: 300px;
+}
+
+.footer-social-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.social-circle-link {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.03); /* Subtle vector ring boundaries outline */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.social-circle-link svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.social-circle-link:hover {
+    background-color: var(--primary-color, #e65c40); /* Instantly lights into premium brand coral accent */
+    border-color: var(--primary-color, #e65c40);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(230, 92, 64, 0.25);
+}
+
+/* --- Link Tracking Columns Layout --- */
+.footer-col-heading {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff; /* Bright absolute high contrast header names text */
+    margin-bottom: 22px;
+    position: relative;
+    padding-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+
+/* Soft accent under-marker border block inherited from reference image asset */
+.footer-col-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background-color: #fca5a5; /* Delicate coral tint line marker */
+}
+
+.footer-links-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.footer-nav-link:hover {
+    color: #ffffff; /* Illuminates fully to max clarity point on focus hover loops */
+    transform: translateX(3px);
+}
+
+/* --- Headquarters Contact Details Layout --- */
+.contact-detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.contact-vector-icon {
+    color: #fca5a5; /* Soft tinted accent marker */
+    margin-top: 2px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.contact-vector-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.contact-text-lines {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.contact-phone-link {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff; /* High visibility phone text string configuration mapping */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-phone-link:hover {
+    color: var(--primary-color, #e65c40);
+}
+
+/* --- Bottom Copyright and Policy layout Rows --- */
+.footer-bottom-bar {
+    background-color: #070408; /* Slightly darker horizontal floor boundary divider striping layout */
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 24px 0;
+}
+
+.footer-bottom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.copyright-notice {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.25); /* Muted baseline context text information footprint */
+}
+
+.policy-links-group {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.policy-link {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.25);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.policy-link:hover {
+    color: #ffffff;
+}
+
+/* --- Full Cross-Device Responsive Breakpoint Optimization --- */
+@media (max-width: 991px) {
+    .footer-top-container {
+        grid-template-columns: repeat(2, 1fr); /* Collapse into 2x2 grid framework layouts on tablet screens */
+        gap: 40px 30px;
+    }
+}
+
+@media (max-width: 560px) {
+    .footer-top-container {
+        grid-template-columns: 1fr; /* Switch columns arrangement into fully stacked linear list paths down views */
+        gap: 35px;
+        padding-bottom: 40px;
+    }
+    
+    .footer-bottom-container {
+        flex-direction: column; /* Drop policy bar group configurations downstream into multi row centers */
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .policy-links-group {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+    }
+}
+
+</style>
+
+<script>
+    // --- Back to Top Core Functional Trigger Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    const backToTopTrigger = document.getElementById("back-to-top-trigger");
+
+    if (backToTopTrigger) {
+        backToTopTrigger.addEventListener("click", function(event) {
+            event.preventDefault(); // Break fallback hashtag jump updates
+            
+            // Execute buttery linear scroll reset to topmost coordinates point inside window engine
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    }
+});
+
+</script>
+</body>
+</html>

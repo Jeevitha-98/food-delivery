@@ -1,0 +1,4070 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly - Food Delivery</title>
+    <!-- FontAwesome for background food icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- PRELOADER PAGE -->
+    <div id="preloader">
+        <!-- Floating Decorative Vectors -->
+        <i class="fa-solid fa-burger bg-icon"></i>
+        <i class="fa-solid fa-pizza-slice bg-icon"></i>
+        <i class="fa-solid fa-drumstick-bite bg-icon"></i>
+        <i class="fa-solid fa-ice-cream bg-icon"></i>
+        <i class="fa-solid fa-donut bg-icon"></i>
+        <i class="fa-solid fa-hotdog bg-icon"></i>
+
+        <div class="loader-content">
+            <!-- Animated Scooter Vector -->
+            <div class="scooter-wrapper">
+                <div class="speed-lines"></div>
+                <svg class="scooter-svg" viewBox="0 0 24 24">
+                    <path d="M19 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m-9-2c0-.55-.45-1-1-1H8v2h1c.55 0 1-.45 1-1m-4 2c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m13.5-11H15v2h3.5c.28 0 .5.22.5.5v1.65l-2.08 4.16C16.58 9.53 16.1 9 15.5 9H11V7h1V5h-2v2h1v2H7.26c-.42-1.16-1.52-2-2.81-2-1.38 0-2.57.93-2.92 2.22L1 9.34V11h2.09c.35 1.29 1.54 2.22 2.92 2.22.84 0 1.6-.35 2.15-.92H11v1.42c-.6.47-1.08 1.12-1.35 1.88-1.27-.3-2.45-.6-3.65-.9l-.5 1.94c1.2.3 2.38.6 3.65.9C9.4 17.47 10.1 18 11 18h4.5c1.66 0 3-1.34 3-3v-1.78l2.67-5.34c.53-1.07-.25-2.38-1.45-2.38-.07 0-.15 0-.22.03V5.5c0-1.38-1.12-2.5-2.5-2.5z"/>
+                </svg>
+            </div>
+
+            <!-- Brand Info -->
+            <h1 class="brand-name">Stackly</h1>
+            <p class="tagline">Deliciousness delivered instantly</p>
+
+            <!-- Custom 2-second Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const progressBar = document.getElementById("progress");
+    const preloader = document.getElementById("preloader");
+
+    // Start the progress bar animation immediately on DOM load
+    setTimeout(() => {
+        progressBar.style.width = "100%";
+    }, 50);
+
+    // Hide the preloader completely after exactly 2 seconds (2000 milliseconds)
+    setTimeout(() => {
+        preloader.classList.add("hide-preloader");
+        document.body.style.overflow = "auto"; // Re-enable body scrolling
+    }, 2000);
+});
+
+</script>
+
+<header class="main-header">
+        <div class="header-container">
+            <!-- Brand Logo (Refreshes Page) -->
+            <a href="index.html" class="logo-container" onclick="window.location.reload();">
+                <img src="https://placeholder.com" alt="Stackly Logo" class="brand-logo">
+            </a>
+
+            <!-- Desktop Navigation Menus (Centered) -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link ">Home</a>
+                <a href="restaurants.html" class="nav-link ">Restaurants</a>
+                <a href="offers.html" class="nav-link active">Offers</a>
+                <a href="blogs.html" class="nav-link">Blogs</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Right Side Actions (Auth, Cart, Hamburger Trigger) -->
+            <div class="header-actions">
+                <button class="btn-auth">Sign In</button>
+                
+                <!-- Fixed Cart Icon using Inline SVG Vector -->
+                <a href="404.html" class="cart-icon-btn" title="View Cart">
+                    <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-badge">0</span>
+                </a>
+
+                <!-- Mobile Hamburger Trigger using Inline SVG Vector -->
+                <button class="hamburger-btn" id="hamburger-trigger" aria-label="Open Menu">
+                    <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer Overlay -->
+    <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
+
+    <!-- Mobile Navigation Side Drawer (75% width) -->
+    <aside class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-header">
+            <span class="drawer-brand">Stackly</span>
+            <!-- Close Drawer Button using Inline SVG Vector -->
+            <button class="close-drawer-btn" id="close-drawer" aria-label="Close Menu">
+                <svg class="header-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+     <nav class="mobile-nav-menu">
+            <a href="index.html" class="mobile-nav-link ">Home</a>
+            <a href="restaurants.html" class="mobile-nav-link">Restaurants</a>
+            <a href="offers.html" class="mobile-nav-link active">Offers</a>
+            <a href="blogs.html" class="mobile-nav-link">Blogs</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+        </nav>
+        <div class="drawer-footer">
+            <button class="btn-auth-mobile">Sign In</button>
+        </div>
+    </aside>
+
+  
+
+  
+
+
+
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerTrigger = document.getElementById("hamburger-trigger");
+    const closeDrawerBtn = document.getElementById("close-drawer");
+    const mobileOverlay = document.getElementById("mobile-overlay");
+    const mobileDrawer = document.getElementById("mobile-drawer");
+    const bodyElement = document.body;
+
+    // Open Drawer Menu and Activate Scroll Lock
+    function openMobileMenu() {
+        mobileDrawer.classList.add("active");
+        mobileOverlay.classList.add("active");
+        bodyElement.classList.add("no-scroll");
+    }
+
+    // Close Drawer Menu and Restore Page Scrolling
+    function closeMobileMenu() {
+        mobileDrawer.classList.remove("active");
+        mobileOverlay.classList.remove("active");
+        bodyElement.classList.remove("no-scroll");
+    }
+
+    // Event Bindings
+    if (hamburgerTrigger) {
+        hamburgerTrigger.addEventListener("click", openMobileMenu);
+    }
+
+    if (closeDrawerBtn) {
+        closeDrawerBtn.addEventListener("click", closeMobileMenu);
+    }
+
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener("click", closeMobileMenu);
+    }
+});
+
+
+</script>
+
+<!-- OFFERS DIRECTORY HERO BANNER -->
+<section class="offers-hero-section" id="offers-hero-trigger">
+    <!-- Abstract gradient lighting overlay accent backplate -->
+    <div class="offers-hero-ambient-halo"></div>
+
+    <div class="offers-hero-container">
+        
+        <!-- Left Side Column: Text Copy & Interactive Promo Action Stack -->
+        <div class="offers-hero-left">
+            <h1 class="offers-hero-title" id="offers-scroll-title">
+                <span class="off-word">Unbeatable</span>
+                <span class="off-word">Deals</span>
+                <span class="off-word">&amp;</span>
+                <span class="off-word accent-coral">Delicious</span>
+                <span class="off-word">Discounts</span>
+            </h1>
+            
+            <p class="offers-hero-description" id="offers-para-slide">
+                Satisfy your instant culinary cravings without breaking your structural budget limits. Explore hot limited-edition vouchers, free localized delivery circles, and flash daily combo drops from your favorite neighborhood kitchens.
+            </p>
+
+            <!-- Micro Coupon Code Tag Bar Frame appearing from bottom ground planes -->
+            <div class="offers-coupon-preview-bar" id="offers-coupon-rise">
+                <div class="coupon-pill">
+                    <span class="coupon-label">Code:</span>
+                    <strong class="coupon-code">STACKLY50</strong>
+                </div>
+                <span class="coupon-sub-indicator">Instant 50% OFF your first master kitchen transaction</span>
+            </div>
+            
+            <!-- Primary Action Buttons Group -->
+            <div class="offers-hero-cta-group" id="offers-btn-rise">
+                <a href="404.html" class="btn-offers-primary">Claim My 50% Coupon</a>
+                <a href="404.html" class="btn-offers-secondary">View Flash Deals</a>
+            </div>
+        </div>
+
+        <!-- Right Side Column: Floating Food Stack Presentation Imagery -->
+        <div class="offers-hero-right" id="offers-media-slide">
+            <!-- Localized internal card micro glowing node frame -->
+            <div class="offers-media-blur-disk"></div>
+            
+            <!-- Main visual composition element sliding from right boundaries -->
+            <div class="offers-image-frame-wrap">
+                <img src="https://placeholder.com" alt="Stackly Active Offers Platter" class="offers-hero-main-img">
+            </div>
+
+            <!-- Floating Promotion Badge Nodes (Autonomous Hover Loop Cycles) -->
+            <div class="offers-floating-badge badge-save">
+                <span class="badge-icon-box">%</span>
+                <div class="badge-text-block">
+                    <strong>Save Big</strong>
+                    <span>Up to $15 Off Daily</span>
+                </div>
+            </div>
+
+            <div class="offers-floating-badge badge-gift">
+                <span class="badge-icon-box icon-purple">🎁</span>
+                <div class="badge-text-block">
+                    <strong>Freebies Hub</strong>
+                    <span>Buy 1 Get 1 Free Drops</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Offers Directory Hero Base Layout --- */
+.offers-hero-section {
+    padding: 80px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+}
+
+/* Background ambient light layer overlay configuration */
+.offers-hero-ambient-halo {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.offers-hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.offers-hero-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.offers-hero-title {
+    font-size: calc(2rem + 1.2vw);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #000000; /* Solid high-contrast absolute black heading typography text */
+    margin-bottom: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+}
+
+.offers-hero-title .accent-coral {
+    color: var(--primary-color, #e65c40);
+}
+
+/* Word-by-word slide initial animation parameters mappings */
+.off-word {
+    display: inline-block;
+    opacity: 0.15; /* Base dim transparency status prior to scroll entry calculation updates */
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.off-word.word-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.offers-hero-description {
+    font-size: 1.1rem;
+    color: #000000; /* Crisp crisp solid black reading text block copy description */
+    line-height: 1.7;
+    margin-bottom: 24px;
+    max-width: 540px;
+    opacity: 0;
+    transform: translateX(-60px); /* Slides rightwards out from left container margin boundaries initially */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.offers-hero-description.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Interactive Text Glow Transitions Effects */
+.offers-hero-left:hover .offers-hero-title {
+    text-shadow: 0 0 25px rgba(230, 92, 64, 0.12);
+}
+
+/* Coupon preview card placeholder row styling details */
+.offers-coupon-preview-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 35px;
+    background-color: #f8fafc;
+    padding: 12px 18px;
+    border-radius: 16px;
+    border: 1px dashed #cbd5e1;
+    max-width: fit-content;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.offers-coupon-preview-bar.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.coupon-pill {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.coupon-label { opacity: 0.6; font-weight: 500; }
+.coupon-code { font-weight: 800; letter-spacing: 0.5px; color: #fca5a5; }
+.coupon-sub-indicator { font-size: 0.85rem; font-weight: 600; color: #4a5568; }
+
+/* Call To Action Buttons Row Setup */
+.offers-hero-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.offers-hero-cta-group.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-offers-primary {
+    background-color: var(--primary-color, #e65c40); /* Matches exact premium brand coral tone */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 10px 22px rgba(230, 92, 64, 0.25);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-offers-primary:hover {
+    background-color: #1e293b;
+    box-shadow: 0 12px 24px rgba(30, 41, 59, 0.2);
+    transform: translateY(-3px);
+}
+
+.btn-offers-secondary {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-offers-secondary:hover {
+    border-color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+}
+
+/* --- Right Side Column: Image Media & Floating Overlay Badges --- */
+.offers-hero-right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 480px;
+    /* Slide inward animation from the side margins bounds borders */
+    opacity: 0;
+    transform: translateX(80px); 
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.offers-hero-right.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.offers-media-blur-disk {
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    background-color: rgba(230, 92, 64, 0.08); /* Ambient visual drop soft aura loop disc */
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: 1;
+}
+
+.offers-image-frame-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 460px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: offersPlatterFloat 4s ease-in-out infinite alternate;
+}
+
+@keyframes offersPlatterFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-12px) rotate(-1.5deg); }
+}
+
+.offers-hero-right:hover .offers-image-frame-wrap {
+    transform: scale(1.02) translateY(-2px);
+}
+
+.offers-hero-main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* --- Creative Trust Floating Badges --- */
+.offers-floating-badge {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #edf2f7;
+    z-index: 3;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+.offers-floating-badge:hover {
+    transform: scale(1.06) translateY(-4px) !important;
+    border-color: rgba(230, 92, 64, 0.2);
+    box-shadow: 0 15px 30px rgba(230, 92, 64, 0.1);
+}
+
+.badge-icon-box {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background-color: #fff5f2;
+    color: var(--primary-color, #e65c40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+
+.badge-icon-box.icon-purple { background-color: #faf5ff; color: #7c3aed; }
+
+.badge-text-stack { display: flex; flex-direction: column; }
+.badge-text-stack strong { font-size: 0.85rem; color: #000000; }
+.badge-text-stack span { font-size: 0.75rem; color: #718096; font-weight: 500; }
+
+/* Dynamic float sync loops anchors mapping coordinates positions */
+.badge-save { top: 15%; left: -2%; animation: offFloatOne 4s ease-in-out infinite alternate; }
+.badge-gift { bottom: 20%; right: -2%; animation: offFloatTwo 4.5s ease-in-out infinite alternate 0.2s; }
+
+@keyframes offFloatOne { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
+@keyframes offFloatTwo { 0% { transform: translateY(0); } 100% { transform: translateY(12px); } }
+
+/* --- Full Layout Grid Cross-Device Responsiveness --- */
+@media (max-width: 1024px) {
+    .offers-hero-container { gap: 30px; }
+    .badge-save { left: 0; }
+    .badge-gift { right: 0; }
+}
+
+@media (max-width: 768px) {
+    .offers-hero-container {
+        grid-template-columns: 1fr; /* Switch dual grid layout rows down configuration into single track line stream */
+        text-align: center;
+        gap: 50px;
+    }
+    .offers-hero-title { justify-content: center; }
+    .offers-hero-description { margin-left: auto; margin-right: auto; }
+    .offers-coupon-preview-bar { justify-content: center; margin-left: auto; margin-right: auto; max-width: 100%; }
+    .offers-hero-cta-group { justify-content: center; }
+    
+    .offers-hero-right {
+        order: -1; /* Elevates vector food image illustration above copy texts blocks on mobile for layout balance */
+        height: 380px;
+        transform: translateX(40px); /* Alters sliding axis constraints smoothly */
+    }
+    .offers-hero-right.slide-active { transform: translateX(0); }
+    .offers-image-frame-wrap { max-width: 320px; }
+    .offers-media-blur-disk { width: 260px; height: 260px; }
+}
+
+@media (max-width: 520px) {
+    .offers-hero-title { font-size: 1.85rem; }
+    .offers-coupon-preview-bar { flex-direction: column; gap: 8px; text-align: center; padding: 14px; }
+    .offers-hero-cta-group { flex-direction: column; align-items: stretch; gap: 12px; }
+    .btn-offers-primary, .btn-offers-secondary { width: 100%; text-align: center; }
+    .offers-floating-badge { display: none; } /* Drop overlay cards on tiny viewports to eliminate clutter */
+}
+
+</style>
+
+<script>
+    /**
+ * STACKLY FOOD DELIVERY WEBSITE
+ * Isolated Operations Script: Offers Page Directory Hero Section
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Map Target Elements Space
+    const sectionContainerNode = document.getElementById("offers-hero-trigger");
+    const headingWordsNodesList = document.querySelectorAll(".off-word");
+    const paragraphDescriptionCopy = document.getElementById("offers-para-slide");
+    const couponPreviewBarFrame = document.getElementById("offers-coupon-rise");
+    const callToActionsButtonsRow = document.getElementById("offers-btn-rise");
+    const rightSideMediaGraphicsColumn = document.getElementById("offers-media-slide");
+
+    // 2. Interaction Observer Configuration Performance Mappings
+    const offersHeroObserverOptions = {
+        root: null,
+        threshold: 0.1, // Fires loop sequence calculations once 10% of container crosses tracking visibility metrics
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    // 3. Sequential Timeline Orchestration Matrix Loop Execution
+    const offersHeroRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Path Step A: Assemble Title text word-by-word progressively
+                headingWordsNodesList.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 95); // 95ms crisp layout text stagger delays pacing
+                });
+
+                // Track Path Step B: Slide description narrative copy block smoothly out from left bounds boundaries
+                if (paragraphDescriptionCopy) {
+                    paragraphDescriptionCopy.classList.add("slide-active");
+                }
+
+                // Track Path Step C: Slide right side illustration graphics collage column inward smoothly from right margins bounds
+                if (rightSideMediaGraphicsColumn) {
+                    rightSideMediaGraphicsColumn.classList.add("slide-active");
+                }
+
+                // Track Path Step D: Raise coupon codes bar frame upward gracefully from ground line planes layout
+                if (couponPreviewBarFrame) {
+                    setTimeout(() => {
+                        couponPreviewBarFrame.classList.add("rise-active");
+                    }, 300);
+                }
+
+                // Track Path Step E: Raise primary call-to-actions CTA buttons group upward concurrently
+                if (callToActionsButtonsRow) {
+                    setTimeout(() => {
+                        callToActionsButtonsRow.classList.add("rise-active");
+                    }, 400);
+                }
+
+                // Terminate connection target listener to secure footprint processor clock speeds safely
+                observer.unobserve(entry.target);
+            }
+        });
+    }, offersHeroObserverOptions);
+
+    // 4. Bind Active Monitoring Target Channel Context Channel
+    if (sectionContainerNode) {
+        offersHeroRevealObserver.observe(sectionContainerNode);
+    }
+});
+
+</script>
+
+<!-- OFFERS DIRECTORY SHOWCASE MASONRY -->
+<section class="offers-stack-section" id="offers-stack-trigger">
+    <div class="offers-stack-container">
+        
+        <!-- Header Section Fades In Sequentially -->
+        <div class="offers-stack-header">
+            <h2 class="offers-stack-main-title" id="offers-stack-scroll-title">
+                <span class="os-word">Hot</span>
+                <span class="os-word">Trending</span>
+                <span class="os-word accent-brand">Vouchers</span>
+                <span class="os-word">Active</span>
+                <span class="os-word">Now</span>
+            </h2>
+            <p class="offers-stack-subtitle">Click and copy exclusive hot discount tokens verified by our culinary spaces hourly.</p>
+        </div>
+
+        <!-- Asymmetric Deck Canvas Layout -->
+        <div class="offers-deck-canvas">
+            
+            <!-- Coupon Card 1: Left Compact Wing -->
+            <div class="coupon-deck-card wing-left scroll-cascade-card">
+                <div class="coupon-glow-aura"></div>
+                <div class="coupon-media-box">
+                    <img src="https://placeholder.com" alt="Midnight Pizza Drops" class="coupon-thumb-img">
+                    <span class="coupon-badge-top">Buy 1 Get 1</span>
+                </div>
+                <div class="coupon-body-stack">
+                    <h3 class="coupon-item-title">Midnight Pizza Drops</h3>
+                    <p class="coupon-vendor-text">By La Piazza Napoletana</p>
+                    <div class="coupon-divider-dashed"></div>
+                    <div class="coupon-floor-row">
+                        <span class="coupon-rate-value">Est. Save $18.50</span>
+                        <a href="404.html" class="coupon-action-circle" title="Claim Voucher">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coupon Card 2: Center Highlighted Main Hero (Oversized) -->
+            <div class="coupon-deck-card oversized-center scroll-cascade-card">
+                <div class="coupon-glow-aura"></div>
+                <div class="coupon-featured-tag">🔥 Maximum Discount</div>
+                <div class="coupon-media-box">
+                    <img src="https://placeholder.com" alt="Grand Family Combo" class="coupon-thumb-img">
+                    <span class="coupon-badge-top badge-coral">35% OFF</span>
+                </div>
+                <div class="coupon-body-stack">
+                    <h3 class="coupon-item-title">Grand Family Platter Pass</h3>
+                    <p class="coupon-vendor-text">By Burger Craft Co. &amp; Partners</p>
+                    <div class="coupon-divider-dashed"></div>
+                    <div class="coupon-floor-row">
+                        <span class="coupon-rate-value">Est. Save $24.00</span>
+                        <a href="404.html" class="coupon-action-circle" title="Claim Voucher">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coupon Card 3: Right Compact Wing -->
+            <div class="coupon-deck-card wing-right scroll-cascade-card">
+                <div class="coupon-glow-aura"></div>
+                <div class="coupon-media-box">
+                    <img src="https://placeholder.com" alt="Midnight Dessert Drops" class="coupon-thumb-img">
+                    <span class="coupon-badge-top badge-blue">Free Delivery</span>
+                </div>
+                <div class="coupon-body-stack">
+                    <h3 class="coupon-item-title">Artisan Gelato Flash</h3>
+                    <p class="coupon-vendor-text">By The Velvet Patisserie</p>
+                    <div class="coupon-divider-dashed"></div>
+                    <div class="coupon-floor-row">
+                        <span class="coupon-rate-value">Est. Save $9.00</span>
+                        <a href="404.html" class="coupon-action-circle" title="Claim Voucher">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Offers Coupon Deck Section Framework --- */
+.offers-stack-section {
+    /* Explicit core requested padding profile: 50px top, 30px bottom */
+    padding: 50px 20px 30px 20px;
+    background-color: #fafbfc;
+    overflow: hidden;
+    position: relative;
+}
+
+.offers-stack-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.offers-stack-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* Staggered Word-by-Word Title Construction */
+.offers-stack-main-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 10px;
+}
+
+.offers-stack-main-title .accent-brand {
+    color: var(--primary-color, #e65c40);
+}
+
+.os-word {
+    display: inline-block;
+    opacity: 0.15; /* Dim state point before scroll animation fires */
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.os-word.word-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.offers-stack-subtitle {
+    font-size: 1.05rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* --- Creative Asymmetric Deck Ribbon --- */
+.offers-deck-canvas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.coupon-deck-card {
+    background-color: #ffffff;
+    border-radius: 28px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #edf2f7;
+    
+    /* Scroll presentation variables settings for waterfall loop */
+    opacity: 0;
+    transform: translateY(60px); /* Glides upward sequentially from baseline grounds */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.coupon-deck-card.card-visible {
+    opacity: 1;
+}
+
+/* Asymmetric Structural Depth Scaling (Desktop Configuration Only) */
+@media (min-width: 992px) {
+    .wing-left { width: 30%; transform: perspective(1000px) rotateY(6deg) translateY(15px); }
+    .wing-right { width: 30%; transform: perspective(1000px) rotateY(-6deg) translateY(15px); }
+    .oversized-center { width: 40%; z-index: 5; transform: perspective(1000px) scale(1) translateY(0); }
+    
+    /* Maintain tracking hooks once visible */
+    .coupon-deck-card.wing-left.card-visible { transform: perspective(1000px) rotateY(6deg) translateY(15px); }
+    .coupon-deck-card.wing-right.card-visible { transform: perspective(1000px) rotateY(-6deg) translateY(15px); }
+    .coupon-deck-card.oversized-center.card-visible { transform: perspective(1000px) scale(1) translateY(0); }
+}
+
+/* --- Premium Interactive Hover Content Glows & Lifts --- */
+.coupon-deck-card:hover {
+    border-color: rgba(230, 92, 64, 0.25);
+    box-shadow: 0 25px 45px rgba(230, 92, 64, 0.06);
+}
+
+@media (min-width: 992px) {
+    .wing-left:hover { transform: perspective(1000px) rotateY(3deg) scale(1.02) translateY(5px) !important; z-index: 6; }
+    .wing-right:hover { transform: perspective(1000px) rotateY(-3deg) scale(1.02) translateY(5px) !important; z-index: 6; }
+    .oversized-center:hover { transform: perspective(1000px) scale(1.03) translateY(-6px) !important; }
+}
+
+/* Internal Card Ambient Glow Overlay Lens Sheet */
+.coupon-glow-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.15) 0%, transparent 70%);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.coupon-deck-card:hover .coupon-glow-aura {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+/* Creative High Contrast Text Hover Feedback */
+.coupon-deck-card:hover .coupon-item-title {
+    color: var(--primary-color, #e65c40);
+}
+
+/* Media Framing Components */
+.coupon-media-box {
+    position: relative;
+    width: 100%;
+    padding-top: 58%;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #f8fafc;
+    z-index: 1;
+}
+
+.coupon-thumb-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.coupon-deck-card:hover .coupon-thumb-img {
+    transform: scale(1.04);
+}
+
+/* Overlay Voucher Tags */
+.coupon-badge-top {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 6px;
+    color: #ffffff;
+    background-color: #22c55e;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+.coupon-badge-top.badge-coral { background-color: var(--primary-color, #e65c40); }
+.coupon-badge-top.badge-blue { background-color: #3b82f6; }
+
+.coupon-featured-tag {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--primary-color, #e65c40);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 3;
+}
+
+/* --- Card Details Framework Block --- */
+.coupon-body-stack {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    position: relative;
+    z-index: 3;
+}
+
+.coupon-item-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #000000; /* Strict solid high contrast absolute black heading text rules alignment */
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+    transition: color 0.3s ease;
+}
+
+.coupon-vendor-text {
+    font-size: 0.85rem;
+    color: #718096;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.coupon-divider-dashed {
+    width: 100%;
+    border-top: 2px dashed #e2e8f0; /* Classical tear-off coupon framing boundary styling */
+    margin-bottom: 14px;
+}
+
+.coupon-floor-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.coupon-rate-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #000000; /* High focus explicit rate marker tracking */
+}
+
+.coupon-action-circle {
+    width: 34px;
+    height: 34px;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.coupon-action-circle svg { width: 14px; height: 14px; stroke: currentColor; }
+.coupon-deck-card:hover .coupon-action-circle { background-color: var(--primary-color, #e65c40); color: #ffffff; transform: scale(1.1); }
+
+/* --- Full Layout Grid Cross-Device Responsiveness --- */
+@media (max-width: 991px) {
+    .offers-deck-canvas {
+        flex-direction: column; /* Collapses horizontal asymmetry into a uniform grid */
+        gap: 24px;
+    }
+    .coupon-deck-card {
+        width: 100% !important;
+        height: auto !important;
+        transform: none !important; /* Disables rotations on tablet displays */
+        padding: 20px;
+    }
+    .coupon-deck-card.card-visible { transform: none !important; }
+    .offers-stack-main-title { font-size: 1.8rem; }
+    .coupon-featured-tag { position: relative; top: auto; right: auto; margin-bottom: 10px; text-align: left; }
+}
+
+@media (max-width: 480px) {
+    .offers-stack-main-title { font-size: 1.5rem; }
+    .offers-stack-subtitle { font-size: 0.95rem; }
+    .coupon-floor-row { flex-direction: column; align-items: stretch; gap: 12px; }
+    .coupon-action-circle { width: 100%; border-radius: 10px; height: 38px; } /* Converts action trigger to full width container block on smartphones viewports */
+}
+
+</style>
+
+<script>
+    // --- Voucher Stack Showcase Scroll Interaction Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Configuration Elements Map
+    const sectionContainerZone = document.getElementById("offers-stack-trigger");
+    const headingWordsNodes = document.querySelectorAll(".os-word");
+    const cascadeStaggerCards = document.querySelectorAll(".scroll-cascade-card");
+
+    // 2. Intersection Control Parameters Setup
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.08, // Fires sequence logic calculations once 8% of layout crosses viewport filters
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    // 3. Execution Timeline Observer Matrix Loop
+    const voucherStackObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Path Step A: Assemble Title text word-by-word progressively
+                headingWordsNodes.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-active");
+                    }, index * 95); // 95ms progressive layout text stagger pacing delay
+                });
+
+                // Track Timeline Path Step B: Slide coupon deck cards upward one-by-one sequentially
+                cascadeStaggerCards.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("card-visible")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("card-visible");
+                        }, index * 120); // 120ms waterfall cascading card entry loads loop delays
+                    }
+                });
+
+                // Disconnect target listener channel to lock render configurations exactly on first view cycle entry
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    // 4. Bind Active Monitoring Target Context Channel
+    if (sectionContainerZone) {
+        voucherStackObserver.observe(sectionContainerZone);
+    }
+});
+
+</script>
+
+<!-- OFFERS FLASH DISCOUNT SLIDER -->
+<section class="offers-slider-section" id="offers-slider-trigger">
+    <div class="slider-container">
+        
+        <!-- Scroll-Triggered Word-by-Word Header Block -->
+        <div class="slider-header-row">
+            <h2 class="slider-main-title" id="offers-title-words">
+                <span class="sl-word">Flash</span>
+                <span class="sl-word">Daily</span>
+                <span class="sl-word accent-brand">Combo</span>
+                <span class="sl-word">Discounts</span>
+            </h2>
+            <p class="slider-subtitle">Satisfy your instant cravings with top-rated favorites trending in your neighborhood.</p>
+        </div>
+
+        <!-- Master Carousel Viewport Framework -->
+        <div class="carousel-outer-frame">
+            <!-- Left Arrow Control Navigation Node -->
+            <button class="carousel-arrow arrow-left" id="slide-left-btn" aria-label="Previous Offer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <!-- Horizontal Track Track Container (Positions Swapped Programmatically) -->
+            <div class="carousel-track-pipeline" id="offers-carousel-track">
+                
+                <!-- Card Item 1 (Chicken Shawarma) -->
+                <div class="food-combo-card scroll-item-node" style="order: 0;">
+                    <div class="card-ambient-glow"></div>
+                    <div class="combo-image-frame">
+                        <img src="https://placeholder.com" alt="Chicken Shawarma Salad" class="combo-thumb-img">
+                    </div>
+                    <div class="combo-card-details">
+                        <h3 class="combo-item-title">Chicken Shawarma</h3>
+                        <div class="combo-rating-stars">★★★★★ <span class="rating-dim">★</span></div>
+                        <div class="combo-pricing-floor">
+                            <div class="rate-stack-info">
+                                <strong class="current-price-rate">$120</strong>
+                                <span class="slashed-price-rate">$160</span>
+                            </div>
+                            <a href="404.html" class="combo-cart-action-btn" title="Add to Cart">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Item 2 (Tomato Salad) -->
+                <div class="food-combo-card scroll-item-node" style="order: 1;">
+                    <div class="card-ambient-glow"></div>
+                    <div class="combo-image-frame">
+                        <img src="https://placeholder.com" alt="Tomato Salad" class="combo-thumb-img">
+                    </div>
+                    <div class="combo-card-details">
+                        <h3 class="combo-item-title">Tomato Salad</h3>
+                        <div class="combo-rating-stars">★★★★★ <span class="rating-dim">★</span></div>
+                        <div class="combo-pricing-floor">
+                            <div class="rate-stack-info">
+                                <strong class="current-price-rate">$120</strong>
+                                <span class="slashed-price-rate">$160</span>
+                            </div>
+                            <a href="404.html" class="combo-cart-action-btn" title="Add to Cart">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Item 3 (Spicy Pasta Salad) -->
+                <div class="food-combo-card scroll-item-node" style="order: 2;">
+                    <div class="card-ambient-glow"></div>
+                    <div class="combo-image-frame">
+                        <img src="https://placeholder.com" alt="Spicy Pasta Salad" class="combo-thumb-img">
+                    </div>
+                    <div class="combo-card-details">
+                        <h3 class="combo-item-title">Spicy Pasta Salad</h3>
+                        <div class="combo-rating-stars">★★★★★ <span class="rating-dim">★</span></div>
+                        <div class="combo-pricing-floor">
+                            <div class="rate-stack-info">
+                                <strong class="current-price-rate">$120</strong>
+                                <span class="slashed-price-rate">$160</span>
+                            </div>
+                            <a href="404.html" class="combo-cart-action-btn" title="Add to Cart">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Item 4 (Mushroom Salad) -->
+                <div class="food-combo-card scroll-item-node" style="order: 3;">
+                    <div class="card-ambient-glow"></div>
+                    <div class="combo-image-frame">
+                        <img src="https://placeholder.com" alt="Mushroom Salad" class="combo-thumb-img">
+                    </div>
+                    <div class="combo-card-details">
+                        <h3 class="combo-item-title">Mushroom Salad</h3>
+                        <div class="combo-rating-stars">★★★★★ <span class="rating-dim">★</span></div>
+                        <div class="combo-pricing-floor">
+                            <div class="rate-stack-info">
+                                <strong class="current-price-rate">$120</strong>
+                                <span class="slashed-price-rate">$160</span>
+                            </div>
+                            <a href="404.html" class="combo-cart-action-btn" title="Add to Cart">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Arrow Control Navigation Node -->
+            <button class="carousel-arrow arrow-right" id="slide-right-btn" aria-label="Next Offer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Offers Slider Showcase Structural Layout --- */
+.offers-slider-section {
+    /* Precise constraint parameters: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #fafbfc;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.slider-header-row {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+/* Staggered Word-by-Word Title Construction Base */
+.slider-main-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #000000; /* Strict absolute high contrast solid black text title */
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+
+.slider-main-title .accent-brand {
+    color: var(--primary-color, #e65c40);
+}
+
+.sl-word {
+    display: inline-block;
+    opacity: 0.15; /* Base transparency before observer reveal triggers */
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.sl-word.word-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slider-subtitle {
+    font-size: 1.05rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* --- Master Carousel Viewport Track Framework --- */
+.carousel-outer-frame {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 45px; /* Headers headroom buffer layout margin padding bounds */
+}
+
+.carousel-track-pipeline {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    width: 100%;
+    padding: 20px 5px 30px 5px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.carousel-track-pipeline::-webkit-scrollbar {
+    display: none; /* Disables browser scrolling path indicators lines */
+}
+
+/* --- Combo Cards & Premium Interaction Glow Shadows --- */
+.food-combo-card {
+    background-color: #ffffff;
+    border-radius: 28px;
+    padding: 24px;
+    /* Calculated desktop baseline layout card grid breadth sizes constraints */
+    min-width: calc((100% - 90px) / 4); 
+    flex: 0 0 auto;
+    text-align: left;
+    position: relative;
+    border: 1px solid #edf2f7;
+    
+    /* Scroll visibility parameters entry settings for cascade waterfall loops */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease, 
+                box-shadow 0.4s ease,
+                order 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.food-combo-card.card-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* High Contrast Hover Glow State Trigger System */
+.food-combo-card:hover {
+    border-color: rgba(230, 92, 64, 0.22);
+    /* Multi-layered soft localized brand glowing aura drop projection shadow */
+    box-shadow: 0 22px 40px rgba(230, 92, 64, 0.05),
+                0 2px 6px rgba(0, 0, 0, 0.01);
+}
+
+/* Internal Card Ambient Glow Ring Element Layer */
+.card-ambient-glow {
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.food-combo-card:hover .card-ambient-glow { opacity: 1; }
+
+/* Product Image Framing Components */
+.combo-image-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* Enforces clean absolute perfect circle frame boundaries aspect ratio shapes */
+    margin-bottom: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #f8fafc;
+    z-index: 2;
+}
+
+.combo-thumb-img {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.food-combo-card:hover .combo-thumb-img {
+    transform: scale(1.06) rotate(3deg); /* Elastic micro graphic feedback tap trigger loops on image hover */
+}
+
+/* --- Card Details Typography Block --- */
+.combo-card-details {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 3;
+}
+
+.combo-item-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #000000; /* Solid absolute crisp high-contrast black text */
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.combo-rating-stars {
+    color: #ffd84d; /* High clarity warm gold stars grading mapping array metrics styling */
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+}
+
+.rating-dim { color: #e2e8f0; } /* Soft grey tone for non active score pointers */
+
+.combo-pricing-floor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 14px;
+}
+
+.rate-stack-info {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.current-price-rate {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #000000; /* High emphasis rate index styling alignment */
+}
+
+.slashed-price-rate {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #a0aec0;
+    text-decoration: line-through; /* Clean structural discount markup strip line tracking */
+}
+
+/* Red Circular Cart Action Icon Button Container Block (Matches screenshot asset) */
+.combo-cart-action-btn {
+    width: 38px;
+    height: 38px;
+    background-color: var(--primary-color, #e65c40); /* Matches precise premium brand coral token circle */
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(230, 92, 64, 0.2);
+    transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.combo-cart-action-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.combo-cart-action-btn:hover {
+    background-color: #1e293b; /* Dark high focus reverse inversion color mapping change */
+    transform: scale(1.1);
+}
+
+/* --- Carousel Arrow Trigger Control Buttons Nodes --- */
+.carousel-arrow {
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    color: #a0aec0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.carousel-arrow svg { width: 14px; height: 14px; stroke: currentColor; }
+
+.carousel-arrow:hover {
+    background-color: #22c55e; /* Lights up instantly into green theme background context from screenshot button state */
+    border-color: #22c55e;
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(34, 197, 94, 0.3);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.arrow-left { left: 0; }
+.arrow-right { right: 0; }
+
+/* --- Full Cross-Device Layout Responsiveness --- */
+@media (max-width: 1024px) {
+    .food-combo-card { min-width: calc((100% - 60px) / 3); } /* Swaps tracks row down 3 columns configuration splits */
+}
+
+@media (max-width: 768px) {
+    .food-combo-card { min-width: calc((100% - 30px) / 2); padding: 18px; } /* Swaps tracks row down 2 columns configuration splits */
+    .slider-main-title { font-size: 1.8rem; }
+    .slider-subtitle { font-size: 0.95rem; }
+    .carousel-outer-frame { padding: 0 35px; }
+}
+
+@media (max-width: 520px) {
+    .food-combo-card { min-width: 100%; } /* Stretches single standalone card item fully viewport width limits on smartphones */
+    .carousel-outer-frame { padding: 0; }
+    .carousel-arrow { display: none; } /* Drop arrow buttons markers on mobile views to maximize touch gesture room space tracks */
+}
+
+</style>
+
+<script>
+    // --- Offers Slider Continuous Operations & Scrolling Stagger Revealer Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Map Target Elements Space Configuration
+    const sliderTriggerZone = document.getElementById("offers-slider-trigger");
+    const headingWordsNodes = document.querySelectorAll(".sl-word");
+    const carouselTrackPipeline = document.getElementById("offers-carousel-track");
+    const leftNavigationArrow = document.getElementById("slide-left-btn");
+    const rightNavigationArrow = document.getElementById("slide-right-btn");
+
+    // 2. Intersection Control Parameters Options Coordinates
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.08, // Fires sequence logic calculations once 8% of layout crosses viewport tracking filters
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const sliderSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Step A: Assemble Title text word-by-word progressively
+                headingWordsNodes.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 95); // 95ms progressive layout text stagger delays pacing
+                });
+
+                // Track Timeline Step B: Cascade slider food items load cycles sequentially one-by-one
+                const childrenComboCards = carouselTrackPipeline.querySelectorAll(".scroll-item-node");
+                childrenComboCards.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("card-revealed")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("card-revealed");
+                        }, index * 100); // Waterfall loading speed at 100ms
+                    }
+                });
+
+                // Disconnect target listener channel to lock render configurations exactly on first view cycle entry
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    if (sliderTriggerZone) {
+        sliderSectionObserver.observe(sliderTriggerZone);
+    }
+
+    // 3. Operational Manual Arrow Button Navigation Tracks Loops
+    if (carouselTrackPipeline && leftNavigationArrow && rightNavigationArrow) {
+        rightNavigationArrow.addEventListener("click", () => {
+            carouselTrackPipeline.scrollBy({ left: 280, behavior: "smooth" });
+        });
+
+        leftNavigationArrow.addEventListener("click", () => {
+            carouselTrackPipeline.scrollBy({ left: -280, behavior: "smooth" });
+        });
+    }
+
+    // =============================================================
+    // 4. AUTONOMOUS 2-SECOND PLACE-SWAPPING ENGINE (REQUESTED CORE LOOPS)
+    // =============================================================
+    if (carouselTrackPipeline) {
+        setInterval(() => {
+            // Fetch live runtime tracking arrays list configuration context mapping values
+            let activeCardsList = Array.from(carouselTrackPipeline.querySelectorAll(".scroll-item-node"));
+            
+            // Sort elements sequence according to its active CSS position inline metrics keys
+            activeCardsList.sort((nodeA, nodeB) => parseInt(nodeA.style.order, 10) - parseInt(nodeB.style.order, 10));
+
+            // Shift positions array indices configurations seamlessly to the right
+            let savedLastElementOrderKey = activeCardsList[activeCardsList.length - 1].style.order;
+            for (let i = activeCardsList.length - 1; i > 0; i--) {
+                activeCardsList[i].style.order = activeCardsList[i - 1].style.order;
+            }
+            activeCardsList[0].style.order = savedLastElementOrderKey;
+
+            // Trigger a programmatically calculated contraction visual feedback scaling indicator loop
+            activeCardsList.forEach(nodeCard => {
+                nodeCard.style.transform = "scale(0.97)";
+                setTimeout(() => {
+                    // Retain clean baseline hover configurations post operations recalculation metrics loop
+                    if (nodeCard.classList.contains("card-revealed")) {
+                        nodeCard.style.transform = "";
+                    }
+                }, 300);
+            });
+
+        }, 2000); // Performs automated place swapping rotation calculations precisely every 2 seconds
+    }
+});
+
+</script>
+
+<!-- FEATURED RESTAURANT OFFERS DIRECTORY GRID -->
+<section class="rest-offers-grid-section" id="rest-offers-trigger-zone">
+    <div class="rest-offers-container">
+        
+        <!-- Scroll-Triggered Alternating Side Word-by-Word Header Block -->
+        <div class="rest-offers-header-row">
+            <h2 class="rest-offers-main-title" id="rest-offers-scroll-title">
+                <span class="ro-word left">Premium</span>
+                <span class="ro-word right">Partner</span>
+                <span class="ro-word left accent-coral">Restaurant</span>
+                <span class="ro-word right">Deals</span>
+            </h2>
+            <p class="rest-offers-subtitle">Claim limited-time active vouchers and flash markdown metrics from top-rated dining kitchens.</p>
+        </div>
+
+        <!-- 3-Column Directory Catalog Grid -->
+        <div class="rest-offers-directory-grid">
+            
+            <!-- Restaurant Offer Card 1 -->
+            <div class="rest-offer-profile-card scroll-bottom-cascade">
+                <div class="rest-offer-banner">
+                    <img src="https://placeholder.com" alt="Burger Craft Co" class="rest-offer-banner-img">
+                    <span class="rest-offer-badge badge-coral">Save 30% OFF</span>
+                </div>
+                <div class="rest-offer-body-stack">
+                    <div class="rest-offer-title-meta">
+                        <h3 class="rest-offer-brand-name">Burger Craft Co.</h3>
+                        <span class="rest-offer-rating-pill">★ 4.9</span>
+                    </div>
+                    <p class="rest-offer-cuisine-tags">Burgers • American • Gourmet Fast Food</p>
+                    <div class="rest-offer-price-floor">
+                        <span class="rest-offer-price-indicator">Avg. $12 • Min. Order $10</span>
+                        <a href="404.html" class="btn-claim-voucher" title="Unlock Voucher">Claim Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Offer Card 2 -->
+            <div class="rest-offer-profile-card scroll-bottom-cascade">
+                <div class="rest-offer-banner">
+                    <img src="https://placeholder.com" alt="La Piazza" class="rest-offer-banner-img">
+                    <span class="rest-offer-badge badge-green">Free Delivery</span>
+                </div>
+                <div class="rest-offer-body-stack">
+                    <div class="rest-offer-title-meta">
+                        <h3 class="rest-offer-brand-name">La Piazza Napoletana</h3>
+                        <span class="rest-offer-rating-pill">★ 4.8</span>
+                    </div>
+                    <p class="rest-offer-cuisine-tags">Pizza • Italian • Wood-fired Delicacies</p>
+                    <div class="rest-offer-price-floor">
+                        <span class="rest-offer-price-indicator">Avg. $18 • Min. Order $15</span>
+                        <a href="404.html" class="btn-claim-voucher" title="Unlock Voucher">Claim Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Offer Card 3 -->
+            <div class="rest-offer-profile-card scroll-bottom-cascade">
+                <div class="rest-offer-banner">
+                    <img src="https://placeholder.com" alt="The Sushi Room" class="rest-offer-banner-img">
+                    <span class="rest-offer-badge badge-blue">Buy 1 Get 1</span>
+                </div>
+                <div class="rest-offer-body-stack">
+                    <div class="rest-offer-title-meta">
+                        <h3 class="rest-offer-brand-name">The Sushi Room</h3>
+                        <span class="rest-offer-rating-pill">★ 4.9</span>
+                    </div>
+                    <p class="rest-offer-cuisine-tags">Sushi • Japanese • Seafood Gourmet</p>
+                    <div class="rest-offer-price-floor">
+                        <span class="rest-offer-price-indicator">Avg. $28 • Min. Order $25</span>
+                        <a href="404.html" class="btn-claim-voucher" title="Unlock Voucher">Claim Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Offer Card 4 -->
+            <div class="rest-offer-profile-card scroll-bottom-cascade">
+                <div class="rest-offer-banner">
+                    <img src="https://placeholder.com" alt="Green Bistro" class="rest-offer-banner-img">
+                    <span class="rest-offer-badge badge-coral">Save 20% OFF</span>
+                </div>
+                <div class="rest-offer-body-stack">
+                    <div class="rest-offer-title-meta">
+                        <h3 class="rest-offer-brand-name">Green Bistro Salads</h3>
+                        <span class="rest-offer-rating-pill">★ 4.7</span>
+                    </div>
+                    <p class="rest-offer-cuisine-tags">Healthy • Vegetarian • Organic Bowls</p>
+                    <div class="rest-offer-price-floor">
+                        <span class="rest-offer-price-indicator">Avg. $9 • Min. Order $8</span>
+                        <a href="404.html" class="btn-claim-voucher" title="Unlock Voucher">Claim Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Offer Card 5 -->
+            <div class="rest-offer-profile-card scroll-bottom-cascade">
+                <div class="rest-offer-banner">
+                    <img src="https://placeholder.com" alt="Wok and Roll" class="rest-offer-banner-img">
+                    <span class="rest-offer-badge badge-green">Free Appetizer</span>
+                </div>
+                <div class="rest-offer-body-stack">
+                    <div class="rest-offer-title-meta">
+                        <h3 class="rest-offer-brand-name">Wok &amp; Roll Cantone</h3>
+                        <span class="rest-offer-rating-pill">★ 4.6</span>
+                    </div>
+                    <p class="rest-offer-cuisine-tags">Asian • Chinese • Stir-Fry Street</p>
+                    <div class="rest-offer-price-floor">
+                        <span class="rest-offer-price-indicator">Avg. $14 • Min. Order $12</span>
+                        <a href="404.html" class="btn-claim-voucher" title="Unlock Voucher">Claim Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Offer Card 6 -->
+            <div class="rest-offer-profile-card scroll-bottom-cascade">
+                <div class="rest-offer-banner">
+                    <img src="https://placeholder.com" alt="The Velvet Patisserie" class="rest-offer-banner-img">
+                    <span class="rest-offer-badge badge-blue">Save 15% OFF</span>
+                </div>
+                <div class="rest-offer-body-stack">
+                    <div class="rest-offer-title-meta">
+                        <h3 class="rest-offer-brand-name">The Velvet Patisserie</h3>
+                        <span class="rest-offer-rating-pill">★ 4.9</span>
+                    </div>
+                    <p class="rest-offer-cuisine-tags">Desserts • French Macarons • Cakes</p>
+                    <div class="rest-offer-price-floor">
+                        <span class="rest-offer-price-indicator">Avg. $16 • Min. Order $15</span>
+                        <a href="404.html" class="btn-claim-voucher" title="Unlock Voucher">Claim Code</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Restaurant Offers Grid Layout Structural Base --- */
+.rest-offers-grid-section {
+    /* Exact custom constraint compliance dimensions: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.rest-offers-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.rest-offers-header-row {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+/* Scroll Word-by-Word Title Reveal Configuration (Alternating Sides) */
+.rest-offers-main-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #000000; /* Solid high-contrast black heading text */
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+}
+
+.rest-offers-main-title .accent-coral {
+    color: var(--primary-color, #e65c40);
+}
+
+.ro-word {
+    display: inline-block;
+    opacity: 0.15; /* Dim state point before scroll animation fires */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Alternating Horizontal Inward Entry Axes Setup */
+.ro-word.left { transform: translateX(-60px); }
+.ro-word.right { transform: translateX(60px); }
+
+.ro-word.word-revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.rest-offers-subtitle {
+    font-size: 1.05rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* --- Reusable 3-Column Catalog Grid System --- */
+.rest-offers-directory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px 30px;
+    width: 100%;
+}
+
+/* --- Restaurant Profile Cards & Interactive Glowing Aura --- */
+.rest-offer-profile-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #edf2f7;
+    display: flex;
+    flex-direction: column;
+    /* Scroll presentation initial configurations (Linear Rise From Bottom Boundary) */
+    opacity: 0;
+    transform: translateY(60px); 
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.rest-offer-profile-card.card-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modern Card Lift and Soft Localized Glow Shadows Drop Projection Matrix */
+.rest-offer-profile-card:hover {
+    border-color: rgba(230, 92, 64, 0.22);
+    /* Soft localized brand glowing aura drop projection */
+    box-shadow: 0 25px 45px rgba(230, 92, 64, 0.05),
+                0 4px 12px rgba(0, 0, 0, 0.01);
+    transform: translateY(-6px);
+}
+
+/* Card Banner Presentation Aspect Layout */
+.rest-offer-banner {
+    position: relative;
+    width: 100%;
+    padding-top: 55%; /* Consistent aspect profiling across different visuals sizes */
+    background-color: #f7f9fc;
+    overflow: hidden;
+}
+
+.rest-offer-banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rest-offer-profile-card:hover .rest-offer-banner-img {
+    transform: scale(1.04);
+}
+
+/* Overlay Action Badges */
+.rest-offer-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: #ffffff;
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.badge-green { background-color: #22c55e; } 
+.badge-coral { background-color: var(--primary-color, #e65c40); } 
+.badge-blue { background-color: #3b82f6; } 
+
+/* --- Card Content Core Stack Details --- */
+.rest-offer-body-stack {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.rest-offer-title-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.rest-offer-brand-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #000000;
+    letter-spacing: -0.3px;
+}
+
+.rest-offer-rating-pill {
+    background-color: #fffbeb;
+    color: #d97706;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.rest-offer-cuisine-tags {
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.rest-offer-price-floor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 14px;
+    margin-top: auto;
+}
+
+.rest-offer-price-indicator {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1a202c; 
+    letter-spacing: -0.1px;
+}
+
+.btn-claim-voucher {
+    background-color: #1e293b; /* Deep high-contrast blue-black */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.rest-offer-profile-card:hover .btn-claim-voucher {
+    background-color: var(--primary-color, #e65c40);
+    box-shadow: 0 4px 12px rgba(230, 92, 64, 0.25);
+}
+
+.btn-claim-voucher:active {
+    transform: scale(0.95);
+}
+
+/* --- Catalog Grid Responsiveness Breakpoints --- */
+@media (max-width: 991px) {
+    .rest-offers-directory-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+@media (max-width: 680px) {
+    .rest-offers-directory-grid {
+        grid-template-columns: 1fr; /* Switch multi-column tracks directly into single layout streams */
+        gap: 20px;
+    }
+    .rest-offers-main-title { font-size: 1.7rem; }
+    .rest-offers-subtitle { font-size: 0.95rem; }
+    .rest-offer-body-stack { padding: 18px 20px; }
+}
+
+</style>
+
+<script>
+    // --- Restaurants Directory Catalog Intersection Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Map
+    const offersGridTriggerZone = document.getElementById("rest-offers-trigger-zone");
+    const headingWordsList = document.querySelectorAll(".ro-word");
+    const bottomCascadeCards = document.querySelectorAll(".scroll-bottom-cascade");
+
+    // 2. Intersection Control Parameters Options Coordinates
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.08, // Fires layout calculations once 8% of section boundary crosses viewport bounds
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    // 3. Execution Timeline Observer Matrix Loop
+    const catalogOffersGridObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Path Step A: Assemble Title text word-by-word from alternate horizontal directions
+                headingWordsList.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-revealed");
+                    }, index * 100); // 100ms progressive delay staggers pacing
+                });
+
+                // Track Path Step B: Slide restaurant profile cards upward from the bottom one-by-one sequentially
+                bottomCascadeCards.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("card-revealed")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("card-revealed");
+                        }, index * 120); // 120ms progressive waterfall cascading load delay effect
+                    }
+                });
+
+                // Terminate connection target listener safely to protect memory processor clock footprints
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    // 4. Bind Active Monitoring Target Context Channel
+    if (offersGridTriggerZone) {
+        catalogOffersGridObserver.observe(offersGridTriggerZone);
+    }
+});
+
+</script>
+
+<section class="full-width-cta-section" id="banner-trigger-zone">
+    <!-- Dedicated high-definition texture/pattern background image layer -->
+    <img src="https://placeholder.com" alt="Banner Pattern Backdrop" class="cta-banner-bg-img">
+    
+    <!-- Floating Vector Icons Context Backdrop Canvas Elements -->
+    <div class="banner-floating-vectors-canvas">
+        <div class="vector-float-node node-leaf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22c1.25-3.66 5.5-6 10-6s8.75 2.34 10 6H2z"></path><path d="M12 2a15.3 15.3 0 0 1 4 10H8a15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="vector-float-node node-spark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </div>
+        <div class="vector-float-node node-heart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+    </div>
+
+    <!-- Inner Core Presentation Flex Grid -->
+    <div class="cta-banner-container">
+        
+        <!-- Left Side: Clean 2-Line High Contrast Text Assembly Block -->
+        <div class="cta-banner-text-block" id="banner-text-slide">
+            <h2 class="cta-line-one">Hungry? Get Your Favorite Meals Crafted By Master Kitchens</h2>
+            <p class="cta-line-two">Join over 50,000+ happy daily diners using Stackly to satisfy instant cravings instantly.</p>
+        </div>
+
+        <!-- Right Side: Rising Interactive Action Element Block -->
+        <div class="cta-banner-action-block" id="banner-btn-rise">
+            <a href="404.html" class="btn-banner-primary-action">Claim Your First Offer</a>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Full Width Banner Structural Framework --- */
+.full-width-cta-section {
+    /* Exact custom constraint compliance dimensions: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    width: 100%; /* Guarantees strict full-width viewport coverage boundaries */
+    background: linear-gradient(135deg, #1e293b, #0f172a); /* Premium deep blue-black foundation */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Section Full-Bleed Background Visual Layer --- */
+.cta-banner-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.06; /* Subdued backdrop presence profile to protect high text clarity scores */
+}
+
+.cta-banner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    z-index: 3; /* Forces content matrices to render reliably forward above graphics layers */
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.cta-banner-text-block {
+    display: flex;
+    flex-direction: column;
+    max-width: 760px;
+    /* Scroll slide animation initial state settings */
+    opacity: 0;
+    transform: translateX(-70px); /* Slides inward smoothly from the left margins */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-banner-text-block.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.cta-line-one {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #ffffff; /* Brilliant white for ultimate pop against deep dark foundation background */
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    transition: text-shadow 0.3s ease;
+}
+
+.cta-line-two {
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85); /* Slightly softened high contrast layout description line */
+    transition: color 0.3s ease;
+}
+
+/* Premium Text/Content Hover Glow Feedback Effects */
+.cta-banner-text-block:hover .cta-line-one {
+    /* Multi-layered soft white neon typographical localized ambient glow aura projection */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 
+                 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.cta-banner-text-block:hover .cta-line-two {
+    color: #ffffff; /* Refuses dimming filters on hover focus layers */
+}
+
+/* --- Right Column: Bottom Upwards Rising Call To Action Button --- */
+.cta-banner-action-block {
+    opacity: 0;
+    transform: translateY(40px); /* Pushed downstream downwards out of container configurations */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-banner-action-block.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-banner-primary-action {
+    display: inline-block;
+    background-color: var(--primary-color); /* Matches exact premium brand coral token */
+    color: #ffffff;
+    text-decoration: none;
+    padding: 18px 40px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 10px 25px rgba(230, 92, 64, 0.25);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-banner-primary-action:hover {
+    background-color: #ffffff;
+    color: #1e293b;
+    transform: translateY(-4px) scale(1.02);
+    /* Soft clean high focus button pop glow drop illumination block */
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.25);
+}
+
+/* --- Floating Context Vector Nodes Canvas Layer --- */
+.banner-floating-vectors-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.vector-float-node {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.08); /* Subtle transparent background canvas vectors footprint */
+    transition: color 0.4s ease;
+}
+
+.vector-float-node svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentColor;
+}
+
+/* Pin floating node coordinate parameters across the full canvas zone layout bounds */
+.node-leaf { top: 15%; right: 28%; animation: bannerFloatCycleOne 4.5s ease-in-out infinite alternate; }
+.node-spark { bottom: 20%; left: 4%; animation: bannerFloatCycleTwo 5s ease-in-out infinite alternate 0.5s; }
+.node-heart { top: 35%; left: 45%; animation: bannerFloatCycleOne 3.8s ease-in-out infinite alternate 0.2s; }
+
+@keyframes bannerFloatCycleOne {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-12px) rotate(10deg); }
+}
+
+@keyframes bannerFloatCycleTwo {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(12px) rotate(-10deg); }
+}
+
+/* --- Full Cross-Device Grid Adaptation Breakpoints --- */
+@media (max-width: 991px) {
+    .cta-line-one { font-size: 1.8rem; }
+    .btn-banner-primary-action { padding: 16px 32px; font-size: 1rem; }
+}
+
+@media (max-width: 768px) {
+    .cta-banner-container {
+        flex-direction: column; /* Collapses layout structure downstream into neat center stacked blocks stream */
+        text-align: center;
+        gap: 35px;
+    }
+    .cta-banner-text-block {
+        transform: translateY(30px); /* Adjusts side linear slide axis pathways into simple clean vertical setups on compressed screen spaces */
+    }
+    .cta-banner-text-block.slide-active { transform: translateY(0); }
+    .node-leaf, .node-heart { display: none; } /* Drop redundant interior canvas elements to keep viewport footprint tight and fast */
+}
+
+@media (max-width: 480px) {
+    .cta-line-one { font-size: 1.5rem; }
+    .cta-line-two { font-size: 0.95rem; }
+    .btn-banner-primary-action { width: 100%; text-align: center; } /* Span button element fully to browser limits on smartphone displays */
+}
+
+</style>
+
+<script>
+    // --- Full-Width CTA Banner Scrolling Interaction Observer Trigger ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Select animation targets elements space
+    const targetBannerSection = document.getElementById("banner-trigger-zone");
+    const bannerSlideText = document.getElementById("banner-text-slide");
+    const bannerRiseBtn = document.getElementById("banner-btn-rise");
+
+    // Config parameters parameters mapping values
+    const bannerObserverOptions = {
+        root: null,
+        threshold: 0.15, // Activates loop logic when 15% of section boundary crosses layout viewport boundaries
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const bannerRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Step 1: Slide left typographical 2-line block inwards smoothly
+                if (bannerSlideText) {
+                    bannerSlideText.classList.add("slide-active");
+                }
+
+                // Track Step 2: Rise right primary call-to-action button upwards gracefully from bottom canvas limits
+                if (bannerRiseBtn) {
+                    setTimeout(() => {
+                        bannerRiseBtn.classList.add("rise-active");
+                    }, 250); // Small interval stagger offset to execute directly behind headline slide finishes
+                }
+
+                // Disconnect section observer monitor channel to lock render configurations exactly on first view cycle entry
+                observer.unobserve(entry.target);
+            }
+        });
+    }, bannerObserverOptions);
+
+    if (targetBannerSection) {
+        bannerRevealObserver.observe(targetBannerSection);
+    }
+});
+
+</script>
+
+<!-- SIMPLE CLEAN FOOD OFFERS GRID -->
+<section class="simple-offers-section" id="simple-offers-zone">
+    <div class="simple-container">
+        
+        <!-- Minimal Heading -->
+        <h2 class="simple-section-title" id="simple-scroll-title">Flash Food Deals</h2>
+
+        <!-- 3-Column Minimal Grid Layout (Holds 6 Cards) -->
+        <div class="simple-offers-grid">
+            
+            <!-- Item 1 -->
+            <div class="simple-food-card scroll-card-node">
+                <div class="simple-media-box">
+                    <img src="https://placeholder.com" alt="Chicken Burger" class="simple-food-img">
+                </div>
+                <div class="simple-card-details">
+                    <h3 class="simple-food-name">Crunchy Chicken Burger</h3>
+                    <div class="simple-price-row">
+                        <strong class="simple-price">$14.00</strong>
+                        <span class="simple-coupon" onclick="navigator.clipboard.writeText('BURGER30'); alert('Voucher BURGER30 Copied!');" title="Click to copy code">BURGER30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="simple-food-card scroll-card-node">
+                <div class="simple-media-box">
+                    <img src="https://placeholder.com" alt="Pepperoni Pizza" class="simple-food-img">
+                </div>
+                <div class="simple-card-details">
+                    <h3 class="simple-food-name">Pepperoni Supreme Pizza</h3>
+                    <div class="simple-price-row">
+                        <strong class="simple-price">$22.50</strong>
+                        <span class="simple-coupon" onclick="navigator.clipboard.writeText('PIZZA20'); alert('Voucher PIZZA20 Copied!');" title="Click to copy code">PIZZA20</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="simple-food-card scroll-card-node">
+                <div class="simple-media-box">
+                    <img src="https://placeholder.com" alt="Salmon Sushi" class="simple-food-img">
+                </div>
+                <div class="simple-card-details">
+                    <h3 class="simple-food-name">Salmon Sashimi Combo</h3>
+                    <div class="simple-price-row">
+                        <strong class="simple-price">$29.00</strong>
+                        <span class="simple-coupon" onclick="navigator.clipboard.writeText('SUSHI25'); alert('Voucher SUSHI25 Copied!');" title="Click to copy code">SUSHI25</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="simple-food-card scroll-card-node">
+                <div class="simple-media-box">
+                    <img src="https://placeholder.com" alt="Noodle Bowl" class="simple-food-img">
+                </div>
+                <div class="simple-card-details">
+                    <h3 class="simple-food-name">Teriyaki Noodle Bowl</h3>
+                    <div class="simple-price-row">
+                        <strong class="simple-price">$15.00</strong>
+                        <span class="simple-coupon" onclick="navigator.clipboard.writeText('WOK15'); alert('Voucher WOK15 Copied!');" title="Click to copy code">WOK15</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="simple-food-card scroll-card-node">
+                <div class="simple-media-box">
+                    <img src="https://placeholder.com" alt="Avocado Bowl" class="simple-food-img">
+                </div>
+                <div class="simple-card-details">
+                    <h3 class="simple-food-name">Avocado Macro Bowl</h3>
+                    <div class="simple-price-row">
+                        <strong class="simple-price">$16.50</strong>
+                        <span class="simple-coupon" onclick="navigator.clipboard.writeText('GREEN10'); alert('Voucher GREEN10 Copied!');" title="Click to copy code">GREEN10</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="simple-food-card scroll-card-node">
+                <div class="simple-media-box">
+                    <img src="https://placeholder.com" alt="Macarons" class="simple-food-img">
+                </div>
+                <div class="simple-card-details">
+                    <h3 class="simple-food-name">French Macarons Pack</h3>
+                    <div class="simple-price-row">
+                        <strong class="simple-price">$12.00</strong>
+                        <span class="simple-coupon" onclick="navigator.clipboard.writeText('SWEETBOGO'); alert('Voucher SWEETBOGO Copied!');" title="Click to copy code">SWEETBOGO</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Ultra-Clean Food Offers Layout --- */
+.simple-offers-section {
+    /* Exact custom constraint compliance: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+}
+
+.simple-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.simple-section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #000000; /* Solid high-contrast absolute black title */
+    text-align: center;
+    margin: 0 0 40px 0;
+    letter-spacing: -0.5px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.simple-section-title.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Minimal 3-Column Grid Base Structure */
+.simple-offers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px 30px;
+    width: 100%;
+}
+
+/* Minimalist Flat Card Styling */
+.simple-food-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0; /* Hairline clean border separation */
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease;
+}
+
+.simple-food-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Accent border line shift feedback on focus hover */
+.simple-food-card:hover {
+    border-color: #e65c40; /* Clean brand coral accent color token */
+}
+
+.simple-media-box {
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.simple-food-img {
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+.simple-card-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.simple-food-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 12px 0;
+}
+
+.simple-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 12px;
+}
+
+.simple-price {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #000000;
+}
+
+/* Minimalist Coupon Tag Box (Swaps on hover) */
+.simple-coupon {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4a5568;
+    background-color: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: monospace;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.simple-food-card:hover .simple-coupon {
+    background-color: #e65c40; /* Lights up into brand coral dynamically on hover */
+    color: #ffffff;
+}
+
+/* --- Clean Grid Responsiveness Breakpoints --- */
+@media (max-width: 991px) {
+    .simple-offers-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+}
+
+@media (max-width: 580px) {
+    .simple-offers-grid { grid-template-columns: 1fr; gap: 20px; }
+    .simple-section-title { font-size: 1.65rem; margin-bottom: 25px; }
+    .simple-food-card { padding: 16px; }
+}
+
+</style>
+
+<script>
+    // --- Clean Minimalist One-by-One Cascade Reveal Scroll Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    const targetZoneSection = document.getElementById("simple-offers-zone");
+    const simpleTitle = document.getElementById("simple-scroll-title");
+    const simpleCardNodes = document.querySelectorAll(".scroll-card-node");
+
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.05, 
+        rootMargin: "0px 0px -20px 0px"
+    };
+
+    const simpleGridObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 1. Reveal heading
+                if (simpleTitle) simpleTitle.classList.add("revealed");
+
+                // 2. Cascade minimal food item cards one-by-one sequentially
+                simpleCardNodes.forEach((cardNode, index) => {
+                    setTimeout(() => {
+                        cardNode.classList.add("revealed");
+                    }, index * 100); // 100ms waterfall loading sequence
+                });
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    if (targetZoneSection) {
+        simpleGridObserver.observe(targetZoneSection);
+    }
+});
+
+</script>
+
+<!-- INTERACTIVE ASYMMETRIC ACCORDION TICKET DECK -->
+<section class="epic-deck-section" id="epic-deck-trigger">
+    <div class="epic-deck-container">
+        
+        <!-- Scroll-Triggered Word-by-Word Header Block -->
+        <div class="epic-deck-header">
+            <h2 class="epic-deck-title" id="epic-scroll-title">
+                <span class="ed-word">Premium</span>
+                <span class="ed-word accent-brand">Epicurean</span>
+                <span class="ed-word">Passes</span>
+            </h2>
+            <p class="epic-deck-subtitle">Hover to expand premium horizontal vouchers and copy exclusive culinary access tokens.</p>
+        </div>
+
+        <!-- Vertical Accordion Ticket Stack (Loads One-by-One) -->
+        <div class="epic-vertical-deck">
+            
+            <!-- Ticket 1 -->
+            <div class="epic-ticket-panel deck-stagger-item">
+                <div class="panel-glow-aura"></div>
+                <!-- Left Section: Large Pricing Display -->
+                <div class="panel-left-badge">
+                    <span class="badge-percentage">35%</span>
+                    <span class="badge-condition">OFF</span>
+                </div>
+                <!-- Middle Section: Brand Core Copy -->
+                <div class="panel-middle-info">
+                    <span class="panel-vendor-label">Burger Craft Co. • ★ 4.9</span>
+                    <h3 class="panel-food-title">The Grand Artisan Combo Pass</h3>
+                    <p class="panel-rate-index">Est. Rate $24.00 • Min. Order $10</p>
+                </div>
+                <!-- Right Section: Food Media Platter & Hidden Coupon Reveal -->
+                <div class="panel-right-media">
+                    <img src="https://placeholder.com" alt="Gourmet Burger Platter" class="panel-food-img">
+                    <div class="panel-coupon-code" onclick="navigator.clipboard.writeText('CRAFT35'); alert('Voucher CRAFT35 Copied!');">
+                        <span>Code: <strong>CRAFT35</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 2 -->
+            <div class="epic-ticket-panel deck-stagger-item">
+                <div class="panel-glow-aura"></div>
+                <div class="panel-left-badge badge-green">
+                    <span class="badge-percentage">FREE</span>
+                    <span class="badge-condition">DELIVERY</span>
+                </div>
+                <div class="panel-middle-info">
+                    <span class="panel-vendor-label">La Piazza Woodfired • ★ 4.8</span>
+                    <h3 class="panel-food-title">Neapolitan Artisan Feast Pass</h3>
+                    <p class="panel-rate-index">Est. Rate $18.50 • Min. Order $15</p>
+                </div>
+                <div class="panel-right-media">
+                    <img src="https://placeholder.com" alt="Artisan Pizza Platter" class="panel-food-img">
+                    <div class="panel-coupon-code" onclick="navigator.clipboard.writeText('PIZZAFREE'); alert('Voucher PIZZAFREE Copied!');">
+                        <span>Code: <strong>PIZZAFREE</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 3 -->
+            <div class="epic-ticket-panel deck-stagger-item">
+                <div class="panel-glow-aura"></div>
+                <div class="panel-left-badge badge-blue">
+                    <span class="badge-percentage">BOGO</span>
+                    <span class="badge-condition">DEAL</span>
+                </div>
+                <div class="panel-middle-info">
+                    <span class="panel-vendor-label">The Sushi Room • ★ 4.9</span>
+                    <h3 class="panel-food-title">Imperial Dragon Sashimi Pass</h3>
+                    <p class="panel-rate-index">Est. Rate $45.00 • Min. Order $25</p>
+                </div>
+                <div class="panel-right-media">
+                    <img src="https://placeholder.com" alt="Sashimi Platter" class="panel-food-img">
+                    <div class="panel-coupon-code" onclick="navigator.clipboard.writeText('SUSHIBOGO'); alert('Voucher SUSHIBOGO Copied!');">
+                        <span>Code: <strong>SUSHIBOGO</strong></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Interactive Accordion Ticket Deck Framework --- */
+.epic-deck-section {
+    /* Explicit core requested padding mapping parameters: 50px top, 30px bottom */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff; /* Replaced dark theme gradient layer with clean white canvas */
+    position: relative;
+    overflow: hidden;
+}
+
+.epic-deck-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.epic-deck-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+/* Scroll Word-by-Word Header Construction */
+.epic-deck-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #000000; /* Absolute high-contrast solid black typography text */
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+
+.epic-deck-title .accent-brand {
+    color: var(--primary-color, #e65c40); /* Stackly Brand Coral Accent */
+}
+
+.epic-deck-subtitle {
+    font-size: 1.05rem;
+    color: #718096; /* Modern neutral grey subtitle line */
+    font-weight: 500;
+}
+
+.ed-word {
+    display: inline-block;
+    opacity: 0.15; /* Baseline hidden transparency point before observer reveal triggers */
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.ed-word.word-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Vertical Ticket Stack Ribbon Layout --- */
+.epic-vertical-deck {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Reusable Horizontal Ticket Panel Component */
+.epic-ticket-panel {
+    background-color: #ffffff; /* Clean white card plate matching main canvas backdrop */
+    border-radius: 24px;
+    height: 120px; /* Compact collapsed baseline height profile */
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #edf2f7; /* Hairline clear border separator line */
+    
+    /* Scroll presentation variables settings for one-by-one waterfall */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                background-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.epic-ticket-panel.item-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Accordion Height Expansion Tuning on Hover Focus --- */
+.epic-ticket-panel:hover {
+    height: 180px; /* Programmatic vertical height adjustment downward on card hover */
+    border-color: rgba(230, 92, 64, 0.25);
+    background-color: #ffffff;
+    box-shadow: 0 25px 45px rgba(230, 92, 64, 0.05); /* Soft localized brand glowing aura drop projection */
+}
+
+/* Internal Card Micro Ambient Glowing Overlay Lens Sheet */
+.panel-glow-aura {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 300px;
+    height: 100%;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.1) 0%, transparent 75%);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.epic-ticket-panel:hover .panel-glow-aura {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* --- Left Column Badge: Large Discount Marker --- */
+.panel-left-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: 120px;
+    position: relative;
+    z-index: 2;
+}
+
+.badge-percentage {
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--primary-color, #e65c40);
+    line-height: 1;
+}
+
+.badge-condition {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #000000; /* Crisp solid high-contrast black characters tag */
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+/* Alternating Badge Color Tokens */
+.badge-green .badge-percentage { color: #22c55e; }
+.badge-blue .badge-percentage { color: #3b82f6; }
+
+/* --- Middle Column: Copy Details Block --- */
+.panel-middle-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-left: 20px;
+    border-left: 1px dashed #e2e8f0; /* Crisp coupon tear-off track indicator line */
+    position: relative;
+    z-index: 2;
+}
+
+.panel-vendor-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #a0aec0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.panel-food-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #000000; /* Solid absolute crisp high-contrast black heading copy text */
+    letter-spacing: -0.2px;
+    margin-bottom: 6px;
+    transition: color 0.3s ease;
+}
+
+.epic-ticket-panel:hover .panel-food-title {
+    color: var(--primary-color, #e65c40); /* Color shift title string to brand accent on hover */
+}
+
+.panel-rate-index {
+    font-size: 0.9rem;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+/* --- Right Column: Food Imagery & Overlaid Code Reveals --- */
+.panel-right-media {
+    position: relative;
+    width: 220px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 2;
+}
+
+.panel-food-img {
+    max-height: 110px;
+    width: auto;
+    object-fit: contain;
+    transform: translateX(20px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+/* Platter glides forward cinematic shift response on parent container hover */
+.epic-ticket-panel:hover .panel-food-img {
+    transform: translateX(-110px) scale(1.1) rotate(5deg);
+    opacity: 0.12; /* Dim opacity filter layers to ensure copy code text stays sharp */
+}
+
+/* Clean Swapping Hidden Coupon Code Overlay Sheet */
+.panel-coupon-code {
+    position: absolute;
+    right: 0;
+    background-color: #1e293b; /* Deep high-contrast blue-black code ticket banner */
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.15);
+    transform: scale(0.8) translateX(40px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, background-color 0.2s ease;
+}
+
+.epic-ticket-panel:hover .panel-coupon-code {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.panel-coupon-code:hover {
+    background-color: var(--primary-color, #e65c40); /* Highlights coupon plate background into coral on hover */
+}
+
+.panel-coupon-code strong {
+    font-family: monospace;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    margin-left: 4px;
+}
+
+/* --- Full Cross-Device Layout Responsiveness --- */
+@media (max-width: 991px) {
+    .epic-ticket-panel { padding: 0 25px; }
+    .badge-percentage { font-size: 2.1rem; }
+    .panel-food-title { font-size: 1.15rem; }
+}
+
+@media (max-width: 768px) {
+    .epic-ticket-panel {
+        height: auto; /* Fully disables horizontal accordion parameters engine rules on mobile windows screens */
+        flex-direction: column;
+        align-items: stretch;
+        padding: 30px 24px;
+        text-align: center;
+    }
+    .epic-ticket-panel:hover { height: auto !important; }
+    .panel-left-badge { align-items: center; margin-bottom: 15px; min-width: 100%; }
+    .panel-middle-info { padding-left: 0; border-left: none; border-top: 1px dashed #e2e8f0; padding-top: 15px; }
+    .panel-right-media { width: 100%; height: auto; justify-content: center; margin-top: 20px; }
+    .panel-food-img { display: none; } /* Drop redundant mobile visual layers overlaps safely to clean memory tracks */
+    .panel-coupon-code { position: relative; right: auto; transform: none !important; opacity: 1; pointer-events: auto; width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .epic-deck-title { font-size: 1.75rem; }
+    .epic-deck-subtitle { font-size: 0.95rem; }
+}
+
+</style>
+
+<script>
+    /**
+ * STACKLY FOOD DELIVERY WEBSITE
+ * Isolated Operations Script: Epicurean Passes Accordion Section
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Target Element Selectors
+    const sectionContainerZone = document.getElementById("epic-deck-trigger");
+    const headingWordsNodes = document.querySelectorAll(".ed-word");
+    const verticalStaggerItems = document.querySelectorAll(".deck-stagger-item");
+
+    // 2. Intersection Evaluation Control Observer Options
+    const scrollRevealOptions = {
+        root: null, // Tracks element visibility relative to the device viewport
+        threshold: 0.08, // Activates animation sequences once 8% of the section container enters view
+        rootMargin: "0px 0px -30px 0px" // Triggers actions slightly before hitting absolute screen borders
+    };
+
+    // 3. Sequential Timeline Orchestration Matrix Loop Execution
+    const epicDeckSectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Path Step A: Assemble Title phrase layout word-by-word progressively
+                headingWordsNodes.forEach((wordNode, index) => {
+                    setTimeout(() => {
+                        wordNode.classList.add("word-active");
+                    }, index * 100); // 100ms progressive layout text stagger pacing delays
+                });
+
+                // Track Timeline Path Step B: Cascade individual vertical ticket panels upward one-by-one sequentially
+                verticalStaggerItems.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("item-revealed")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("item-revealed");
+                        }, index * 120); // Waterfall cascading panel entry loads loop delays at 120ms intervals
+                    }
+                });
+
+                // Disconnect target listener channel to lock render configurations exactly on first view cycle entry
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    // 4. Bind Active Monitoring Target Context Channel
+    if (sectionContainerZone) {
+        epicDeckSectionObserver.observe(sectionContainerZone);
+    }
+});
+
+</script>
+
+<!-- TESTIMONIAL SHOWCASE SECTION -->
+<section class="testimonial-section" id="testimonial-trigger-zone">
+    <div class="testimonial-container">
+        
+        <!-- Section Header with Scroll-Triggered Letter-by-Letter Title -->
+        <div class="testimonial-header-row">
+            <h2 class="testimonial-main-title" id="testimonial-letter-title">Customer Stories</h2>
+            <!-- Standalone Responsive Carousel Controls -->
+            <div class="testimonial-slider-nav">
+                <button class="test-nav-btn prev-btn" id="test-prev-arrow" aria-label="Previous Review">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="test-nav-btn next-btn" id="test-next-arrow" aria-label="Next Review">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Horizontal Scroll View Track Frame -->
+        <div class="testimonial-track-wrapper" id="testimonial-track">
+            
+            <!-- Testimonial Card 1 -->
+            <div class="testimonial-card scroll-cascade-card">
+                <div class="card-glow-overlay"></div>
+                <div class="testimonial-upper-row">
+                    <div class="user-profile-meta">
+                        <img src="https://placeholder.com" alt="Sarah Jenkins" class="user-avatar-img">
+                        <div class="user-name-stack">
+                            <h3 class="client-name">Sarah Jenkins</h3>
+                            <span class="client-title">Verified Foodie</span>
+                        </div>
+                    </div>
+                    <!-- Premium Brand Accent Star Rating -->
+                    <div class="testimonial-rating-stars">★★★★★</div>
+                </div>
+                <p class="testimonial-quote-text">
+                    "Stackly completely changed how our office orders lunch. The courier tracking is incredibly precise, and the burger arrived steaming hot as if served straight from the grill!"
+                </p>
+            </div>
+
+            <!-- Testimonial Card 2 -->
+            <div class="testimonial-card scroll-cascade-card">
+                <div class="card-glow-overlay"></div>
+                <div class="testimonial-upper-row">
+                    <div class="user-profile-meta">
+                        <img src="https://placeholder.com" alt="David Miller" class="user-avatar-img">
+                        <div class="user-name-stack">
+                            <h3 class="client-name">David Miller</h3>
+                            <span class="client-title">Daily Diner</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating-stars">★★★★★</div>
+                </div>
+                <p class="testimonial-quote-text">
+                    "Absolute transparency is what I love about this platform. The search field validation catches errors instantly, and there are never any hidden delivery fees added at checkout."
+                </p>
+            </div>
+
+            <!-- Testimonial Card 3 -->
+            <div class="testimonial-card scroll-cascade-card">
+                <div class="card-glow-overlay"></div>
+                <div class="testimonial-upper-row">
+                    <div class="user-profile-meta">
+                        <img src="https://placeholder.com" alt="Elena Rostova" class="user-avatar-img">
+                        <div class="user-name-stack">
+                            <h3 class="client-name">Elena Rostova</h3>
+                            <span class="client-title">Gourmet Cuisiner</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating-stars">★★★★★</div>
+                </div>
+                <p class="testimonial-quote-text">
+                    "The featured restaurant section makes it so easy to discover healthy vegan choices nearby. The ingredients list pills right under the product titles are a game-changer!"
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Testimonial Section Framework Layout --- */
+.testimonial-section {
+    /* Precise constraint criteria compliance: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+
+.testimonial-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.testimonial-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+/* --- Letter-by-Letter Typography Entrance Core --- */
+.testimonial-main-title {
+    font-size: calc(1.8rem + 0.6vw);
+    font-weight: 800;
+    color: #000000; /* Solid absolute black headings configuration */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Character level node slice layout tokens */
+.test-letter {
+    display: inline-block;
+    opacity: 0.1; /* Initial state baseline filter parameters prior to scroll intersection triggers */
+    transform: scale(0.7) translateY(12px);
+    transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), 
+                transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+.test-letter.letter-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Standalone Controls Layout Setup */
+.testimonial-slider-nav {
+    display: flex;
+    gap: 12px;
+}
+
+.test-nav-btn {
+    width: 44px;
+    height: 44px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #1e293b;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.test-nav-btn:hover {
+    background-color: var(--primary-color); /* Premium brand coral tone highlight trigger */
+    border-color: var(--primary-color);
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(230, 92, 64, 0.25);
+    transform: translateY(-2px);
+}
+
+.test-nav-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+}
+
+/* --- Horizontal Track Framework View --- */
+.testimonial-track-wrapper {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    width: 100%;
+    padding: 15px 5px 25px 5px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.testimonial-track-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- Review Cards Components & Interactive Glow Shadows --- */
+.testimonial-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 24px;
+    padding: 35px 30px;
+    min-width: 380px;
+    flex: 1 0 0; /* Cards expand fluidly and stretch to fill empty horizontal space on desktops */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Cascade reveal initialization values mapping coordinates */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease, 
+                box-shadow 0.4s ease;
+}
+
+.testimonial-card.card-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* High Contrast Hover Glow State Trigger System */
+.testimonial-card:hover {
+    border-color: rgba(230, 92, 64, 0.2);
+    /* Soft localized brand glowing aura drop projection matrix */
+    box-shadow: 0 25px 50px rgba(230, 92, 64, 0.05),
+                0 4px 10px rgba(0, 0, 0, 0.01);
+}
+
+/* Internal Card Ambient Glow Ring Element Layer */
+.card-glow-overlay {
+    position: absolute;
+    bottom: -60px;
+    right: -60px;
+    width: 140px;
+    height: 140px;
+    background-color: rgba(230, 92, 64, 0.06);
+    border-radius: 50%;
+    filter: blur(35px);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.testimonial-card:hover .card-glow-overlay {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.testimonial-upper-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
+}
+
+.user-profile-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-avatar-img {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.user-name-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.client-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #000000; /* Solid absolute black string typography name */
+}
+
+.client-title {
+    font-size: 0.85rem;
+    color: #a0aec0;
+    font-weight: 600;
+    margin-top: 1px;
+}
+
+.testimonial-rating-stars {
+    color: #ffd84d; /* Bright warm gold star rating array metrics styling */
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
+.testimonial-quote-text {
+    font-size: 1.05rem;
+    color: #000000; /* Crisp crisp solid black reading quote content text block */
+    line-height: 1.65;
+    position: relative;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+/* --- Full Cross-Device Layout Responsiveness --- */
+@media (max-width: 991px) {
+    .testimonial-card { min-width: 340px; padding: 30px 24px; }
+    .testimonial-main-title { font-size: 1.8rem; }
+}
+
+@media (max-width: 768px) {
+    .testimonial-track-wrapper {
+        gap: 20px;
+    }
+    .testimonial-card {
+        min-width: 290px;
+    }
+    .testimonial-upper-row {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonial-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .testimonial-slider-nav {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    .testimonial-card {
+        min-width: 100%; /* Switch into an absolute single item carousel viewport grid layout mode on narrow mobile devices */
+    }
+    .testimonial-quote-text {
+        font-size: 0.95rem;
+    }
+}
+
+</style>
+
+<script>
+    // --- Testimonial Slider Carousel Operations & Letter Scroll Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Map Configuration
+    const sectionBoundaryZone = document.getElementById("testimonial-trigger-zone");
+    const letterTitleContainer = document.getElementById("testimonial-letter-title");
+    const reviewCardsList = document.querySelectorAll(".scroll-cascade-card");
+    const horizontalScrollTrack = document.getElementById("testimonial-track");
+    const leftArrowTrigger = document.getElementById("test-prev-arrow");
+    const rightArrowTrigger = document.getElementById("test-next-arrow");
+
+    // 2. Fragment Slice Letter-by-Letter Configuration Setup
+    let mappedLetterSpans = [];
+    if (letterTitleContainer) {
+        const structuralTextRaw = letterTitleContainer.textContent.trim();
+        letterTitleContainer.textContent = ""; // Clear baseline original markup string container
+
+        mappedLetterSpans = Array.from(structuralTextRaw).map(char => {
+            const charSpanNode = document.createElement("span");
+            charSpanNode.classList.add("test-letter");
+            charSpanNode.innerHTML = char === " " ? "&nbsp;" : char;
+            letterTitleContainer.appendChild(charSpanNode);
+            return charSpanNode;
+        });
+    }
+
+    // 3. Horizontal Navigation Click Tracking Vectors
+    if (horizontalScrollTrack && leftArrowTrigger && rightArrowTrigger) {
+        rightArrowTrigger.addEventListener("click", () => {
+            horizontalScrollTrack.scrollBy({ left: 360, behavior: 'smooth' });
+        });
+
+        leftArrowTrigger.addEventListener("click", () => {
+            horizontalScrollTrack.scrollBy({ left: -360, behavior: 'smooth' });
+        });
+    }
+
+    // 4. Interaction Observer Configuration Matrix
+    const scrollRevealOptions = {
+        root: null,
+        threshold: 0.1, // Fires layout changes when 10% of container crosses tracking visibility filters
+        rootMargin: "0px 0px -40px 0px"
+    };
+
+    const testimonialRevealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Track Step A: Reveal text letters progressively character by character
+                mappedLetterSpans.forEach((spanNode, index) => {
+                    setTimeout(() => {
+                        spanNode.classList.add("letter-active");
+                    }, index * 45); // Progressive 45ms stagger pacing loop
+                });
+
+                // Track Timeline Track Step B: Cascade review cards load cycles sequentially
+                reviewCardsList.forEach((cardNode, index) => {
+                    if (!cardNode.classList.contains("card-visible")) {
+                        setTimeout(() => {
+                            cardNode.classList.add("card-visible");
+                        }, index * 120); // Waterfall load pacing value at 120ms
+                    }
+                });
+
+                // Terminate target observer listener channel to secure footprint cycles
+                observer.unobserve(entry.target);
+            }
+        });
+    }, scrollRevealOptions);
+
+    // 5. Bind Active Monitoring Target Context Channel
+    if (sectionBoundaryZone) {
+        testimonialRevealObserver.observe(sectionBoundaryZone);
+    }
+});
+
+</script>
+
+<!-- FULL WIDTH SUBSCRIBE CTA BANNER SECTION -->
+<section class="subscribe-banner-section" id="subscribe-trigger-zone">
+    <!-- Subtle backdrop texture pattern image tag -->
+    <img src="https://placeholder.com" alt="Subscribe Backdrop Pattern" class="sub-banner-bg-asset">
+    
+    <!-- Floating Vector Elements Backdrop Layer -->
+    <div class="sub-floating-vectors-canvas">
+        <div class="sub-vector-node node-leaf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22c1.25-3.66 5.5-6 10-6s8.75 2.34 10 6H2z"></path><path d="M12 2a15.3 15.3 0 0 1 4 10H8a15.3 15.3 0 0 1 4-10z"></path></svg>
+        </div>
+        <div class="sub-vector-node node-pizza">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 11h.01M11 15h.01M16 16h.01M12 11h.01M12 2a10 10 0 0 1 8 16l-8 4-8-4a10 10 0 0 1 8-16z"></path></svg>
+        </div>
+    </div>
+
+    <!-- Inner Grid Container Layout -->
+    <div class="sub-banner-container">
+        
+        <!-- Left Column: Copy Content Stack -->
+        <div class="sub-banner-text-block" id="sub-text-slide">
+            <h2 class="sub-line-one">Subscribe Our Newsletter</h2>
+            <p class="sub-line-two">Stay updated with fresh culinary news, secret weekly discount codes, and new local kitchen onboarding alerts.</p>
+        </div>
+
+        <!-- Right Column: Form Interface Layer with Real-Time Validation Bubble -->
+        <div class="sub-banner-form-block" id="sub-form-rise">
+            <form id="newsletter-subscribe-form" class="sub-form-wrapper" novalidate>
+                <div class="sub-input-field-group">
+                    <span class="sub-input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </span>
+                    <input type="email" id="subscriber-email-input" placeholder="Your Email Address..." autocomplete="off">
+                    
+                    <!-- Smart Interactive Validation Bubble Popup -->
+                    <span class="sub-validation-bubble" id="sub-error-msg">Please fill the fields</span>
+                </div>
+                <button type="submit" class="btn-sub-submit">Subscribe</button>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<style>
+    /* --- Subscribe Banner Framework Layout --- */
+.subscribe-banner-section {
+    /* Precise constraint compliance: 50px top padding, 30px bottom padding */
+    padding: 50px 20px 30px 20px;
+    width: 100%; /* Guarantees strict full-bleed viewport boundaries coverage */
+    background: linear-gradient(135deg, #1e293b, #0f172a); /* Premium deep dark foundation */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.sub-banner-bg-asset {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.05; /* Subdued backdrop footprint to isolate crisp text legibility weights */
+}
+
+.sub-banner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    z-index: 3; /* Forces elements to render forward reliably above graphics canvas layers */
+}
+
+/* --- Left Column Elements & Content Glow Profiles --- */
+.sub-banner-text-block {
+    display: flex;
+    flex-direction: column;
+    /* Scroll slide animation baseline settings */
+    opacity: 0;
+    transform: translateX(-70px); /* Slides inward smoothly out from left margins */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sub-banner-text-block.slide-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sub-line-one {
+    font-size: calc(1.8rem + 0.5vw);
+    font-weight: 800;
+    line-height: 1.25;
+    color: #ffffff; /* Brilliant white for absolute pop */
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    transition: text-shadow 0.3s ease;
+}
+
+.sub-line-two {
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85); /* Highly readable softened text label */
+    transition: color 0.3s ease;
+}
+
+/* Content Panel Interactive Glow Effects */
+.sub-banner-text-block:hover .sub-line-one {
+    /* Multi-layered soft white neon typographical localized ambient glow aura projection */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 
+                 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.sub-banner-text-block:hover .sub-line-two {
+    color: #ffffff;
+}
+
+/* --- Right Column: Input Form Framework Layout --- */
+.sub-banner-form-block {
+    width: 100%;
+    /* Scroll up animation baseline settings */
+    opacity: 0;
+    transform: translateY(40px); /* Rises upward out from ground lines plane */
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sub-banner-form-block.rise-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sub-form-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 6px 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.sub-form-wrapper:focus-within {
+    border-color: var(--primary-color); /* Premium brand coral tone highlight vector line */
+    box-shadow: 0 0 0 4px rgba(230, 92, 64, 0.15);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sub-input-field-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.sub-input-icon {
+    color: rgba(255, 255, 255, 0.4);
+    margin-left: 12px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.sub-input-icon svg { width: 20px; height: 20px; }
+
+#subscriber-email-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff; /* Absolute high visibility white characters entry string */
+    outline: none;
+}
+
+#subscriber-email-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-sub-submit {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn-sub-submit:hover {
+    background-color: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn-sub-submit:active {
+    transform: scale(0.97);
+}
+
+/* Intelligent Validation Bubble Popup CSS Elements Matrix */
+.sub-validation-bubble {
+    position: absolute;
+    bottom: calc(100% + 20px);
+    left: 12px;
+    background-color: #ff4d4d;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 6px 16px rgba(255, 77, 77, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.sub-validation-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #ff4d4d transparent transparent transparent;
+}
+
+.sub-validation-bubble.show-error {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Error warning vibration shake timeline mechanics */
+@keyframes validationShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.sub-form-wrapper.shake {
+    animation: validationShake 0.4s ease-in-out;
+    border-color: #ff4d4d !important;
+}
+
+/* --- Floating Context Vector Nodes Canvas Layer --- */
+.sub-floating-vectors-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.sub-vector-node {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.06);
+}
+
+.sub-vector-node svg { width: 32px; height: 32px; stroke: currentColor; }
+.node-leaf { top: 15%; right: 40%; animation: subFloatOne 4.5s ease-in-out infinite alternate; }
+.node-pizza { bottom: 25%; left: 3%; animation: subFloatTwo 5s ease-in-out infinite alternate 0.3s; }
+
+@keyframes subFloatOne { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-10px) rotate(8deg); } }
+@keyframes subFloatTwo { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(10px) rotate(-8deg); } }
+
+/* --- Full Cross-Device Layout Responsiveness --- */
+@media (max-width: 991px) {
+    .sub-banner-container { gap: 30px; }
+    .sub-line-one { font-size: 1.7rem; }
+}
+
+@media (max-width: 768px) {
+    .sub-banner-container {
+        grid-template-columns: 1fr; /* Switch into a center stacked sequence configuration */
+        text-align: center;
+        gap: 35px;
+    }
+    .sub-banner-text-block {
+        transform: translateY(30px); /* Toggles entry coordinate vector mapping configuration vertically */
+    }
+    .sub-banner-text-block.slide-active { transform: translateY(0); }
+    .node-leaf { display: none; }
+}
+
+@media (max-width: 580px) {
+    .sub-form-wrapper {
+        flex-direction: column;
+        padding: 8px;
+        gap: 8px;
+        border-radius: 14px;
+    }
+    .sub-input-field-group { width: 100%; }
+    #subscriber-email-input { padding: 10px 12px; text-align: center; }
+    .btn-sub-submit { width: 100%; padding: 12px; }
+    .sub-validation-bubble {
+        bottom: auto;
+        top: calc(100% + 8px);
+        left: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .sub-validation-bubble::after { display: none; }
+}
+
+</style>
+
+<script>
+    // --- Subscribe Form Validation & Scroll Intersection Observers Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Mapping Targets Elements Space
+    const subBannerTriggerZone = document.getElementById("subscribe-trigger-zone");
+    const subTextContainer = document.getElementById("sub-text-slide");
+    const subFormContainer = document.getElementById("sub-form-rise");
+    const subscriptionForm = document.getElementById("newsletter-subscribe-form");
+    const emailInputNode = document.getElementById("subscriber-email-input");
+    const errorBubbleNode = document.getElementById("sub-error-msg");
+
+    // 2. Intersection Control Parameters Configurations
+    const observerControlOptions = {
+        root: null,
+        threshold: 0.15, // Fires entry logic once 15% of banner passes intersection targets lines
+        rootMargin: "0px 0px -30px 0px"
+    };
+
+    const subscribeBannerObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                
+                // Track Timeline Step A: Slide left copy block elements inward smoothly out from margins bounds
+                if (subTextContainer) {
+                    subTextContainer.classList.add("slide-active");
+                }
+
+                // Track Timeline Step B: Rise form interface block container upwards from ground layer plane
+                if (subFormContainer) {
+                    setTimeout(() => {
+                        subFormContainer.classList.add("rise-active");
+                    }, 250);
+                }
+
+                // Disconnect container tracking vectors to secure footprint clock speeds safely
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerControlOptions);
+
+    if (subBannerTriggerZone) {
+        subscribeBannerObserver.observe(subBannerTriggerZone);
+    }
+
+    // 3. Subscription Form Accuracy Verification Mechanics Engine
+    if (subscriptionForm && emailInputNode && errorBubbleNode) {
+        subscriptionForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Halt active sequence submission to evaluate input data strings space
+            
+            const enteredEmailValue = emailInputNode.value.trim();
+
+            if (enteredEmailValue === "") {
+                // Input fails validation parameters criteria checks -> fire warning alerts blocks
+                subscriptionForm.classList.add("shake");
+                errorBubbleNode.classList.add("show-error");
+
+                // Unbind warning indicator classes post visual loops completions configurations
+                setTimeout(() => {
+                    subscriptionForm.classList.remove("shake");
+                }, 400);
+            } else {
+                // Content validation passes successfully -> route directly into 404 page layout system
+                window.location.href = "404.html";
+            }
+        });
+
+        // Hide validation bubble warnings instantly when user inputs text fixes
+        emailInputNode.addEventListener("input", () => {
+            if (emailInputNode.value.trim() !== "") {
+                errorBubbleNode.classList.remove("show-error");
+            }
+        });
+    }
+});
+
+</script>
+
+<!-- FRONT-END FOOTER SECTION -->
+<footer class="site-footer">
+    <div class="footer-top-container">
+        
+        <!-- Column 1: Brand Profile & Social Circle Row -->
+        <div class="footer-column brand-profile-col">
+            <a href="#" class="footer-logo-btn" id="back-to-top-trigger" title="Back to Top">
+                <!-- Img tag provided for your custom brand asset logo -->
+                <img src="https://placeholder.com" alt="Stackly Logo" class="footer-brand-logo">
+            </a>
+            <p class="footer-bio-text">
+                Delivering premier culinary experiences and high-fidelity dining ecosystems designed to fuel instant gratification straight to your doorstep.
+            </p>
+            <div class="footer-social-row">
+                <a href="404.html" class="social-circle-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v4h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                <a href="404.html" class="social-circle-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="24" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"></path></svg></a>
+                <a href="404.html" class="social-circle-link" aria-label="Twitter X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16h4.267l-11.733-16z M4 20l6.768-6.768M20 4l-6.768 6.768"></path></svg></a>
+                <a href="404.html" class="social-circle-link" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg></a>
+            </div>
+        </div>
+
+        <!-- Column 2: Explore Tracks Link Column -->
+        <div class="footer-column links-col">
+            <h3 class="footer-col-heading">Explore Tracks</h3>
+            <ul class="footer-links-list">
+                <li><a href="404.html" class="footer-nav-link">Nearby Kitchens</a></li>
+                <li><a href="404.html" class="footer-nav-link">Gourmet Cuisines</a></li>
+                <li><a href="404.html" class="footer-nav-link">Daily Promo Flash</a></li>
+                <li><a href="404.html" class="footer-nav-link">Eco-Friendly Pack</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 3: Event Support Link Column -->
+        <div class="footer-column links-col">
+            <h3 class="footer-col-heading">Order Support</h3>
+            <ul class="footer-links-list">
+                <li><a href="404.html" class="footer-nav-link">Live Courier Status</a></li>
+                <li><a href="404.html" class="footer-nav-link">Refund Parameters</a></li>
+                <li><a href="404.html" class="footer-nav-link">Help &amp; FAQ Center</a></li>
+                <li><a href="404.html" class="footer-nav-link">Safety Certifications</a></li>
+            </ul>
+        </div>
+
+        <!-- Column 4: Headquarters Contact Location Details -->
+        <div class="footer-column contact-info-col">
+            <h3 class="footer-col-heading">Headquarters Location</h3>
+            <div class="contact-detail-item">
+                <span class="contact-vector-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </span>
+                <p class="contact-text-lines">
+                    MMR Complex, Periyakollappatty,<br>Chinna Thirupathi, Salem,<br>Tamil Nadu 636008
+                </p>
+            </div>
+            <div class="contact-detail-item">
+                <span class="contact-vector-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </span>
+                <a href="404.html" class="contact-phone-link">+91 7010792745</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Copyright & Policies Bar Layout -->
+    <div class="footer-bottom-bar">
+        <div class="footer-bottom-container">
+            <p class="copyright-notice">&copy; 2026 Stackly Industries. All delivery rights reserved.</p>
+            <div class="policy-links-group">
+                <a href="404.html" class="policy-link">Privacy Policy</a>
+                <a href="404.html" class="policy-link">Terms of Service</a>
+                <a href="404.html" class="policy-link">Cookie Management</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* --- High Fidelity Corporate Dark Footer layout --- */
+.site-footer {
+    background-color: #0d090f; /* Deep dark volcanic obsidian tone matched from reference image */
+    padding: 60px 0 0 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-top-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 50px 20px;
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr 0.9fr 1fr; /* Exact proportional balance spacing widths */
+    gap: 40px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Brand Profiling Elements --- */
+.footer-logo-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    align-self: flex-start;
+}
+
+.footer-brand-logo {
+    height: 38px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.footer-brand-logo:hover {
+    transform: scale(1.04);
+}
+
+.footer-bio-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.45); /* Soft, low-contrast text matching sample image profile */
+    margin-bottom: 25px;
+    max-width: 300px;
+}
+
+.footer-social-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.social-circle-link {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.03); /* Subtle vector ring boundaries outline */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.social-circle-link svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.social-circle-link:hover {
+    background-color: var(--primary-color, #e65c40); /* Instantly lights into premium brand coral accent */
+    border-color: var(--primary-color, #e65c40);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(230, 92, 64, 0.25);
+}
+
+/* --- Link Tracking Columns Layout --- */
+.footer-col-heading {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff; /* Bright absolute high contrast header names text */
+    margin-bottom: 22px;
+    position: relative;
+    padding-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+
+/* Soft accent under-marker border block inherited from reference image asset */
+.footer-col-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background-color: #fca5a5; /* Delicate coral tint line marker */
+}
+
+.footer-links-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.footer-nav-link:hover {
+    color: #ffffff; /* Illuminates fully to max clarity point on focus hover loops */
+    transform: translateX(3px);
+}
+
+/* --- Headquarters Contact Details Layout --- */
+.contact-detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.contact-vector-icon {
+    color: #fca5a5; /* Soft tinted accent marker */
+    margin-top: 2px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.contact-vector-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.contact-text-lines {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.contact-phone-link {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff; /* High visibility phone text string configuration mapping */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-phone-link:hover {
+    color: var(--primary-color, #e65c40);
+}
+
+/* --- Bottom Copyright and Policy layout Rows --- */
+.footer-bottom-bar {
+    background-color: #070408; /* Slightly darker horizontal floor boundary divider striping layout */
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 24px 0;
+}
+
+.footer-bottom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.copyright-notice {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.25); /* Muted baseline context text information footprint */
+}
+
+.policy-links-group {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.policy-link {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.25);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.policy-link:hover {
+    color: #ffffff;
+}
+
+/* --- Full Cross-Device Responsive Breakpoint Optimization --- */
+@media (max-width: 991px) {
+    .footer-top-container {
+        grid-template-columns: repeat(2, 1fr); /* Collapse into 2x2 grid framework layouts on tablet screens */
+        gap: 40px 30px;
+    }
+}
+
+@media (max-width: 560px) {
+    .footer-top-container {
+        grid-template-columns: 1fr; /* Switch columns arrangement into fully stacked linear list paths down views */
+        gap: 35px;
+        padding-bottom: 40px;
+    }
+    
+    .footer-bottom-container {
+        flex-direction: column; /* Drop policy bar group configurations downstream into multi row centers */
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .policy-links-group {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+    }
+}
+
+</style>
+
+<script>
+    // --- Back to Top Core Functional Trigger Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    const backToTopTrigger = document.getElementById("back-to-top-trigger");
+
+    if (backToTopTrigger) {
+        backToTopTrigger.addEventListener("click", function(event) {
+            event.preventDefault(); // Break fallback hashtag jump updates
+            
+            // Execute buttery linear scroll reset to topmost coordinates point inside window engine
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    }
+});
+
+</script>
+</body>
+</html>

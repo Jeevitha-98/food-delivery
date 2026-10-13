@@ -1,0 +1,2042 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Order Hub Dashboard - Stackly</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-root-body">
+
+    <!-- GLOBAL CLIENT HEADER CONTROLLER NODE -->
+    <header class="db-master-header">
+        <div class="db-header-left">
+            <!-- Responsive Mobile Hamburger Toggle Action Icon -->
+            <button type="button" class="db-hamburger-trigger" id="sidebar-toggle-btn" aria-label="Toggle Navigation Sidebar Menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            
+            <!-- Dynamic Dashboard Refresh Link Frame -->
+            <a href="javascript:void(0);" onclick="window.location.reload();" class="db-brand-logo-btn" title="Refresh Dashboard Workspace">
+               
+                <span>STACKLY <strong class="studio-badge">CLIENT</strong></span>
+            </a>
+        </div>
+
+        
+        <div class="db-header-right">
+            <!-- Active Notification Bell Icon Layer -->
+         
+<button type="button" class="db-notification-bell"
+        onclick="window.location.href='404.html';"
+        title="View Active Order Notifications">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+    </svg>
+    <span class="bell-active-indicator-pulse"></span>
+</button>
+
+
+            
+            <div class="db-user-profile-pill">
+                <div class="db-user-avatar">👤</div>
+                
+                    <span class="db-welcome-label">Welcome</span>
+                    <!-- Email Prefix String Injected Dynamically Here -->
+                    <strong class="db-dynamic-username" id="client-header-username-slot">Client</strong>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<!-- Mobile Sidebar Background Blur Overlay -->
+<div class="db-sidebar-blur-overlay" id="sidebar-blur-overlay"></div>
+
+
+    <!-- CORE WORKSPACE CANVAS WRAPPER -->
+    <div class="db-workspace-wrapper">
+        
+        <!-- SIDEBAR NAVIGATION MENU MECHANICS -->
+        <aside class="db-navigation-sidebar" id="dashboard-sidebar-panel">
+            <nav class="db-sidebar-nav-menu">
+                
+                <button type="button" class="sidebar-menu-item active" onclick="switchDashboardSection('client-overview', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>My Account Hub</span>
+                </button>
+
+              
+
+                <button type="button" class="sidebar-menu-item" onclick="switchDashboardSection('client-vouchers', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 10.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                    <span>My Saved Coupons</span>
+                </button>
+
+                <button type="button" class="sidebar-menu-item" onclick="switchDashboardSection('client-favorites', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <span>Favorite Kitchens</span>
+                </button>
+
+                <button type="button" class="sidebar-menu-item" onclick="switchDashboardSection('client-profile', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span>Profile Settings</span>
+                </button>
+
+                <!-- Clean Session Logout Trigger Button -->
+                <button type="button" class="sidebar-menu-item btn-sidebar-logout" id="dashboard-logout-trigger">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                    <span>Log Out Securely</span>
+                </button>
+
+            </nav>
+        </aside>
+
+        <!-- MAIN INTERACTIVE HUB CONTENT CANVAS -->
+        <main class="db-main-content-canvas">
+            <div class="db-canvas-padding-box">
+                
+                <!-- Section Wise Window: My Account Hub -->
+              <!-- Section Wise Window: My Account Hub (Enhanced) -->
+<div class="db-router-section-window view-visible" id="client-overview">
+    
+    <!-- TOP ROW: MINIMALIST CLENT METRICS CARDS COCKPIT -->
+    <div class="client-metrics-deck">
+        
+        <!-- Metric Card 1: Total Life Orders -->
+        <div class="client-metric-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            <div class="card-metric-header">
+                <span class="metric-icon icon-bg-coral">🍔</span>
+                <span class="metric-status-badge badge-coral">Lifetime</span>
+            </div>
+            <div class="card-metric-body">
+                <strong class="metric-giant-number">42</strong>
+                <span class="metric-label-text">Total Placed Orders</span>
+            </div>
+        </div>
+
+        <!-- Metric Card 2: Active Shipments In Transit -->
+        <div class="client-metric-card focus-green-glow">
+            <div class="card-glow-halo"></div>
+            <div class="card-metric-header">
+                <span class="metric-icon icon-bg-green">🛵</span>
+                <span class="metric-status-badge badge-green">In Transit</span>
+            </div>
+            <div class="card-metric-body">
+                <strong class="metric-giant-number">01</strong>
+                <span class="metric-label-text">Active Deliveries</span>
+            </div>
+        </div>
+
+        <!-- Metric Card 3: Active Saved Coupons Counter -->
+        <div class="client-metric-card focus-blue-glow">
+            <div class="card-glow-halo"></div>
+            <div class="card-metric-header">
+                <span class="metric-icon icon-bg-blue">🎁</span>
+                <span class="metric-status-badge badge-blue">Available</span>
+            </div>
+            <div class="card-metric-body">
+                <strong class="metric-giant-number">04</strong>
+                <span class="metric-label-text">Saved Active Coupons</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MIDDLE ROW: INTERACTIVE LIVE ORDER PROGRESS LINE COMPONENT -->
+    <div class="client-live-tracker-panel">
+        <div class="tracker-header-meta">
+            <h3 class="panel-section-heading">Live Order Progress: <span>#STK-8045</span></h3>
+            <span class="tracker-eta-badge">Est. Delivery: 22 Mins</span>
+        </div>
+        
+        <!-- Progressive Progress Bar Track Line Matrix -->
+        <div class="tracker-progress-line-matrix">
+            <div class="progress-track-bar-fill" style="width: 66%;"></div>
+            
+            <!-- Step 1: Placed -->
+            <div class="progress-step-node step-complete">
+                <div class="node-circle">✓</div>
+                <span class="node-label">Confirmed</span>
+            </div>
+            <!-- Step 2: In The Kitchen -->
+            <div class="progress-step-node step-complete">
+                <div class="node-circle">✓</div>
+                <span class="node-label">In Kitchen</span>
+            </div>
+            <!-- Step 3: Out For Delivery (Active) -->
+            <div class="progress-step-node step-active">
+                <div class="node-circle">🛵</div>
+                <span class="node-label">On The Way</span>
+            </div>
+            <!-- Step 4: Arrived -->
+            <div class="progress-step-node">
+                <div class="node-circle">🏁</div>
+                <span class="node-label">Delivered</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM ROW: RECENT ORDERS LOG LEDGER TABLE -->
+    <div class="client-ledger-panel">
+        <h3 class="panel-section-heading">Recent Order History Log</h3>
+        <div class="client-table-viewport">
+            <table class="client-ledger-table">
+                <thead>
+                    <tr>
+                        <th>ORDER ID</th>
+                        <th>RESTAURANT KITCHEN</th>
+                        <th>ITEMS DISHES</th>
+                        <th>EST. PRICE</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>#STK-8045</strong></td>
+                        <td>Burger Craft Co.</td>
+                        <td>1x Crunchy Chicken Burger, 1x Fries</td>
+                        <td>₹360.00</td>
+                        <td><span class="table-badge badge-active">On The Way</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>#STK-8032</strong></td>
+                        <td>La Piazza Woodfired</td>
+                        <td>1x Woodfired Pepperoni Pizza</td>
+                        <td>₹480.00</td>
+                        <td><span class="table-badge badge-success">Delivered</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>#STK-7988</strong></td>
+                        <td>The Sushi Room</td>
+                        <td>1x Salmon Sashimi Combo</td>
+                        <td>₹540.00</td>
+                        <td><span class="table-badge badge-success">Delivered</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    /* --- Enhanced Client Account Hub Dashboard Framework Styles --- */
+.client-metrics-deck {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    width: 100%;
+}
+
+.client-metric-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7; /* Hairline clear border separation line */
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.client-metric-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Localized Focus Glow Aura System Trigger */
+.client-metric-card .card-glow-halo {
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.client-metric-card:hover .card-glow-halo { opacity: 1; }
+
+/* Focus Glow Variations Alignment Tokens */
+.focus-coral-glow:hover { border-color: rgba(230, 92, 64, 0.25); box-shadow: 0 15px 35px rgba(230, 92, 64, 0.04); }
+.focus-green-glow:hover { border-color: rgba(34, 197, 94, 0.25); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.04); }
+.focus-green-glow .card-glow-halo { background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%); }
+.focus-blue-glow:hover { border-color: rgba(59, 130, 246, 0.25); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.04); }
+.focus-blue-glow .card-glow-halo { background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%); }
+
+.card-metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-metric-header .metric-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+}
+
+.card-metric-header .icon-bg-coral { background-color: #fff5f2; color: #e65c40; }
+.card-metric-header .icon-bg-green { background-color: #f0fdf4; color: #22c55e; }
+.card-metric-header .icon-bg-blue { background-color: #eff6ff; color: #3b82f6; }
+
+.metric-status-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.badge-coral { background-color: #fff5f2; color: #e65c40; }
+.badge-green { background-color: #f0fdf4; color: #166534; }
+.badge-blue { background-color: #eff6ff; color: #3b82f6; }
+
+.card-metric-body { display: flex; flex-direction: column; }
+.card-metric-body .metric-giant-number { font-size: 2.1rem; font-weight: 800; color: #111827; line-height: 1.1; margin-bottom: 4px; }
+.card-metric-body .metric-label-text { font-size: 0.88rem; font-weight: 600; color: #718096; }
+
+/* --- Horizontal Live Order Progress Tracking Line Component --- */
+.client-live-tracker-panel {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 35px;
+    width: 100%;
+}
+
+.tracker-header-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.panel-section-heading {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.panel-section-heading span { color: #e65c40; font-weight: 800; }
+
+.tracker-eta-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #e65c40;
+    background-color: #fff5f2;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.tracker-progress-line-matrix {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 0 10px;
+    margin: 20px 0;
+}
+
+/* Background connector progress vector line */
+.tracker-progress-line-matrix::before {
+    content: '';
+    position: absolute;
+    top: 18px; left: 0;
+    width: 100%; height: 4px;
+    background-color: #edf2f7;
+    z-index: 1;
+}
+
+.progress-track-bar-fill {
+    position: absolute;
+    top: 18px; left: 0;
+    height: 4px;
+    background-color: #22c55e;
+    z-index: 2;
+    transition: width 0.4s ease;
+}
+
+.progress-step-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+    width: 80px;
+}
+
+.node-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #94a3b8;
+    transition: all 0.3s ease;
+}
+
+.node-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-top: 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Tracking State Modifier Variations */
+.step-complete .node-circle {
+    background-color: #22c55e;
+    border-color: #22c55e;
+    color: #ffffff;
+}
+.step-complete .node-label { color: #166534; }
+
+.step-active .node-circle {
+    border-color: #e65c40;
+    color: #e65c40;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 5px #fff5f2;
+    transform: scale(1.05);
+}
+.step-active .node-label { color: #e65c40; font-weight: 800; }
+
+/* --- Recent Orders History Log Table Panel --- */
+.client-ledger-panel {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 20px;
+    padding: 24px;
+    width: 100%;
+}
+
+.client-table-viewport {
+    width: 100%;
+    overflow-x: auto; /* Fluid horizontal touch swiping bounds on small viewports */
+}
+
+.client-ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.client-ledger-table th {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 14px 16px;
+    border-bottom: 2px solid #edf2f7;
+}
+
+.client-ledger-table td {
+    padding: 16px;
+    font-size: 0.92rem;
+    color: #1e293b;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.client-ledger-table tr:last-child td { border-bottom: none; }
+.client-ledger-table td strong { font-weight: 700; color: #111827; }
+
+.table-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+.badge-active { background-color: #fff5f2; color: #e65c40; font-weight: 800; }
+.badge-success { background-color: #f0fdf4; color: #22c55e; }
+
+/* --- Full Grid Cross-Device Layout Responsiveness Breakpoints --- */
+@media (max-width: 1024px) {
+    .client-metrics-deck { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+
+@media (max-width: 768px) {
+    .tracker-header-meta { flex-direction: column; align-items: flex-start; gap: 10px; }
+    /* Shifts progress horizontal track line matrix into a clean simplified vertical log list on mobile device screens */
+    .tracker-progress-line-matrix { flex-direction: column; align-items: flex-start; gap: 20px; padding-left: 15px; }
+    .tracker-progress-line-matrix::before, .progress-track-bar-fill { width: 4px !important; height: 100% !important; top: 0; left: 28px; }
+    .progress-track-bar-fill { height: 66% !important; }
+    .progress-step-node { flex-direction: row; gap: 15px; width: 100%; align-items: center; }
+    .node-label { margin-top: 0; text-align: left; }
+}
+
+@media (max-width: 640px) {
+    .client-metrics-deck { grid-template-columns: 1fr; gap: 16px; margin-top: 15px; }
+    .db-router-section-window { padding: 24px 18px !important; }
+    .client-ledger-table th, .client-ledger-table td { padding: 12px 10px; font-size: 0.85rem; }
+}
+/* =============================================================
+ * PRIVATE CLIENT DASHBOARD VIEWPORT SCROLL OVERRIDE
+ * ============================================================= */
+
+/* 1. Force release on main template structure */
+body.dashboard-root-body {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+}
+
+/* 2. Release workspace wrapper bounds */
+.db-workspace-wrapper {
+    height: auto !important;
+    min-height: calc(100vh - 70px);
+}
+
+/* 3. Unlock main dynamic router canvas panel */
+.db-main-content-canvas {
+    height: auto !important;
+    min-height: 100%;
+    overflow-y: visible !important;
+}
+
+/* 4. Release individual section wise window frames */
+.db-router-section-window {
+    height: auto !important;
+    min-height: min-content;
+    overflow: visible !important;
+}
+
+/* 5. Mobile Touch Gesture Optimizations */
+@media (max-width: 991px) {
+    /* Ensures background page scrolling remains free while flyout sidebar layout is closed */
+    .db-navigation-sidebar {
+        overflow-y: auto !important;
+        max-height: calc(100vh - 70px);
+    }
+}
+
+</style>
+
+                <!-- Section Wise Window: Order Tracking History -->
+                <div class="db-router-section-window" id="client-orders">
+                    <h1 class="routing-section-headline">Order Tracking History</h1>
+                </div>
+
+            <!-- Section Wise Window: My Saved Coupons -->
+<div class="db-router-section-window" id="client-vouchers">
+    
+    <!-- SUB-HEADER SUMMARY MATRIX -->
+    <div class="vouchers-hub-summary">
+        <div class="vouchers-hub-header-left">
+            <h2 class="routing-section-headline">My Saved Coupons</h2>
+            <p class="vouchers-hub-subtext">Click on any active voucher code to instantly copy it and apply discounts to your next meal [INDEX].</p>
+        </div>
+    </div>
+
+    <!-- RESPONSIVE TEAR-OFF COUPON GRID MATRIX -->
+    <div class="vouchers-hub-grid">
+        
+        <!-- Coupon Card 1 -->
+        <div class="voucher-ticket-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            
+            <!-- Top Segment: Brand & Offer Mapping -->
+            <div class="voucher-top-plate">
+                <div class="voucher-brand-row">
+                    <strong class="voucher-vendor-name">Burger Craft Co.</strong>
+                    <span class="voucher-rating-badge">★ 4.9</span>
+                </div>
+                <div class="voucher-discount-display">
+                    <span class="discount-giant-number">30%</span>
+                    <span class="discount-label-condition">OFF TOTAL BASKET</span>
+                </div>
+            </div>
+
+            <!-- Perforated Tear-Off Dashed Border Divider -->
+            <div class="voucher-perforation-divider">
+                <div class="perforation-notch notch-left"></div>
+                <div class="perforation-line-dashed"></div>
+                <div class="perforation-notch notch-right"></div>
+            </div>
+
+            <!-- Bottom Segment: Copy Action Tracker -->
+            <div class="voucher-bottom-plate">
+                <span class="voucher-expiry-timeline">Valid until: Oct 31, 2026</span>
+                <div class="voucher-code-copy-pill" onclick="navigator.clipboard.writeText('CRAFT30'); alert('Voucher CRAFT30 Copied to Clipboard!');" title="Click to copy voucher code">
+                    <span class="code-string-text">CRAFT30</span>
+                    <span class="copy-vector-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coupon Card 2 -->
+        <div class="voucher-ticket-card focus-green-glow">
+            <div class="card-glow-halo"></div>
+            <div class="voucher-top-plate">
+                <div class="voucher-brand-row">
+                    <strong class="voucher-vendor-name">La Piazza Woodfired</strong>
+                    <span class="voucher-rating-badge">★ 4.8</span>
+                </div>
+                <div class="voucher-discount-display">
+                    <span class="discount-giant-number">FREE</span>
+                    <span class="discount-label-condition">HOME DELIVERY</span>
+                </div>
+            </div>
+            <div class="voucher-perforation-divider">
+                <div class="perforation-notch notch-left"></div>
+                <div class="perforation-line-dashed"></div>
+                <div class="perforation-notch notch-right"></div>
+            </div>
+            <div class="voucher-bottom-plate">
+                <span class="voucher-expiry-timeline">Valid until: Nov 05, 2026</span>
+                <div class="voucher-code-copy-pill" onclick="navigator.clipboard.writeText('PIZZAFREE'); alert('Voucher PIZZAFREE Copied to Clipboard!');" title="Click to copy voucher code">
+                    <span class="code-string-text">PIZZAFREE</span>
+                    <span class="copy-vector-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coupon Card 3 -->
+        <div class="voucher-ticket-card focus-blue-glow">
+            <div class="card-glow-halo"></div>
+            <div class="voucher-top-plate">
+                <div class="voucher-brand-row">
+                    <strong class="voucher-vendor-name">The Sushi Room</strong>
+                    <span class="voucher-rating-badge">★ 4.9</span>
+                </div>
+                <div class="voucher-discount-display">
+                    <span class="discount-giant-number">BOGO</span>
+                    <span class="discount-label-condition">BUY 1 GET 1 DRINK</span>
+                </div>
+            </div>
+            <div class="voucher-perforation-divider">
+                <div class="perforation-notch notch-left"></div>
+                <div class="perforation-line-dashed"></div>
+                <div class="perforation-notch notch-right"></div>
+            </div>
+            <div class="voucher-bottom-plate">
+                <span class="voucher-expiry-timeline">Valid until: Oct 28, 2026</span>
+                <div class="voucher-code-copy-pill" onclick="navigator.clipboard.writeText('SUSHIBOGO'); alert('Voucher SUSHIBOGO Copied to Clipboard!');" title="Click to copy voucher code">
+                    <span class="code-string-text">SUSHIBOGO</span>
+                    <span class="copy-vector-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    /* --- Enhanced Saved Coupons Section Layout Styles --- */
+.vouchers-hub-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+.vouchers-hub-subtext {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+/* Responsive 3-Column Ticket Grid Matrix */
+.vouchers-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+/* Classical Tear-Off Ticket Panel Component */
+.voucher-ticket-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7; /* Hairline border separator */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.voucher-ticket-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Internal Card Ambient Glow Halo Layer */
+.voucher-ticket-card .card-glow-halo {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+.voucher-ticket-card:hover .card-glow-halo { opacity: 1; }
+
+/* Interactive Variations Alignment Status Tokens */
+.focus-coral-glow:hover { border-color: rgba(230, 92, 64, 0.25); box-shadow: 0 15px 35px rgba(230, 92, 64, 0.04); }
+.focus-green-glow:hover { border-color: rgba(34, 197, 94, 0.25); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.04); }
+.focus-green-glow .card-glow-halo { background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%); }
+.focus-blue-glow:hover { border-color: rgba(59, 130, 246, 0.25); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.04); }
+.focus-blue-glow .card-glow-halo { background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%); }
+
+/* Top Plate Metrics Block */
+.voucher-top-plate {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}
+
+.voucher-brand-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.voucher-vendor-name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #1a202c;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.voucher-rating-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #d97706;
+    background-color: #fffbeb;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.voucher-discount-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.discount-giant-number {
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: var(--primary-color, #e65c40); /* Core brand coral highlight */
+    line-height: 1;
+}
+.focus-green-glow .discount-giant-number { color: #22c55e; }
+.focus-blue-glow .discount-giant-number { color: #3b82f6; }
+
+.discount-label-condition {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #718096;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    text-transform: uppercase;
+}
+
+/* --- Classical Coupon Perforated Tear Outline Strip --- */
+.voucher-perforation-divider {
+    position: relative;
+    width: 100%;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+}
+
+.perforation-notch {
+    width: 16px; height: 16px;
+    background-color: #f8fafc; /* Matches outer dashboard background layout perfectly */
+    border: 1px solid #edf2f7;
+    border-radius: 50%;
+    position: absolute;
+}
+.notch-left { left: -9px; border-left-color: transparent; }
+.notch-right { right: -9px; border-right-color: transparent; }
+
+.perforation-line-dashed {
+    width: 100%;
+    border-top: 2px dashed #e2e8f0;
+    margin: 0 10px;
+}
+
+/* Bottom Plate Metrics Block */
+.voucher-bottom-plate {
+    padding: 18px 22px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.voucher-expiry-timeline {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #a0aec0;
+}
+
+/* Click-to-copy Ticket Banner Group */
+.voucher-code-copy-pill {
+    background-color: #111827; /* Dark high-contrast charcoal banner plate */
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(17, 24, 39, 0.08);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.voucher-code-copy-pill:hover {
+    background-color: var(--primary-color, #e65c40); /* Lights up coral on focus hover */
+}
+.voucher-code-copy-pill:active { transform: scale(0.97); }
+
+.code-string-text {
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.copy-vector-icon svg { width: 13px; height: 13px; stroke: currentColor; display: block; }
+
+/* --- Full Grid Cross-Device Layout Responsiveness Breakpoints --- */
+@media (max-width: 1024px) {
+    .vouchers-hub-grid {
+        grid-template-columns: repeat(2, 1fr); /* Collapses ticket panels split grid down into 2 columns on tablets displays */
+        gap: 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .vouchers-hub-grid {
+        grid-template-columns: 1fr; /* Switch metrics columns downstream into single stream list rows on mobile phones */
+        gap: 20px;
+    }
+    .vouchers-hub-summary { flex-direction: column; gap: 14px; align-items: stretch; }
+}
+
+</style>
+
+                <!-- Section Wise Window: Favorite Kitchens -->
+                <!-- Section Wise Window: Favorite Kitchens (Enhanced) -->
+<div class="db-router-section-window" id="client-favorites">
+    
+    <!-- SUB-HEADER SUMMARY MATRIX -->
+    <div class="favorites-hub-summary">
+        <div class="favorites-hub-header-left">
+            <h2 class="routing-section-headline">Favorite Kitchens</h2>
+            <p class="favorites-hub-subtext">Manage, monitor, and instantly re-order from your curated catalog of top-rated neighborhood dining kitchens [INDEX].</p>
+        </div>
+    </div>
+
+    <!-- RESPONSIVE PREMIUM VENDOR SHOWCASE GRID MATRIX -->
+    <div class="favorites-hub-grid">
+        
+        <!-- Restaurant Profile Card 1 -->
+        <div class="fav-kitchen-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            
+            <!-- Card Media Visual Aspect Box -->
+            <div class="kitchen-media-frame">
+                <img src="https://placeholder.com" alt="Burger Craft Co" class="kitchen-thumb-asset">
+                
+                <!-- Floating Interactive Toggle Favorite Circle Button Node -->
+                <button type="button" class="btn-toggle-favorite-heart active" onclick="alert('Burger Craft Co. removed from your active favorites collection.')" title="Remove from Favorites">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </button>
+            </div>
+
+            <!-- Card Content Stack Details -->
+            <div class="kitchen-card-body">
+                <div class="kitchen-title-meta-row">
+                    <h3 class="kitchen-brand-name">Burger Craft Co.</h3>
+                    <span class="kitchen-rating-pill">★ 4.9</span>
+                </div>
+                <p class="kitchen-cuisine-tags">Burgers • Gourmet American • Fast Food</p>
+                
+                <div class="kitchen-floor-actions-row">
+                    <span class="kitchen-pricing-indicator">Avg. ₹240 • Min. ₹100</span>
+                    <a href="404.html" class="btn-visit-kitchen-menu">Open Menu →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restaurant Profile Card 2 -->
+        <div class="fav-kitchen-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            <div class="kitchen-media-frame">
+                <img src="https://placeholder.com" alt="La Piazza Woodfired" class="kitchen-thumb-asset">
+                <button type="button" class="btn-toggle-favorite-heart active" onclick="alert('La Piazza Woodfired removed from your active favorites collection.')" title="Remove from Favorites">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </button>
+            </div>
+            <div class="kitchen-card-body">
+                <div class="kitchen-title-meta-row">
+                    <h3 class="kitchen-brand-name">La Piazza Woodfired</h3>
+                    <span class="kitchen-rating-pill">★ 4.8</span>
+                </div>
+                <p class="kitchen-cuisine-tags">Pizza • Artisan Italian • Pasta Bowls</p>
+                <div class="kitchen-floor-actions-row">
+                    <span class="kitchen-pricing-indicator">Avg. ₹450 • Min. ₹150</span>
+                    <a href="404.html" class="btn-visit-kitchen-menu">Open Menu →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restaurant Profile Card 3 -->
+        <div class="fav-kitchen-card focus-coral-glow">
+            <div class="card-glow-halo"></div>
+            <div class="kitchen-media-frame">
+                <img src="https://placeholder.com" alt="The Sushi Room" class="kitchen-thumb-asset">
+                <button type="button" class="btn-toggle-favorite-heart active" onclick="alert('The Sushi Room removed from your active favorites collection.')" title="Remove from Favorites">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </button>
+            </div>
+            <div class="kitchen-card-body">
+                <div class="kitchen-title-meta-row">
+                    <h3 class="kitchen-brand-name">The Sushi Room</h3>
+                    <span class="kitchen-rating-pill">★ 4.9</span>
+                </div>
+                <p class="kitchen-cuisine-tags">Sushi • Fine Japanese • Seafood Grill</p>
+                <div class="kitchen-floor-actions-row">
+                    <span class="kitchen-pricing-indicator">Avg. ₹600 • Min. ₹250</span>
+                    <a href="404.html" class="btn-visit-kitchen-menu">Open Menu →</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    /* --- Enhanced Favorite Kitchens Section Layout Styles --- */
+.favorites-hub-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+.favorites-hub-subtext {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+/* Responsive 3-Column Studio Showcase Grid Canvas */
+.favorites-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.fav-kitchen-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7; /* Hairline clear border separation line layout token */
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.fav-kitchen-card:hover {
+    border-color: rgba(230, 92, 64, 0.25);
+    box-shadow: 0 20px 40px rgba(230, 92, 64, 0.04);
+    transform: translateY(-5px); /* Premium active card lift feedback loop */
+}
+
+/* Internal Card Ambient Glow Ring Element Layer */
+.fav-kitchen-card .card-glow-halo {
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(230, 92, 64, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.fav-kitchen-card:hover .card-glow-halo { opacity: 1; }
+
+/* Media framing visual boxes aspect ratio framing box component */
+.kitchen-media-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 56%;
+    background-color: #f8fafc;
+    overflow: hidden;
+}
+
+.kitchen-thumb-asset {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fav-kitchen-card:hover .kitchen-thumb-asset { transform: scale(1.04); }
+
+/* --- Interactive Floating Toggle Heart Favorite Button Component Node --- */
+.btn-toggle-favorite-heart {
+    position: absolute;
+    top: 15px; right: 15px;
+    width: 36px; height: 36px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #cbd5e1; /* Inactive baseline neutral gray heart outline status color token mapping */
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+    z-index: 5;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-toggle-favorite-heart svg { width: 16px; height: 16px; fill: currentColor; }
+.btn-toggle-favorite-heart:hover { transform: scale(1.1); color: #ef4444; }
+
+/* Active checked selection overrides status style rules (Injected red color) */
+.btn-toggle-favorite-heart.active {
+    color: #ef4444; /* High clarity vibrant red heart fill */
+}
+
+/* --- Card Content Details Stack Hierarchy --- */
+.kitchen-card-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.kitchen-title-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 6px;
+}
+
+.kitchen-brand-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #111827; /* Solid absolute crisp high-contrast black heading copy text */
+    letter-spacing: -0.2px;
+    margin: 0;
+}
+
+.kitchen-rating-pill {
+    background-color: #fffbeb;
+    color: #d97706; /* Flat warm premium gold rating score label tag marker */
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.kitchen-cuisine-tags {
+    font-size: 0.88rem;
+    color: #718096;
+    font-weight: 500;
+    margin: 0 0 20px 0;
+}
+
+.kitchen-floor-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 14px;
+    margin-top: auto;
+}
+
+.kitchen-pricing-indicator {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.btn-visit-kitchen-menu {
+    color: #000000;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.fav-kitchen-card:hover .btn-visit-kitchen-menu {
+    color: var(--primary-color, #e65c40); /* Color shift forward text links vector to coral on card focus */
+}
+.btn-visit-kitchen-menu:hover { transform: translateX(3px); }
+
+/* --- Full Grid Cross-Device Layout Responsiveness Breakpoints --- */
+@media (max-width: 1024px) {
+    .favorites-hub-grid {
+        grid-template-columns: repeat(2, 1fr); /* Collapses showcase card grid down into 2 columns on tablet devices */
+        gap: 24px;
+    }
+}
+
+@media (max-width: 680px) {
+    .favorites-hub-grid {
+        grid-template-columns: 1fr; /* Switch metrics panels down fully into parallel vertical stream lines row on phones */
+        gap: 20px;
+    }
+    .favorites-hub-summary { flex-direction: column; gap: 14px; align-items: stretch; }
+    .kitchen-media-frame { padding-top: 50%; } /* Optimization bounds parameters adjustments */
+}
+
+</style>
+
+                <!-- Section Wise Window: Profile Settings -->
+             <!-- Section Wise Window: Profile Settings (Enhanced) -->
+<div class="db-router-section-window" id="client-profile">
+    
+    <!-- SUB-HEADER SUMMARY MATRIX -->
+    <div class="profile-settings-summary">
+        <div class="profile-settings-header-left">
+            <h2 class="routing-section-headline">Profile Settings</h2>
+            <p class="profile-settings-subtext">Manage your personal customer profile details, security access keys, and primary food delivery addresses [INDEX].</p>
+        </div>
+    </div>
+
+    <!-- CORE INTEGRATED SETTINGS CANVAS BODY -->
+    <div class="profile-form-wrapper-box">
+        <form id="client-profile-settings-form" novalidate>
+            
+            <!-- SECTION BLOCK 1: PERSONAL INFORMATION -->
+            <div class="profile-field-group-block">
+                <h3 class="profile-block-heading">Personal Information</h3>
+                
+                <div class="profile-input-grid-row dual-split">
+                    <!-- Form Input Block: Full Name (Blocks Numbers) -->
+                    <div class="profile-input-field-row">
+                        <label for="client-settings-name" class="profile-field-label">YOUR FULL NAME</label>
+                        <input type="text" id="client-settings-name" value="Jeevi" autocomplete="off">
+                    </div>
+
+                    <!-- Form Input Block: Mobile Number (Blocks Alphabets) -->
+                    <div class="profile-input-field-row">
+                        <label for="client-settings-phone" class="profile-field-label">10-DIGIT MOBILE NUMBER</label>
+                        <input type="text" id="client-settings-phone" value="7010792745" maxlength="10" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION BLOCK 2: ACCOUNT PASSWORD SECURITY -->
+            <div class="profile-field-group-block">
+                <h3 class="profile-block-heading">Security Passwords Modification</h3>
+                
+                <div class="profile-input-grid-row dual-split">
+                    <!-- Form Input Block: New Password -->
+                    <div class="profile-input-field-row">
+                        <label for="client-settings-pass" class="profile-field-label">NEW SECURITY PASSWORD KEY</label>
+                        <input type="password" id="client-settings-pass" placeholder="••••••••">
+                    </div>
+
+                    <!-- Form Input Block: Confirm Password -->
+                    <div class="profile-input-field-row">
+                        <label for="client-settings-confirm" class="profile-field-label">CONFIRM PASSWORD KEY</label>
+                        <input type="password" id="client-settings-confirm" placeholder="••••••••">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION BLOCK 3: PRIMARY ADDRESSES MATRICS -->
+            <div class="profile-field-group-block">
+                <h3 class="profile-block-heading">Primary Delivery Address Matrix</h3>
+                
+                <div class="profile-input-grid-row single-split">
+                    <!-- Form Input Block: Destination Address Textarea Narrative -->
+                    <div class="profile-input-field-row">
+                        <label for="client-settings-address" class="profile-field-label">DEFAULT FOOD DISPATCH ADDRESS</label>
+                        <textarea id="client-settings-address" rows="3">MMR Complex, Periyakollappatty, Chinna Thirupathi, Salem, Tamil Nadu 636008</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Universal Floating Warning Error Validation Bubble -->
+            <div class="profile-validation-alert" id="profile-settings-error-bubble">Please fill the fields before saving setup configuration parameters.</div>
+
+            <!-- Action Save Submit Trigger Button Component -->
+            <div class="profile-action-floor-row">
+               <button type="submit" class="btn-profile-save" onclick="window.location.href='404.html';">
+    SAVE PROFILE MATRIX
+</button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<style>
+    /* --- Enhanced Client Profile Settings Section Layout Styles --- */
+.profile-settings-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+.profile-settings-subtext {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+.profile-form-wrapper-box {
+    background-color: #ffffff;
+    width: 100%;
+}
+
+.profile-field-group-block {
+    margin-bottom: 35px;
+    border-bottom: 1px dashed #edf2f7; /* Split block configuration dividers */
+    padding-bottom: 15px;
+}
+.profile-field-group-block:last-of-type { border-bottom: none; }
+
+.profile-block-heading {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 0 0 24px 0;
+}
+
+/* Responsive Grid Rows Splitting Framework */
+.profile-input-grid-row {
+    display: grid;
+    gap: 24px;
+    width: 100%;
+}
+
+.profile-input-grid-row.single-split { grid-template-columns: 1fr; }
+.profile-input-grid-row.dual-split { grid-template-columns: repeat(2, 1fr); }
+
+.profile-input-field-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.profile-field-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #718096;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.profile-input-field-row input,
+.profile-input-field-row textarea {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111827; /* High contrast solid absolute black input text fields strings */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-input-field-row textarea { resize: none; line-height: 1.6; }
+
+/* Focus illumination halos parameters matching dashboard theme specs */
+.profile-input-field-row input:focus,
+.profile-input-field-row textarea:focus {
+    border-color: rgba(230, 92, 64, 0.6); /* Soft coral highlight perimeter lines */
+    box-shadow: 0 0 0 4px rgba(230, 92, 64, 0.08);
+}
+
+/* Ticking Warning Error Popup Alert Bubble CSS */
+.profile-validation-alert {
+    background-color: #ff4d4d;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(255, 77, 77, 0.15);
+    margin-bottom: 24px;
+    width: 100%;
+    text-align: center;
+    display: none; /* Hidden unless validation script flags anomalies loop */
+}
+
+/* Action Save Button Component Profile */
+.profile-action-floor-row {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 24px;
+}
+
+.btn-profile-save {
+    background-color: #111827; /* Deep Charcoal Midnight Blue button */
+    color: #ffffff;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-profile-save:hover {
+    background-color: var(--primary-color, #e65c40); /* Lights up into signature brand coral on button hover */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(230, 92, 64, 0.2);
+}
+
+/* --- Configurations Form Full Grid Cross-Device Layout Responsiveness --- */
+@media (max-width: 640px) {
+    .profile-input-grid-row.dual-split { 
+        grid-template-columns: 1fr; /* Drops multi column splits down fully into parallel vertical stream lines row */
+        gap: 10px;
+    }
+    .profile-block-heading { margin-bottom: 18px; }
+    .btn-profile-save { width: 100%; text-align: center; } /*具 100% full screen block size width for mobile smartphones viewports */
+    .profile-input-field-row { margin-bottom: 12px; }
+}
+
+</style>
+
+<script>
+    // --- Client Profile Settings Input Regex Guard Filters & Save Logic Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Handles Map Target Elements Configuration Channels
+    const clientSettingsForm = document.getElementById("client-profile-settings-form");
+    const clientSettingsNameField = document.getElementById("client-settings-name");
+    const clientSettingsPhoneField = document.getElementById("client-settings-phone");
+    const clientSettingsPasswordField = document.getElementById("client-settings-pass");
+    const clientSettingsConfirmField = document.getElementById("client-settings-confirm");
+    const clientSettingsAddressField = document.getElementById("client-settings-address");
+    const profileErrorBubble = document.getElementById("profile-settings-error-bubble");
+
+    // =============================================================
+    // 2. REGEX AUTOMATED INPUT BLOCKING PARSING (NATIVE FIELD FILTERS)
+    // =============================================================
+    
+    // Guard A: Name Field - Block digits values string entries instantly on character entry
+    if (clientSettingsNameField) {
+        clientSettingsNameField.addEventListener("input", function() {
+            this.value = this.value.replace(/[0-9]/g, "");
+        });
+    }
+
+    // Guard B: Phone Field - Block alphabetical characters entries instantly on key input loops
+    if (clientSettingsPhoneField) {
+        clientSettingsPhoneField.addEventListener("input", function() {
+            this.value = this.value.replace(/[^0-9]/g, "");
+        });
+    }
+
+    // =============================================================
+    // 3. VALIDATION SUBMISSION CONTROL MECHANICS CORE
+    // =============================================================
+    if (clientSettingsForm && profileErrorBubble) {
+        clientSettingsForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Hold original execution pipeline triggers vector
+
+            // Fetch live runtime parameter metrics values
+            const nameVal = clientSettingsNameField ? clientSettingsNameField.value.trim() : "";
+            const phoneVal = clientSettingsPhoneField ? clientSettingsPhoneField.value.trim() : "";
+            const passVal = clientSettingsPasswordField ? clientSettingsPasswordField.value : "";
+            const confirmVal = clientSettingsConfirmField ? clientSettingsConfirmField.value : "";
+            const addressVal = clientSettingsAddressField ? clientSettingsAddressField.value.trim() : "";
+
+            // Check if critical input fields are empty string placeholders space
+            if (nameVal === "" || phoneVal === "" || addressVal === "") {
+                profileErrorBubble.textContent = "Please fill all required operational identity parameters.";
+                profileErrorBubble.style.display = "block";
+                return;
+            }
+
+            // Check if passwords pair balances exactly if provided
+            if (passVal !== "" || confirmVal !== "") {
+                if (passVal !== confirmVal) {
+                    profileErrorBubble.textContent = "Security passwords mismatch! Confirm password parameter does not match.";
+                    profileErrorBubble.style.display = "block";
+                    return;
+                }
+            }
+
+            // All fields pass validation filters securely -> fire success operational alert
+            profileErrorBubble.style.display = "none";
+            alert("Loading...");
+        });
+
+        // Hide warning alert indicators bubbles instantly the moment a user resumes input edits
+        [clientSettingsNameField, clientSettingsPhoneField, clientSettingsPasswordField, clientSettingsConfirmField, clientSettingsAddressField].forEach(inputElementNode => {
+            if (inputElementNode) {
+                inputElementNode.addEventListener("input", () => {
+                    profileErrorBubble.style.display = "none";
+                });
+            }
+        });
+    }
+});
+
+</script>
+
+            </div>
+        </main>
+
+    </div>
+
+
+    <style>
+      
+/* Mobile Sidebar: Background Blur Overlay */
+.db-sidebar-blur-overlay {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100dvh - 70px);
+    background: rgba(15, 23, 42, 0.20);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 800;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show Overlay When Sidebar Opens */
+.db-sidebar-blur-overlay.overlay-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Disable Background Scrolling */
+body.sidebar-scroll-locked {
+    overflow: hidden !important;
+    height: 100vh;
+    overscroll-behavior: none;
+}
+
+/* Keep Header and Sidebar Above Overlay */
+.db-master-header {
+    z-index: 1000;
+}
+
+.db-navigation-sidebar {
+    z-index: 900;
+}
+
+/* Desktop Compatibility */
+@media (min-width: 992px) {
+    .db-sidebar-blur-overlay {
+        display: none;
+    }
+
+    body.sidebar-scroll-locked {
+        overflow: auto !important;
+        height: auto;
+    }
+}
+
+
+        /* --- Client Dashboard Framework Base --- */
+.dashboard-root-body {
+    background-color: #f8fafc; /* Crisp clean slate workspace backdrop canvas */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+}
+
+/* --- Global Header Configuration --- */
+.db-master-header {
+    background-color: #ffffff;
+    height: 70px;
+    border-bottom: 1px solid #edf2f7; /* Hairline clear border separation */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 1000;
+}
+
+.db-header-left, .db-header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.db-brand-logo-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #111827;
+}
+
+.db-brand-logo-btn span {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: -0.2px;
+}
+
+.studio-badge {
+    color: #e65c40; /* Platform Signature Brand Coral Accent */
+    font-size: 0.72rem;
+    background-color: #fff5f2;
+    padding: 2px 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+.db-brand-img-asset {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* Responsive Mobile Hamburger Toggle Icon Button Component */
+.db-hamburger-trigger {
+    background: transparent;
+    border: none;
+    color: #1e293b;
+    cursor: pointer;
+    padding: 4px;
+    display: none; /* Hidden by default on widescreen desktop canvas viewports */
+    align-items: center;
+}
+
+.db-hamburger-trigger svg { width: 22px; height: 22px; stroke: currentColor; }
+.db-hamburger-trigger:hover { color: #e65c40; }
+
+/* Notification Bell Layer */
+.db-notification-bell {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    position: relative;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.db-notification-bell svg { width: 20px; height: 20px; stroke: currentColor; }
+.db-notification-bell:hover { color: #1e293b; }
+
+.bell-active-indicator-pulse {
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 8px; height: 8px;
+    background-color: #e65c40; /* Brand coral marker dot */
+    border-radius: 50%;
+}
+
+/* User Profile Identity Metadata Stack Details */
+.db-user-profile-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 1px solid #e2e8f0;
+    padding-left: 16px;
+}
+
+.db-user-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.db-user-identity-stack { display: flex; flex-direction: column; }
+.db-welcome-label { font-size: 0.72rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; }
+.db-dynamic-username { font-size: 0.9rem; font-weight: 800; color: #111827; }
+
+/* --- Core Workspace Canvas Layout --- */
+.db-workspace-wrapper {
+    display: flex;
+    margin-top: 70px; /* Headroom buffer spacing constraints offset under fixed header bar line */
+    min-height: calc(100vh - 70px);
+    width: 100%;
+}
+
+/* --- Sidebar Menu Mechanics Layout --- */
+.db-navigation-sidebar {
+    width: 260px;
+    background-color: #ffffff;
+    border-right: 1px solid #edf2f7;
+    position: fixed;
+    top: 70px; left: 0; bottom: 0;
+    z-index: 900;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.db-sidebar-nav-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    gap: 8px;
+    height: 100%;
+}
+
+.sidebar-menu-item {
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    color: #64748b;
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: all 0.25s ease;
+}
+
+.sidebar-menu-item svg {
+    width: 18px; height: 18px;
+    stroke: currentColor;
+    fill: none;
+    transition: transform 0.25s ease;
+}
+
+.sidebar-menu-item:hover {
+    color: #1e293b;
+    background-color: #f8fafc;
+}
+.sidebar-menu-item:hover svg { transform: translateX(2px); }
+
+.sidebar-menu-item.active {
+    background-color: #fff5f2;
+    color: #e65c40; /* High focus brand coral active tab indicators */
+}
+
+.btn-sidebar-logout {
+    margin-top: auto; /* Pushes logout button securely down to footer ground plane */
+    color: #64748b;
+}
+.btn-sidebar-logout:hover {
+    background-color: #fff1f2;
+    color: #ef4444; /* Warning alert red on session exit */
+}
+
+/* --- Main content Canvas Panel Platform --- */
+.db-main-content-canvas {
+    flex: 1;
+    margin-left: 260px; /* Matches sidebar fixed spacing breadth profile offsets constraints */
+    width: calc(100% - 260px);
+}
+
+.db-canvas-padding-box {
+    /* Exact requested parameter constraints: 50px top padding, 30px bottom padding */
+    padding: 50px 30px 30px 30px;
+}
+
+/* --- Section Wise Dynamic Windows Router Elements --- */
+.db-router-section-window {
+    display: none; /* Collapses passive frames tracks completely from the active layouts workflow */
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 24px;
+    padding: 40px;
+    min-height: 400px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+}
+
+.db-router-section-window.view-visible {
+    display: block; /* Reveals active section block workspace window frame instantly */
+}
+
+.routing-section-headline {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #111827; /* Solid absolute high focus black typography rules */
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+/* --- Responsive Sidebar Flyout Media Queries --- */
+@media (max-width: 991px) {
+    .db-hamburger-trigger { display: inline-flex; } /* Exposes toggle icon trigger on mobile windows screens */
+    
+    .db-navigation-sidebar {
+        transform: translateX(-100%); /* Hides sidebar track off screen boundaries on small device frames */
+        box-shadow: 20px 0 50px rgba(15, 23, 42, 0.05);
+    }
+    
+    /* Flyout active expansion override class rule triggered by hamburger script toggle clicks loops */
+    .db-navigation-sidebar.sidebar-expanded {
+        transform: translateX(0);
+    }
+    
+    .db-main-content-canvas {
+        margin-left: 0;
+        width: 100%;
+    }
+    .db-canvas-padding-box { padding: 40px 20px 30px 20px; }
+}
+
+@media (max-width: 480px) {
+    .db-brand-logo-btn span { display: none; } /* Shrinks headers elements room footprint to guarantee zero overlaps tracks */
+    .db-canvas-padding-box { padding: 30px 15px 30px 15px; }
+    .db-router-section-window { padding: 24px 18px; border-radius: 16px; }
+    .routing-section-headline { font-size: 1.4rem; }
+}
+
+    </style>
+
+    <script>
+        // --- Client Dashboard Identity Extraction & Section Router Script ---
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // =============================================================
+    // 1. DYNAMIC IDENTITY PREFIX EXTRACTION ENGINE (REQUESTED FEATURE)
+    // =============================================================
+    const clientUsernameSlotNode = document.getElementById("client-header-username-slot");
+    // Extract stored client electronic key out of local identity cache data strings channels
+    const targetIdentityToken = localStorage.getItem("stackly_logged_user_identity") || "jeevi@gmail.com"; 
+
+    if (clientUsernameSlotNode && targetIdentityToken) {
+        // Splice string array directly before the @ indicator boundary token block
+        const identityPrefixSegment = targetIdentityToken.split("@");
+        
+        // Capitalize the first letter of the prefix segment for a polished presentation profile
+        const polishedUsernameString = identityPrefixSegment[0].charAt(0).toUpperCase() + identityPrefixSegment[0].slice(1);
+        
+        // Inject value instantly into the header text block space slot container node
+        clientUsernameSlotNode.textContent = polishedUsernameString;
+    }
+
+    // =============================================================
+    // 2. MOBILE HAMBURGER EXPANSION TOGGLE LOGIC CORE TRACK
+    // =============================================================
+ 
+// =============================================================
+// 2. MOBILE HAMBURGER, BACKGROUND BLUR & SCROLL LOCK
+// =============================================================
+const mobileHamburgerTriggerBtn = document.getElementById("sidebar-toggle-btn");
+const navigationSidebarPanel = document.getElementById("dashboard-sidebar-panel");
+const sidebarBlurOverlay = document.getElementById("sidebar-blur-overlay");
+
+function toggleMobileSidebar(forceClose = false) {
+    if (
+        !mobileHamburgerTriggerBtn ||
+        !navigationSidebarPanel ||
+        !sidebarBlurOverlay
+    ) {
+        return;
+    }
+
+    const shouldOpen = forceClose
+        ? false
+        : !navigationSidebarPanel.classList.contains("sidebar-expanded");
+
+    navigationSidebarPanel.classList.toggle("sidebar-expanded", shouldOpen);
+    sidebarBlurOverlay.classList.toggle("overlay-visible", shouldOpen);
+    document.body.classList.toggle("sidebar-scroll-locked", shouldOpen);
+
+    mobileHamburgerTriggerBtn.setAttribute(
+        "aria-expanded",
+        String(shouldOpen)
+    );
+}
+
+if (
+    mobileHamburgerTriggerBtn &&
+    navigationSidebarPanel &&
+    sidebarBlurOverlay
+) {
+    mobileHamburgerTriggerBtn.setAttribute("aria-expanded", "false");
+
+    // Toggle sidebar on hamburger click
+    mobileHamburgerTriggerBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleMobileSidebar();
+    });
+
+    // Close sidebar when the overlay is clicked
+    sidebarBlurOverlay.addEventListener("click", () => {
+        toggleMobileSidebar(true);
+    });
+
+    // Close sidebar with Escape key
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            toggleMobileSidebar(true);
+        }
+    });
+}
+
+    // =============================================================
+    // 3. HARD TERMINATE SESSION EXIT REDIRECTION LOOP TRIGGER
+    // =============================================================
+    const dashboardLogoutTriggerBtn = document.getElementById("dashboard-logout-trigger");
+    if (dashboardLogoutTriggerBtn) {
+        dashboardLogoutTriggerBtn.addEventListener("click", () => {
+            const doubleCheckSessionExit = confirm("Are you sure you want to log out of your Stackly Client Hub session?");
+            if (doubleCheckSessionExit) {
+                // Clear identity storage buffers keys channels safely
+                localStorage.removeItem("stackly_logged_user_identity");
+                localStorage.removeItem("stackly_logged_user_role");
+                
+                // Return browser path directly back to login layout screen pipeline mockup
+                window.location.href = "login.html";
+            }
+        });
+    }
+});
+
+// =============================================================
+// 4. FRONT-END ASYNCHRONOUS SECTION WISE ROUTER PIPELINE
+// =============================================================
+/**
+ * Switches between section-wise target display frames dashboard windows rows paths
+ * @param {String} targetSectionWindowId 
+ * @param {HTMLButtonElement} clickMenuElementReference 
+ */
+function switchDashboardSection(targetSectionWindowId, clickMenuElementReference) {
+    
+    // Step A: Collect all individual section windows instances tagged inside main canvas wrapper block
+    const allRouterWindowsList = document.querySelectorAll(".db-router-section-window");
+    allRouterWindowsList.forEach(windowNode => {
+        windowNode.classList.remove("view-visible"); // Collapse visibility paths
+    });
+
+    // Step B: Target requested window handle element node directly and fire active display token
+    const requestedTargetWindowNode = document.getElementById(targetSectionWindowId);
+    if (requestedTargetWindowNode) {
+        requestedTargetWindowNode.classList.add("view-visible");
+    }
+
+    // Step C: Update focus background indicators tabs styling rules parameters inside menu list list track
+    const siblingMenuButtons = document.querySelectorAll(".sidebar-menu-item");
+    siblingMenuButtons.forEach(btnNode => {
+        btnNode.classList.remove("active");
+    });
+    
+    if (clickMenuElementReference) {
+        clickMenuElementReference.classList.add("active");
+    }
+
+    // Step D: Soft collapse mobile sidebar flyout layer panel wrapper container safely post selection action loop
+ 
+// Step D: Close sidebar, remove blur and restore scrolling
+const navigationSidebarPanel = document.getElementById("dashboard-sidebar-panel");
+const sidebarBlurOverlay = document.getElementById("sidebar-blur-overlay");
+const mobileHamburgerTriggerBtn = document.getElementById("sidebar-toggle-btn");
+
+if (navigationSidebarPanel) {
+    navigationSidebarPanel.classList.remove("sidebar-expanded");
+}
+
+if (sidebarBlurOverlay) {
+    sidebarBlurOverlay.classList.remove("overlay-visible");
+}
+
+document.body.classList.remove("sidebar-scroll-locked");
+
+if (mobileHamburgerTriggerBtn) {
+    mobileHamburgerTriggerBtn.setAttribute("aria-expanded", "false");
+}
+
+}
+
+    </script>
+    <script>
+  
+// =============================================================
+// 4. DASHBOARD SECTION ROUTER WITH REFRESH PERSISTENCE
+// =============================================================
+
+function switchDashboardSection(targetSectionWindowId, clickMenuElementReference) {
+
+    // Step A: Hide all dashboard sections
+    const allRouterWindowsList = document.querySelectorAll(
+        ".db-router-section-window"
+    );
+
+    allRouterWindowsList.forEach(windowNode => {
+        windowNode.classList.remove("view-visible");
+    });
+
+    // Step B: Display the selected dashboard section
+    const requestedTargetWindowNode = document.getElementById(
+        targetSectionWindowId
+    );
+
+    if (requestedTargetWindowNode) {
+        requestedTargetWindowNode.classList.add("view-visible");
+
+        // SAVE the currently selected section before refreshing
+        localStorage.setItem(
+            "stackly_client_active_section",
+            targetSectionWindowId
+        );
+    }
+
+    // Step C: Update active sidebar menu styling
+    const siblingMenuButtons = document.querySelectorAll(
+        ".sidebar-menu-item"
+    );
+
+    siblingMenuButtons.forEach(btnNode => {
+        btnNode.classList.remove("active");
+    });
+
+    if (clickMenuElementReference) {
+        clickMenuElementReference.classList.add("active");
+    }
+
+    // Step D: Close the mobile sidebar after selection
+    const navigationSidebarPanel = document.getElementById(
+        "dashboard-sidebar-panel"
+    );
+
+    const sidebarBlurOverlay = document.getElementById(
+        "sidebar-blur-overlay"
+    );
+
+    const mobileHamburgerTriggerBtn = document.getElementById(
+        "sidebar-toggle-btn"
+    );
+
+    if (navigationSidebarPanel) {
+        navigationSidebarPanel.classList.remove("sidebar-expanded");
+    }
+
+    if (sidebarBlurOverlay) {
+        sidebarBlurOverlay.classList.remove("overlay-visible");
+    }
+
+    document.body.classList.remove("sidebar-scroll-locked");
+
+    if (mobileHamburgerTriggerBtn) {
+        mobileHamburgerTriggerBtn.setAttribute("aria-expanded", "false");
+    }
+}
+
+// =============================================================
+// 5. RESTORE THE LAST SELECTED SECTION AFTER PAGE REFRESH
+// =============================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const savedSectionId = localStorage.getItem(
+        "stackly_client_active_section"
+    );
+
+    const savedSection = savedSectionId
+        ? document.getElementById(savedSectionId)
+        : null;
+
+    if (savedSection && savedSection.classList.contains(
+        "db-router-section-window"
+    )) {
+
+        // Restore the previously selected section
+        document.querySelectorAll(".db-router-section-window")
+            .forEach(section => {
+                section.classList.remove("view-visible");
+            });
+
+        savedSection.classList.add("view-visible");
+
+        // Restore the corresponding active sidebar menu item
+        const sidebarButtons = document.querySelectorAll(
+            ".sidebar-menu-item"
+        );
+
+        sidebarButtons.forEach(button => {
+            button.classList.remove("active");
+        });
+
+        // Match the menu item to the saved section ID
+        const matchingButton = Array.from(sidebarButtons).find(button => {
+            const onclickText = button.getAttribute("onclick") || "";
+
+            return onclickText.includes(savedSectionId);
+        });
+
+        if (matchingButton) {
+            matchingButton.classList.add("active");
+        }
+    }
+});
+    </script>
+</body>
+</html>

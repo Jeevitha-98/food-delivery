@@ -1,0 +1,653 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stackly</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page-body">
+
+    <!-- CORE CARD WRAPPER LAYER -->
+    <main class="auth-card-wrapper">
+        <div class="auth-card-inner">
+            
+            <!-- Top Logo & Navigation Header Row -->
+            <header class="auth-card-header">
+                <div class="auth-brand-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    <span>STACKLY</span>
+                </div>
+                <a href="index.html" class="btn-back-home">← HOME</a>
+            </header>
+
+            <!-- Main Heading Copy -->
+            <div class="auth-heading-stack">
+                <h1 class="auth-main-title">Welcome <span class="accent-coral">Back.</span></h1>
+                <p class="auth-sub-title">Select your operational profile access keys to unlock your custom master kitchen partner panel or order history database dashboard.</p>
+            </div>
+
+            <!-- Profile Selection Toggle Tabs Row -->
+            <div class="auth-profile-toggle-row">
+                <button type="button" class="profile-toggle-btn active" id="tab-partner-btn">
+                    <span class="profile-btn-icon icon-coral">👑</span>
+                    <div class="profile-btn-text">
+                        <strong>Kitchen Partner</strong>
+                        <span>STUDIO DASHBOARD</span>
+                    </div>
+                </button>
+                
+                <button type="button" class="profile-toggle-btn" id="tab-client-btn">
+                    <span class="profile-btn-icon icon-grey">👤</span>
+                    <div class="profile-btn-text">
+                        <strong>Private Client</strong>
+                        <span>ORDER HUB DATABASE</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Authentication Interactive Intake Form -->
+            <form id="stackly-secure-login-form" novalidate>
+                
+                <!-- Email Entry Field Block -->
+                <div class="auth-input-field-group">
+                    <label for="auth-email-input" class="auth-field-label">EMAIL ADDRESS</label>
+                    <input type="email" id="auth-email-input" placeholder="name@example.com" autocomplete="off">
+                </div>
+
+                <!-- Password Entry Field Block -->
+                <div class="auth-input-field-group">
+                    <label for="auth-password-input" class="auth-field-label">SECURITY PASSWORD KEY</label>
+                    <div class="password-field-wrapper">
+                        <input type="password" id="auth-password-input" placeholder="••••••••">
+                        <button type="button" class="password-toggle-visibility" id="password-toggle-trigger" aria-label="Toggle password visibility">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Remember Me & Reset Credentials Links Row -->
+                <div class="auth-utilities-floor">
+                    <label class="remember-me-checkbox-label">
+                        <input type="checkbox" id="auth-remember-check">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="404.html" class="forgot-password-link">Forgot Password?</a>
+                </div>
+
+                <!-- Universal Warning Error Validation Bubble -->
+                <div class="auth-validation-alert-bubble" id="auth-error-msg-bubble">Please fill the fields</div>
+
+                <!-- Primary Action Submit Trigger Button -->
+                <button type="submit" class="btn-auth-submit-action">LOG IN SECURELY ➔</button>
+
+            </form>
+
+            <!-- Social Alternative Divider Strip -->
+            <div class="auth-social-divider">
+                <span>OR SIGN IN WITH</span>
+            </div>
+
+            <!-- Third-Party Federated Oauth Buttons Row Links -->
+            <div class="auth-social-oauth-row">
+                <a href="404.html" class="btn-oauth-provider">
+                    <span class="oauth-brand-icon-color color-red">G</span>
+                    <span>Google</span>
+                </a>
+                <a href="404.html" class="btn-oauth-provider">
+                    <span class="oauth-brand-icon-color color-blue">f</span>
+                    <span>Facebook</span>
+                </a>
+            </div>
+
+            <!-- Bottom Registration Dynamic Link Anchor Footer -->
+            <footer class="auth-card-footer-anchor">
+                <span>Don't have an account?</span> <a href="signup.html" class="create-account-link">Create Account</a>
+            </footer>
+
+        </div>
+    </main>
+
+    <style>
+        /* --- High Fidelity Authentication Card Ecosystem Style Mappings --- */
+.auth-page-body {
+    background-color: #e2e8f0; /* Soft backdrop grey matched from reference image mockup style */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-image: radial-gradient(rgba(230, 92, 64, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.auth-card-wrapper {
+    width: 100%;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-card-inner {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 520px; /* Precise layout containment breadth matched from asset */
+    border-radius: 40px; /* Deep creative smooth rounded radius profiles */
+    box-shadow: 0 25px 70px rgba(15, 23, 42, 0.08);
+    padding: 45px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card Navigation Header Row Elements */
+.auth-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.auth-brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #1e293b;
+}
+
+.auth-brand-logo svg {
+    width: 24px;
+    height: 24px;
+    color: #e65c40; /* Stackly Core Coral Token */
+}
+
+.auth-brand-logo span {
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.btn-back-home {
+    background-color: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #4a5568;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-back-home:hover {
+    background-color: #1e293b;
+    color: #ffffff;
+    border-color: #1e293b;
+}
+
+/* Content Typography Copy Headers Stack */
+.auth-heading-stack {
+    margin-bottom: 30px;
+}
+
+.auth-main-title {
+    font-size: calc(1.8rem + 0.6vw);
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+.auth-main-title .accent-coral {
+    color: #e65c40;
+}
+
+.auth-sub-title {
+    font-size: 0.92rem;
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* --- Profile Selection Toggle Buttons Selection Row --- */
+.auth-profile-toggle-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.profile-toggle-btn {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-btn-icon {
+    font-size: 1.25rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafc;
+    flex-shrink: 0;
+}
+
+.profile-btn-icon.icon-coral { background-color: #fff5f2; }
+
+.profile-btn-text { display: flex; flex-direction: column; }
+.profile-btn-text strong { font-size: 0.88rem; color: #1e293b; font-weight: 700; }
+.profile-btn-text span { font-size: 0.68rem; color: #94a3b8; font-weight: 700; letter-spacing: 0.3px; margin-top: 1px; }
+
+/* Active Profile Toggle Focus Hover Selection Highlights Map matching image */
+.profile-toggle-btn:hover {
+    border-color: #cbd5e1;
+    background-color: #f8fafc;
+}
+
+.profile-toggle-btn.active {
+    border-color: #e65c40;
+    box-shadow: 0 0 0 1px #e65c40;
+    background-color: #ffffff;
+}
+
+.profile-toggle-btn.active .profile-btn-text span {
+    color: #e65c40; /* Switches tracking subtitle context into active brand color signature */
+}
+
+/* --- Input Blocks Forms Framework Elements --- */
+.auth-input-field-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.auth-field-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #4a5568;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+}
+
+.auth-input-field-group input {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1e293b;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.auth-input-field-group input:focus {
+    border-color: #e65c40;
+    box-shadow: 0 0 0 4px rgba(230, 92, 64, 0.08);
+}
+
+.auth-input-field-group input::placeholder {
+    color: #94a3b8;
+}
+
+/* Password Layer Visibility Custom Component Wrapper mapping from asset */
+.password-field-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-field-wrapper input { padding-right: 50px; }
+
+.password-toggle-visibility {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.password-toggle-visibility svg { width: 18px; height: 18px; stroke: currentColor; }
+.password-toggle-visibility:hover { color: #4a5568; }
+
+/* Remember Checkbox & Forgot Anchors Row Floor */
+.auth-utilities-floor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.remember-me-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    user-select: none;
+}
+
+.remember-me-checkbox-label input {
+    accent-color: #e65c40; /* Custom color box alignment matched to platform token profiles */
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.forgot-password-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #4a5568;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover { color: #e65c40; }
+
+/* Universal Floating Warning Alert Bubble Popup Context Mapping */
+.auth-validation-alert-bubble {
+    background-color: #ff4d4d;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 10px 18px;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(255, 77, 77, 0.2);
+    margin-bottom: 24px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.auth-validation-alert-bubble.show-error {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@keyframes authShakeVibration {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+.auth-card-inner.vibrate { animation: authShakeVibration 0.4s ease-in-out; }
+
+/* --- Primary Deep Dark Slate Submit Button Container Block --- */
+.btn-auth-submit-action {
+    width: 100%;
+    background-color: #111827; /* Deep Charcoal Midnight Blue Plate matching snapshot asset */
+    color: #ffffff;
+    border: none;
+    padding: 16px 20px;
+    border-radius: 30px; /* Fluid high-contrast absolute pill shapes block button */
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.15);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-auth-submit-action:hover {
+    background-color: #1f2937;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(17, 24, 39, 0.2);
+}
+
+.btn-auth-submit-action:active { transform: scale(0.98); }
+
+/* --- Social Alternatives Dividers Rows Section --- */
+.auth-social-divider {
+    text-align: center;
+    position: relative;
+    margin: 30px 0;
+}
+
+.auth-social-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #f1f5f9;
+    z-index: 1;
+}
+
+.auth-social-divider span {
+    background-color: #ffffff;
+    padding: 0 16px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #94a3b8;
+    position: relative;
+    z-index: 2;
+    letter-spacing: 0.5px;
+}
+
+/* Federated Oauth Buttons Profiles Grid */
+.auth-social-oauth-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.btn-oauth-provider {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #4a5568;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-oauth-provider:hover {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    transform: translateY(-1px);
+}
+
+.oauth-brand-icon-color { font-size: 1.15rem; font-weight: 900; }
+.color-red { color: #ea4335; } /* Native Google red tone footprint */
+.color-blue { color: #1877f2; } /* Native Facebook blue tone footprint */
+
+/* Bottom Registration dynamic navigation block footer component */
+.auth-card-footer-anchor {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.create-account-link {
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.create-account-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 1.5px;
+    background-color: #e65c40; /* Solid continuous red-coral underline bar under Create Account trigger link from screenshot */
+}
+
+.create-account-link:hover { color: #e65c40; }
+
+/* --- Full Cross-Device Layout Responsiveness Breakers --- */
+@media (max-width: 580px) {
+    .auth-card-inner { padding: 30px 24px; border-radius: 28px; }
+.auth-profile-toggle-row { grid-template-columns: 1fr; gap: 12px; } /* Stack toggle buttons columns downstream into row tracks on phone viewports */
+.profile-toggle-btn { padding: 12px; }
+.auth-social-oauth-row { grid-template-columns: 1fr; gap: 12px; }
+.btn-auth-submit-action { padding: 14px; }
+}
+
+/* Fix Login Page Scrolling */
+html {
+    min-height: 100%;
+    height: auto;
+    overflow-y: auto;
+}
+
+body.auth-page-body {
+    min-height: 100vh;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.auth-card-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: 30px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.auth-card-inner {
+    flex-shrink: 0;
+}
+
+/* Responsive scrolling for smaller screens */
+@media (max-width: 580px) {
+    .auth-card-wrapper {
+        padding: 20px 12px;
+        align-items: flex-start;
+    }
+
+    .auth-card-inner {
+        padding: 30px 20px;
+        border-radius: 24px;
+    }
+}
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Selector Mapping Targets Channels Space Elements
+    const loginFormNode = document.getElementById("stackly-secure-login-form");
+    const emailInputNode = document.getElementById("auth-email-input");
+    const passwordInputNode = document.getElementById("auth-password-input");
+    const passwordToggleTrigger = document.getElementById("password-toggle-trigger");
+    const errorBubbleNotifier = document.getElementById("auth-error-msg-bubble");
+    const masterCardInnerWrapper = document.querySelector(".auth-card-inner");
+
+    // Profile Selector Selector Tab Handles Buttons Nodes
+    const partnerTabBtn = document.getElementById("tab-partner-btn");
+    const clientTabBtn = document.getElementById("tab-client-btn");
+    
+    // Default Role profile configuration state preset: Partner Mode Dashboard
+    let activeProfileRoleKey = "partner"; 
+
+    // 2. Tab Toggle State Tracking Parameters Calculation Loop
+    if (partnerTabBtn && clientTabBtn) {
+        partnerTabBtn.addEventListener("click", () => {
+            partnerTabBtn.classList.add("active");
+            clientTabBtn.classList.remove("active");
+            activeProfileRoleKey = "partner";
+        });
+
+        clientTabBtn.addEventListener("click", () => {
+            clientTabBtn.classList.add("active");
+            partnerTabBtn.classList.remove("active");
+            activeProfileRoleKey = "client";
+        });
+    }
+
+    // 3. Password Visibility Mask/Unmask Toggle Trigger Logic Rule
+    if (passwordInputNode && passwordToggleTrigger) {
+        passwordToggleTrigger.addEventListener("click", () => {
+            const isCurrentlyMaskedType = passwordInputNode.getAttribute("type") === "password";
+            passwordInputNode.setAttribute("type", isCurrentlyMaskedType ? "text" : "password");
+        });
+    }
+
+    // =============================================================
+    // 4. INTAKE VALIDATION ACCURACY & LOCALSTORAGE ROLE ROUTING ENGINE
+    // =============================================================
+    if (loginFormNode && emailInputNode && passwordInputNode && errorBubbleNotifier && masterCardInnerWrapper) {
+        loginFormNode.addEventListener("submit", (event) => {
+            event.preventDefault(); // Hold original submit bubble channel to parse criteria data strings loop
+
+            const rawEmailValue = emailInputNode.value.trim();
+            const rawPasswordValue = passwordInputNode.value;
+
+            // Check if any field boundary context parameters are empty values strings
+            if (rawEmailValue === "" || rawPasswordValue === "") {
+                // Validation parameters check fails -> trigger warning feedback animations
+                masterCardInnerWrapper.classList.add("vibrate");
+                errorBubbleNotifier.classList.add("show-error");
+
+                setTimeout(() => { masterCardInnerWrapper.classList.remove("vibrate"); }, 400);
+            } else {
+                // All entries pass criteria successfully -> store the username email string token inside localStorage safely
+                localStorage.setItem("stackly_logged_user_identity", rawEmailValue);
+                localStorage.setItem("stackly_logged_user_role", activeProfileRoleKey);
+
+                // Split routing execution loops based on active selection keys tokens mapping variables
+                if (activeProfileRoleKey === "client") {
+                    // Redirects client profiles straight into custom dead-link order history data view pipeline mockup
+                    window.location.href = "client-dashboard.html?target=client-dashboard";
+                } else {
+                    // Redirects master partner profiles straight into master workspace partner layout dashboard mockup
+                    window.location.href = "partner-dashboard.html?target=partner-dashboard";
+                }
+            }
+        });
+
+        // Clear notification alerts bubbles whenever a user edits text parameters fixes inside input fields
+        [emailInputNode, passwordInputNode].forEach(inputNode => {
+            if (inputNode) {
+                inputNode.addEventListener("input", () => {
+                    errorBubbleNotifier.classList.remove("show-error");
+                });
+            }
+        });
+    }
+});
+    </script>
+</body>
+</html>
