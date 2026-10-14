@@ -66,7 +66,7 @@
         <div class="header-container">
             <!-- Brand Logo (Refreshes Page) -->
             <a href="index.html" class="logo-container" onclick="window.location.reload();">
-                <img src="https://placeholder.com" alt="Stackly Logo" class="brand-logo">
+                <img src="./assests/FD logo.webp" alt="Stackly Logo" class="brand-logo">
             </a>
 
             <!-- Desktop Navigation Menus (Centered) -->
@@ -125,11 +125,13 @@
             <a href="index.html" class="mobile-nav-link ">Home</a>
             <a href="restaurants.html" class="mobile-nav-link">Restaurants</a>
             <a href="offers.html" class="mobile-nav-link">Offers</a>
-            <a href="blogs.html" class="mobile-nav-link active">Blogs</a>
-            <a href="contact.html" class="mobile-nav-link">Contact</a>
+            <a href="blogs.html" class="mobile-nav-link ">Blogs</a>
+            <a href="contact.html" class="mobile-nav-link active">Contact</a>
         </nav>
         <div class="drawer-footer">
-            <button class="btn-auth-mobile">Sign In</button>
+       <button class="btn-auth-mobile" onclick="window.location.href='login.html'">
+    Sign In
+</button>
         </div>
     </aside>
 
@@ -232,7 +234,7 @@
             
             <!-- Main visual composition element frame -->
             <div class="contact-image-wrapper">
-                <img src="https://placeholder.com" alt="Stackly Customer Help Desk Team" class="contact-hero-main-img">
+                <img src="./assests/hero img pi.webp" alt="Stackly Customer Help Desk Team" class="contact-hero-main-img">
             </div>
 
             <!-- Floating Overlay Card Component (Autonomous Interactive Float Sequence) -->
@@ -1055,6 +1057,40 @@ document.addEventListener("DOMContentLoaded", () => {
     .btn-form-submit { font-size: 0.8rem; letter-spacing: 0.8px; padding: 14px 12px; }
 }
 
+
+/* FIX: Ensure Contact Details Are Visible on Desktop */
+@media (min-width: 992px) {
+    .contact-form-section .contact-details-column .scroll-fade-node {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .contact-form-section .form-section-container {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        align-items: start;
+    }
+
+    .contact-form-section .contact-details-column {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .contact-form-section .contact-info-cards-stack {
+        width: 100%;
+    }
+
+    .contact-form-section .info-metric-card {
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .contact-form-section .metric-text-stack {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+}
+
 </style>
 
 <script>
@@ -1177,7 +1213,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 <!-- CTA Button opening direct routing path on external Google Maps window -->
                 <div class="map-action-wrapper">
-                    <a href="https://google.com" 
+                    <a href="https://maps.app.goo.gl/1iUAJLxSuFhmkqeE8" 
                        target="_blank" 
                        rel="noopener noreferrer" 
                        class="btn-open-google-maps" 
@@ -1195,7 +1231,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             <div class="map-canvas-mockup-frame">
                 <!-- Img Tag provided for a premium stylized roadmap visual graphic backplate -->
-                <img src="https://placeholder.com" alt="Stackly Salem Headquarters Map Coordinates" class="map-static-img-asset">
+                <img src="./assests/map.webp" alt="Stackly Salem Headquarters Map Coordinates" class="map-static-img-asset">
                 
                 <!-- Micro Live Overlay Coordinate Badge Overlay Card -->
                 <div class="map-coordinate-live-badge">
@@ -1483,6 +1519,157 @@ document.addEventListener("DOMContentLoaded", () => {
     .btn-open-google-maps { font-size: 0.8rem; padding: 12px 14px; }
 }
 
+
+
+/* Tablets and smaller laptops */
+@media (max-width: 991px) {
+    .contact-form-section {
+        padding: 30px 24px;
+    }
+
+    .form-section-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        max-width: 700px;
+    }
+
+    .contact-details-main-heading {
+        font-size: 2.2rem;
+    }
+
+    .form-wrapper-box {
+        padding: 30px;
+    }
+}
+
+/* Mobile devices */
+@media (max-width: 580px) {
+    .contact-form-section {
+        padding: 25px 15px;
+    }
+
+    .form-section-container {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+    }
+
+    .contact-details-main-heading {
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin-bottom: 24px;
+    }
+
+    .contact-atelier-badge {
+        font-size: 0.7rem;
+        letter-spacing: 1.5px;
+    }
+
+    .contact-info-cards-stack {
+        gap: 12px;
+    }
+
+    .info-metric-card {
+        padding: 16px;
+        gap: 12px;
+        border-radius: 12px;
+        min-width: 0;
+    }
+
+    .metric-vector-icon {
+        flex-shrink: 0;
+    }
+
+    .metric-text-stack {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .metric-text-stack strong {
+        font-size: 0.72rem;
+        letter-spacing: 0.7px;
+    }
+
+    .metric-text-stack p,
+    .interactive-detail-link {
+        font-size: 0.88rem;
+        overflow-wrap: anywhere;
+    }
+
+    .form-wrapper-box {
+        padding: 22px 16px;
+        border-radius: 16px;
+        min-width: 0;
+    }
+
+    .form-main-heading {
+        font-size: 1.25rem;
+        line-height: 1.4;
+    }
+
+    .form-sub-heading {
+        font-size: 0.85rem;
+        margin-bottom: 25px;
+    }
+
+    .form-input-row {
+        margin-bottom: 20px;
+        min-width: 0;
+    }
+
+    .form-input-row input,
+    .form-input-row select,
+    .form-input-row textarea {
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+        padding: 13px 14px;
+        font-size: 16px;
+    }
+
+    .form-field-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.7px;
+    }
+
+    .btn-form-submit {
+        width: 100%;
+        padding: 14px 10px;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .form-validation-alert {
+        box-sizing: border-box;
+        font-size: 0.8rem;
+        padding: 10px 12px;
+    }
+}
+
+/* Extra-small mobile screens */
+@media (max-width: 360px) {
+    .contact-form-section {
+        padding: 20px 10px;
+    }
+
+    .contact-details-main-heading {
+        font-size: 1.6rem;
+    }
+
+    .form-wrapper-box {
+        padding: 18px 12px;
+    }
+
+    .info-metric-card {
+        padding: 13px 12px;
+    }
+
+    .btn-form-submit {
+        font-size: 0.7rem;
+        letter-spacing: 0.2px;
+    }
+}
 </style>
 
 <script>
@@ -1543,7 +1730,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <!-- FULL WIDTH SUBSCRIBE CTA BANNER SECTION -->
 <section class="subscribe-banner-section" id="subscribe-trigger-zone">
     <!-- Subtle backdrop texture pattern image tag -->
-    <img src="https://placeholder.com" alt="Subscribe Backdrop Pattern" class="sub-banner-bg-asset">
+    <img src="./assests/catering.webp" alt="Subscribe Backdrop Pattern" class="sub-banner-bg-asset">
     
     <!-- Floating Vector Elements Backdrop Layer -->
     <div class="sub-floating-vectors-canvas">
@@ -1948,7 +2135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="footer-column brand-profile-col">
             <a href="#" class="footer-logo-btn" id="back-to-top-trigger" title="Back to Top">
                 <!-- Img tag provided for your custom brand asset logo -->
-                <img src="https://placeholder.com" alt="Stackly Logo" class="footer-brand-logo">
+                <img src="./assests/FD footer logo.webp" alt="Stackly Logo" class="footer-brand-logo">
             </a>
             <p class="footer-bio-text">
                 Delivering premier culinary experiences and high-fidelity dining ecosystems designed to fuel instant gratification straight to your doorstep.
